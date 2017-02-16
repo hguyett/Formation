@@ -1,0 +1,6 @@
+Il existe plusieurs formats d'images adaptées au Web :
+JPEG : pour les photos ;
+PNG : pour toutes les autres illustrations ;
+GIF : similaire au PNG, plus limité en nombre de couleurs mais qui peut être animé.
+On insère une image avec la balise  <img />. Elle doit obligatoirement comporter au moins ces deux attributs :  src(nom de l'image) et  alt(courte description de l'image).
+Si une (OU PLUSIEURS) image illustre le texte (et n'est pas seulement décorative), il est conseillé de la placer au sein d'une balise  <figure>. La balise  <figcaption> permet d'écrire la légende de l'image.

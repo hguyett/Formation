@@ -1,0 +1,101 @@
+  Hauteur et largeur des BLOCS
+
+width: c'est la largeur du CONTENU du bloc. À exprimer en pixels (px) ou en pourcentage (%).
+height: c'est la hauteur du CONTENU du bloc.
+Les pourcentages sont utiles pour créer un design qui s'adapte automatiquement à la résolution d'écran du visiteur.
+Par défaut, un bloc prend 100% de la largeur disponible. On peut le vérifier en appliquant à nos blocs des bordures ou une couleur de fond. Si le bloc a des marges , celles-ci s'ajouteront à la largeur et la hauteur.
+
+min-width: largeur minimale ;
+min-height: hauteur minimale ;
+max-width: largeur maximale ;
+max-height: hauteur maximale.
+
+  La propriété overflow
+
+Si un texte dépasse horizontalement de son bloc, il faut utiliser la propriété overflow. Voici les différentes valeurs possibles pour cette propriété :
+
+visible(par défaut) : si le texte dépasse les limites de taille, il reste visible et sort volontairement du bloc.
+hidden: si le texte dépasse les limites, il sera tout simplement coupé. On ne pourra pas voir tout le texte.
+scroll: là encore, le texte sera coupé s'il dépasse les limites. Sauf que cette fois, le navigateur mettra en place des barres de défilement pour qu'on puisse lire l'ensemble du texte. C'est un peu comme un cadre à l'intérieur de la page.
+auto: c'est le mode « pilote automatique ». En gros, c'est le navigateur qui décide de mettre ou non des barres de défilement (il n'en mettra que si c'est nécessaire). C'est la valeur que je conseille d'utiliser le plus souvent.
+
+Il existe une ancienne balise HTML,<iframe>, qui donne à peu près le même résultat. Cependant, l'usage de cette balise est déconseillé aujourd'hui. Elle permet de charger tout le contenu d'une autre page HTML au sein de votre page.
+
+  La propriété word-wrap
+
+Si un texte dépasse verticalement de son bloc, il faut utiliser la propriété word-wrap. Cette propriété permet de forcer la césure des très longs mots (généralement des adresses un peu longues). On lui ajoute la valeur break-word.
+
+Il est conseillé d'utiliser cette fonctionnalité dès qu'un bloc est susceptible de contenir du texte saisi par des utilisateurs (par exemple sur les forums). Sans cette astuce, on peut « casser » facilement le design d'un site (en écrivant par exemple une longue suite de « aaaaaaaaaaa »).
+
+  Les marges
+
+padding: indique la taille de la marge intérieure. À exprimer en général en pixels (px).
+margin: indique la taille de la marge extérieure. Là encore, on utilise le plus souvent des pixels.
+Il existe margin-top, margin-bottom, margin-left, margin-right, padding-top, padding-bottom, padding-left, padding-right.
+
+Il existe également 2 super propriétés :
+margin: haut droite bas gauche
+padding: haut droite bas gauche
+
+Il n'y a par défaut pas de marge intérieure (padding). En revanche, il y a une marge extérieure (margin). C'est cette marge qui fait que deux paragraphes ne sont pas collés et qu'on a l'impression de « sauter une ligne ». Les marges par défaut ne sont pas les mêmes pour toutes les balises de type block. Il n'y a par défaut ni marge intérieure, ni marge extérieure pour les balises <div> par exemple.
+
+Il est très facile de centrer horizontalement un bloc : il suffit d'utiliser margin: auto. Il est cependant nécessaire de préalablement définir une largeur au bloc (étant donné que la largeur par défaut est de 100%). Un design centré permet de s'adapter à la résolution du visiteur.
+
+  Flexbox
+
+le module Flexbox permet d'agencer les éléments d'un conteneur (une balise bloc) de la manière souhaitée.
+display: flex; déclarera la balise block comme étant une flexbox et affichera par défaut les éléments l'un à la suite de l'autre au lieu de l'un en dessous de l'autre.
+
+        flex-direction
+    Flexbox nous permet d'agencer ces éléments dans le sens que l'on veut. Avec flex-direction , on peut les positionner verticalement ou encore les inverser. Il peut prendre les valeurs suivantes :
+
+    row : organisés sur une ligne (par défaut)
+    column : organisés sur une colonne
+    row-reverse : organisés sur une ligne, mais en ordre inversé
+    column-reverse : organisés sur une colonne, mais en ordre inversé
+
+
+        flex-wrap
+    Par défaut, les blocs essaient de rester sur la même ligne s'ils n'ont pas la place (ce qui peut provoquer des bugs de design parfois). Si vous voulez, vous pouvez demander à ce que les blocs aillent à la ligne lorsqu'ils n'ont plus la place avec flex-wrap  qui peut prendre ces valeurs :
+
+    nowrap : pas de retour à la ligne (par défaut)
+    wrap : les éléments vont à la ligne lorsqu'il n'y a plus la place
+    wrap-reverse : les éléments vont à la ligne lorsqu'il n'y a plus la place en sens inverse
+
+        justify-content
+    Afin d'organiser les éléments dans l'espace sur l'axe PRINCIPAL (l'axe dans lequel vous aurez organisé les éléments avec flex-direction), on utilise justify-content qui peut prendre plusieurs valeurs :
+    flex-start : alignés au début (par défaut)
+    flex-end : alignés à la fin
+    center : alignés au centre
+    space-between : les éléments sont étirés sur tout l'axe (il y a de l'espace entre eux)
+    space-around : idem, les éléments sont étirés sur tout l'axe, mais ils laissent aussi de l'espace sur les extrémités
+
+        align-items
+    Afin d'organiser les éléments dans l'espace sur l'axe SECONDAIRE (l'axe perpendiculaire à l'axe prrincipal), on utilise align-items qui peut prendre plusieurs valeurs :
+
+    stretch : les éléments sont étirés sur tout l'axe (valeur par défaut)
+    flex-start : alignés au début
+    flex-end : alignés à la fin
+    center : alignés au centre
+    baseline : alignés sur la ligne de base (semblable à flex-start)
+
+        align-self
+    Cette propriété permet de faire exception à align-items si l'on souhaite qu'un seul des éléments soit placé d'une façon différente. elle prend les mêmes propriétés qu'align-items.
+
+        align-content
+    Si vous avez plusieurs lignes dans votre Flexbox, vous pouvez choisir comment celles-ci seront réparties avec align-content. Cette propriété n'a aucun effet s'il n'y a qu'une seule ligne dans la flexbox, il est donc nécessaire d'avoir suffisament d'éléments dans la flexbox et d'utiliser flex-wrap: wrap;
+
+    Cette propriété peut prendre les valeurs suivantes :
+    flex-start : les éléments sont placés au début
+    flex-end : les éléments sont placés à la fin
+    center : les éléments sont placés au centre
+    space-between : les éléments sont séparés avec de l'espace entre eux
+    space-around : idem, mais il y a aussi de l'espace au début et à la fin
+    stretch (par défaut) : les éléments s'étirent pour occuper tout l'espace
+
+        order
+    Cette propriété permet d'afficher les éléments dans un ordre défini sans tenir compte de leur positionnement dans le document HTML. les valeurs à indiquer sont des nombres, les éléments seront triés du plus petit au plus grand (cette propriété s'applique sur les éléments et pas sur le conteneur).
+
+        flex
+    flex indique aux éléments comment ils peuvent s'étendre dans l'espace du conteneur qui n'est pas alloué. Les valeurs qu'il peut prendre sont des nombre, et plus ce nombre est gros, plus l'élément peut prendre de la place (un élément avec la propriété flex: 2 peut grossir 2 fois plus qu'un élément flex:1)
+    flex est une super propriété de flex-grow, flex-shrink et flex-basis (capacité à grossir, maigrir et taille par défaut)

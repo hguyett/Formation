@@ -1,0 +1,30 @@
+@font-face {
+    font-family: 'fontastique';
+    src: url('Fonts/fontastique.ttf') format('truetype');
+}
+
+body {
+    background: url("Images/lightbulb-1875247_1920.jpg") fixed no-repeat top left;
+    background-color: rgb(96, 92, 90);
+}
+
+h1, h2 {
+    font-family: 'fontastique', Verdana, serif;
+    text-shadow: 6px 6px 6px silver;
+}
+
+h1, .jobtitle {
+    text-align: center;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+.jobtitle {
+    color: silver;
+    font-style: italic;
+    border: 2px solid silver;
+    border-radius: 20px/8px;
+    background-color: #505050;
+}

@@ -1,0 +1,20 @@
+section {
+    width: 450px;
+    height: 300px;
+}
+
+.element1 {
+    background-color: black;
+}
+
+.element2 {
+    background-color: yellow;
+}
+
+.element3 {
+    background-color: red;
+}
+
+body {
+    display: flex;
+}

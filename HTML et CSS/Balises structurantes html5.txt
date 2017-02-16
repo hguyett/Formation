@@ -1,0 +1,23 @@
+<header>
+L'entête de la page. On y retrouve généralement le nom de l'entreprise, le logo, le slogan, la possibilité de connexion et les informations de compte.
+Il est possible d'avoir plusieurs entête, par exemple si chaque article en a une.
+
+<footer>
+Le pied de page. On y retrouve généralement des informations comme des liens de contact, le nom de l'auteur, les mentions légales, etc.
+
+<nav>
+La balise <nav> doit regrouper tous les principaux liens de navigation du site. Vous y placerez par exemple le menu principal de votre site.
+Généralement, le menu est réalisé sous forme de liste à puces à l'intérieur de la balise <nav>.
+
+<section>
+La balise <section> sert à regrouper des contenus en fonction de leur thématique. Elle englobe généralement une portion du contenu au centre de la page.
+Chaque section peut avoir son titre de niveau 1 (<h1>), de même que l'en-tête peut contenir un titre <h1> lui aussi. Chacun de ces blocs étant indépendant des autres, il n'est pas illogique de retrouver plusieurs titres <h1> dans le code de la page web. On a ainsi « Le titre <h1> du <header> », « Le titre <h1> de cette <section> », etc.
+
+<aside>
+La balise <aside> est conçue pour contenir des informations complémentaires au document que l'on visualise. Ces informations sont généralement placées sur le côté (bien que ce ne soit pas une obligation).
+
+<article>
+La balise <article> sert à englober une portion généralement autonome de la page. C'est une partie de la page qui pourrait ainsi être reprise sur un autre site. C'est le cas par exemple des actualités (articles de journaux ou de blogs).
+
+Exemple de disposition :
+https://user.oc-static.com/files/343001_344000/343677.png

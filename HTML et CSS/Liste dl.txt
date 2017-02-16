@@ -1,0 +1,1 @@
+Pour information, il existe un troisième type de liste, beaucoup plus rare : la liste de définitions. Elle fait intervenir les balises <dl> (pour délimiter la liste), <dt> (pour délimiter un terme) et <dd> (pour délimiter la définition de ce terme).

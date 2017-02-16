@@ -1,0 +1,66 @@
+  Fonts
+
+font-size: xx-small, x-small, small, normal, large, x-large, xx-large, 1.2em, 16px, 120%, 2cm, 20mm
+font-family: Arial, "Arial Black", "Comic Sans MS", "Courier New", Georgia, Impact, "Times New Roman", "Trebuchet MS", Verdana, serif, sans-serif
+
+  Text decorations
+
+text-decoration: underline, line-through, overline, blink (ne fonctionne pas sur chrome et IE), none
+text-align: left, right, center, justify (/!\ Ne fonctionne que sur les balises de type block)
+Font-style: normal, italic, oblique
+font-weight: normal, bold
+
+float: left, right
+clear: left, right, both (Continue après flottement)
+
+  Colors
+
+color: white, silver, gray, black, red, maroon, lime, green, yellow, olive, blue, navy, fuchsia, purple, aqua, teal
+color: #FA4E61, #FA3 (=#FFAA33)
+color: rgb(255,0,128)
+
+  Backgrounds
+
+background-color: rgba (255,0,128,0.6)
+background-color: rgb (255,0,128) (Il est conseillé de l'indiquer en plus de la valeur rgba pour les navigateurs qui ne gèrent pas la transparence (<IE9))
+opacity: 0.6
+background-image: url("image.png") (On peut mettre une image de fond sur n'importe quel élément)
+background-attachment: fixed, scroll
+background-repeat: no-repeat, repeat-x, repeat-y, repeat
+background-position: 30px 50px (le fond sera placé à 30 pixels de la gauche et à 50 pixels du haut.)
+background-position: top right (aligne une image en haut à droite. On peut utiliser : top, bottom, left, center, right.)
+background: url("image.png") fixed no-repeat top right; (super propriété)
+background: url("soleil.png") fixed no-repeat top right, url("neige.png") fixed; (La première image de la liste sera placée par-dessus les autres)
+
+  Borders
+
+border: 3px, red, solid; (largeur, couleur, type) (super propriété)
+border-top, border-bottom, border-left, border-right (super propriété)
+border-top-width, border-top-color, ...
+border-radius: 10px; (bordure arrondie)
+border-radius : 20px/10px; (bordure elliptique)
+border-radius 10px 8px 6px 4px; (haut-gauche, haut-droit, bas-droit, bas-gauche)
+
+  Borders Types
+
+none : pas de bordure (par défaut) ;
+solid : un trait simple ;
+dotted : pointillés ;
+dashed : tirets ;
+double : bordure double ;
+groove : en relief ;
+ridge : autre effet relief ;
+inset : effet 3D global enfoncé ;
+outset : effet 3D global surélevé.
+
+  Shadows
+
+box-shadow: 6px 6px 3px black; (décalage horizontal, décalage vertical, adoucissement du dégradé, couleur de l'ombre)
+box-shadow: 6px 6px 3px black inset; (Place l'ombre à l'intérieur pour donner un effet de renfoncement)
+text-shadow: 6px 6px 3px black inset; (idem pour le texte)
+
+  Pseudo-formats
+a:hover (au survol)
+a:active (au moment du clic)
+a:visited (lorsque la page a déjà été visitée)
+input:focus (lorsque l'élément est sélectionné. Pratique pour colorer la case sélectionnée d'un formulaire)

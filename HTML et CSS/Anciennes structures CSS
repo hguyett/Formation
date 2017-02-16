@@ -1,0 +1,52 @@
+    Tableaux
+Bek bek beurk
+
+    Float
+
+Certains sites sont construits avec la propriété float. Le menu est mit sur la gauche ou la droite avec la propriété float. Afin d'empêcher le reste de la page de coller le menu et de se mettre en dessous, des marges sont mises en place. Pour placer un autre élément sous le menu, on utilisera la propriété clear.
+
+    Display
+
+La propriété Display est utilisée pour modifier le type d'une balise.
+Valeurs possibles : inline, block, inline-block, none
+Certains sites utilisent dispay:none pour cacher les sous-menu et utilisent javascript pour les afficher.
+La propriété inline-block permet de se comporter comme un block (possibilité de régler la taille) ET de se comporter comme un inline (les éléments se mettent l'un à coté de l'autre et plus l'un en dessous de l'autre). Les éléments s'alignent par défaut sur une baseline qui se situe en bas de l'élément parent. Ce comportement peut être changé à l'aide de la propriété vertical-align qui peut prendre les valeurs suivantes :
+baseline : aligne de la base de l'élément avec celle de l'élément parent (par défaut) ;
+top : aligne en haut ;
+middle : centre verticalement ;
+bottom : aligne en bas ;
+(valeur en px ou %) : aligne à une certaine distance de la ligne de base (baseline).
+
+Avec cette technique, les blocks ne prennent plus toute la largeur de la page (ce qui leur permet de s'aligner)
+
+    Position
+
+Trois modes de positionnement sont disponibles. On utilise la propriété CSS position à laquelle on donne une de ces valeurs :
+
+absolute : positionnement absolu ;
+fixed : positionnement fixe ;
+relative : positionnement relatif.
+
+Comme pour les flottants, les positionnements absolu, fixé et relatif fonctionnent aussi sur des balises de type inline.
+Toutefois, vous verrez qu'on l'utilise bien plus souvent sur des balises block que sur des balises inline.
+
+        position: absolute
+    La position absolue permet de placer un élément n'importe où sur la page. On indiquera son positionnement avec quatres propriétés css:
+    left : position par rapport à la gauche de la page ;
+    right : position par rapport à la droite de la page ;
+    top : position par rapport au haut de la page ;
+    bottom : position par rapport au bas de la page.
+    On peut leur donner une valeur en pixels, comme 14px, ou bien une valeur en pourcentage, comme 50%.
+
+    Les éléments positionnés en absolu sont placés par-dessus le reste des éléments de la page ! Par ailleurs, si vous placez deux éléments en absolu vers le même endroit, ils risquent de se chevaucher. Dans ce cas, utilisez la propriété z-index pour indiquer quel élément doit apparaître au-dessus des autres. L'élément ayant la valeur de z-index la plus élevée sera placé par dessus les autres.
+
+    le positionnement absolu ne se fait pas forcément toujours par rapport au coin en haut à gauche de la fenêtre ! Si vous positionnez en absolu un bloc A qui se trouve dans un autre bloc B, lui-même positionné en absolu (ou fixe ou relatif), alors votre bloc A se positionnera par rapport au coin supérieur gauche du bloc B. Faites le test, vous verrez !
+
+        position: fixed
+    Le positionnement fixe est identique au positionnement absolu mais, cette fois, l'élément reste toujours visible, même si on descend plus bas dans la page. C'est un peu le même principe que background-attachment: fixed;
+
+        position: relative
+    Plus délicat à utilisé, la position relative décale l'élément par rapport à sa posotion iniitiale.
+    Il utilise les même propriétés que position: relative.
+
+    Cette propriété peut également être appliquée à un élément de type block sans appliquer de décalage, ce afin de pouvoir placer d'autres éléments à l'intérieur de ce block à l'aide des propriétés de positionnement.

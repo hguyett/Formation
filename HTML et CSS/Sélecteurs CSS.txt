@@ -1,0 +1,45 @@
+/* Ce document est une liste des bases concernant les sélecteurs CSS.
+Pour une liste plus détaillée : https://www.w3.org/Style/css3-selectors-updates/WD-css3-selectors-20010126.fr.html#selectors*/
+
+/*Principe de l'héritage CSS :
+En CSS, si vous appliquez un style à une balise, toutes les balises qui se trouvent à l'intérieur prendront le même style. */
+
+balise { /*Le style est appliqué à la balise*/
+propriété: valeur;
+}
+
+balise1, balise2 { /*Le style est appliqué aux 2 balises*/
+propriété: valeur;
+}
+
+balise1 balise2 { /*Le style est appliqué à toute balise2 dans une balise1*/
+propriété: valeur;
+}
+
+balise1 + balise2 { /*Le style est appliqué à toute balise2 qui suit une balise1*/
+propriété: valeur;
+}
+
+.class { /*Le style est appliqué à toutes les balises de cette classe*/
+propriété: valeur;
+}
+
+#id { /*Le style est appliqué à la balise possédant cet ID*/
+propriété: valeur;
+}
+
+balise[attribut] { /*Le style est appliqué à toute balise possédant l'attribut*/
+propriété: valeur;
+}
+
+balise[attribut="test"] { /*Le style est appliqué à toute balise possédant l'attribut de valeur "test"*/
+propriété: valeur;
+}
+
+balise[attribut*="test"] { /*Le style est appliqué à toute balise possédant l'attribut dont la valeur contient "test"*/
+propriété: valeur;
+}
+
+nth-child()
+
+nth-of-type()

@@ -1,0 +1,27 @@
+Trouver des polices libres de droits :
+https://www.fontsquirrel.com/ //FontSquirrel fournit un fichier CSS prêt à l'emploi pour charger ses polices
+http://www.dafont.com/fr/
+
+Types de fichier des polices :
+.ttf : TrueType Font. Fonctionne sur IE9 et tous les autres navigateurs.
+.eot : Embedded OpenType. Fonctionne sur Internet Explorer uniquement, toutes versions. Ce format est propriétaire, produit par Microsoft.
+.otf : OpenType Font. Ne fonctionne pas sur Internet Explorer.
+.svg : SVG Font. Le seul format reconnu sur les iPhones et iPads pour le moment.
+.woff : Web Open Font Format. Nouveau format conçu pour le Web, qui fonctionne sur IE9 et tous les autres navigateurs.
+
+Déclaration de la police dans le fichier CSS :
+
+@font-face {
+    font-family: 'MaSuperPolice';
+    src: url('MaSuperPolice.eot') format('eot'),
+         url('MaSuperPolice.woff') format('woff'),
+         url('MaSuperPolice.ttf') format('truetype'),
+         url('MaSuperPolice.svg') format('svg');
+}
+
+Utilisation de la police :
+
+balise
+{
+font-family: 'MaSuperPolice';
+}
