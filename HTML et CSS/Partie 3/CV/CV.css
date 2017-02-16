@@ -9,6 +9,15 @@ body {
     display: flex;
 }
 
+.bold {
+    font-weight: bold;
+}
+
+.wrapper {
+    display: flex;
+    justify-content: space-around;
+}
+
 aside {
     width: 15%;
     background-color: rgba(0, 0, 0, 0.5);
