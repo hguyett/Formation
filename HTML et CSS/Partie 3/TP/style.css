@@ -112,6 +112,7 @@ nav ul li a:hover {
     background-color: rgba(0, 0, 0, 0.7);
 }
 
+
 .bouton_rouge {
     display: flex;
     align-items: center;
@@ -119,7 +120,7 @@ nav ul li a:hover {
     color: white;
     text-decoration: none;
     background-image: url("images/fond_degraderouge.png");
-    background-repeat: repeat-x;
+    background-repeat: repeat-x;;
     height: 29px;
     padding: 0 10px 0 10px;
     border: 1px maroon solid;
