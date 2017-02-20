@@ -1,33 +1,46 @@
+/*Police personnalisée*/
+
 @font-face {
     font-family: 'fontastique';
     src: url('Fonts/fontastique.ttf') format('truetype');
 }
 
 body {
+    word-wrap: break-word;
     background: url("Images/lightbulb-1875247_1920.jpg") fixed no-repeat top left;
+    background-size: cover;
     background-color: rgb(96, 92, 90);
     display: flex;
+    margin: 0;
 }
 
-.bold {
-    font-weight: bold;
-}
-
-.wrapper {
-    display: flex;
-    justify-content: space-around;
-}
+/*Apparence du liseré*/
 
 aside {
-    width: 15%;
+    flex: 1;
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
     background-color: rgba(0, 0, 0, 0.5);
+    min-width: 20%;
     margin: 0 10px 0 0;
-    padding: 15px;
+    padding: 0 1% 0 1%;
+    height: 100vh;
 }
+
+/*utilisation d'un block div pour éviter de sortir aside du flow de flexbox avec la propriété position: fixed*/
+
 
 
 #photo {
-    text-align: center;
+    width: 83px; /*Définition de la taille du cadre de l'image*/
+    height: 98px;
+    border-radius: 50%;
+    border: 2px solid orange;
+    overflow: hidden;
+    align-self: center;
 }
 
 h1, h2 {
@@ -35,21 +48,73 @@ h1, h2 {
     text-shadow: 6px 6px 6px silver;
 }
 
-h1, .jobtitle {
+h1, #jobtitle, #photo {
     text-align: center;
+    margin-bottom: 15%;
 }
 
 h1 {
     font-size: 2em;
+    color: silver;
 }
 
 #jobtitle {
     color: silver;
-    text-align: center;
     text-decoration: underline;
     font-style: italic;
     border: 2px solid silver;
     border-radius: 20px/8px;
     background-color: #505050;
-    padding: 0 10px 0 10px;
+}
+
+/*Apparence du corps de la page*/
+
+.wrapper {
+    flex: 4;
+    display: flex;
+    justify-content: space-around;
+}
+
+section {
+    min-width: 20%;
+    text-align: justify;
+    margin: 1.5%;
+    background-color: rgba(255,255,255,0.1);
+    padding: 0 1.5% 0 1.5%;
+    border-radius: 20px;
+    height: auto;
+}
+
+section ul {
+    list-style-image: url("Images/bulle2.png");
+}
+
+#experience, #formation {
+    flex: 2;
+}
+
+#competences {
+    flex: 1;
+}
+
+.date {
+    font-weight: bold;
+    color: black;
+    padding-bottom: 2%;
+    padding-left: 4%;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 5px 5px 0 0;
+}
+
+.description, #competences li {
+    margin-bottom: 10%;
+    color: white;
+    background-color: rgba(0,0,0,0.2);
+    padding: 2%;
+    border-radius: 0 0 5px 5px;
+}
+
+#competences li {
+    border-radius: 5px;
+    width: auto;
 }
