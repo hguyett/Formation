@@ -1,0 +1,58 @@
+    Formats audio
+
+MP3 : Le plus ancien et le plus compatible
+AAC : Format iTunes
+OGC : Format libre très répandu dans la communauté Open Source
+WAV : Format non compressé. À éviter car trop lourd.
+
+Attention aux compatibilités :  Consulter caniuse.com
+
+
+    Formats vidéo
+
+Une vidéo est composée de 3 éléments : un format conteneur (reconnaissable à l'aide de l'extension du fichier), un codec audio (cf point précédent) et un codec vidéo.
+
+        codecs vidéo
+    H.264 : l'un des plus puissants et des plus utilisés aujourd'hui… mais il n'est pas 100% gratuit. En fait, on peut l'utiliser gratuitement dans certains cas (comme la diffusion de vidéos sur un site web personnel), mais il y a un flou juridique qui fait qu'il est risqué de l'utiliser à tout va.
+    Ogg Theora : un codec gratuit et libre de droits moins puissant que le H.264 qui est bien reconnu sous Linux, mais il faut des logiciels pour pouvoir le lire sous Windows.
+    WebM : un autre codec gratuit et libre de droits plus récent. Il est proposé par Google, c'est le concurrent le plus sérieux de H.264 à l'heure actuelle.
+
+Attention aux compatibilités :  Consulter caniuse.com
+Il est conseillé de proposer les vidéos en plusieurs formats pour qu'elles soient lisible sur des navigateurs différents.
+
+Pour convertir une vidéo dans un autre format, il est possible d'utiliser Miro Video Converter, un logiciel gratuit. Il permet de créer plusieurs formats pour une même vidéo assez simplement.
+
+
+    Insérer un élément audio
+
+<audio src="musique.mp3"></audio>
+
+        Attributs
+    controls: affiche les boutons permettant de controler la lecture et le volume.
+    width: modifie la largeur de l'outil de lecture audio.
+    loop: joue la musique en boucle.
+    autoplay: lance la musique au chargement de la page (déconseillé).
+    preload: indique si la musique peut êrte préchargée dés le chargement de la page. Cet attribut peut prendre plusieurs valeurs :
+        auto (par défaut) : le navigateur décide s'il doit précharger toute la musique, uniquement les métadonnées ou rien du tout.
+        metadata : charge uniquement les métadonnées.
+        none : pas de préchargement.
+
+        Il n'est pas possible de forcer le préchargement de la musique, c'est toujours le navigateur qui décide. Cela permet, par exemple, d'économiser des données sur son abonnement de téléphone.
+
+Il est possible de proposer une solution utilisant flash ou d'indiquer un message entre les balises à destination des navigateurs qui ne les gèrent pas, par exemple : "Veuillez mettre à jour votre navigateur."
+
+
+    Insérer un élément vidéo
+
+<video src="sintel.webm"></video>
+
+        Attributs
+    Ils sont quasiment tous identiques à la balise <audio>. Voici ceux qui diffèrent :
+    poster : permet d'afficher une image à la place de la vidéo tant qu'elle n'est pas lancée. Par défaut, le navigateur affiche la première image de la vidéo, mais il s'agit souvent d'une image noire.
+    width : pour modifier la largeur de la vidéo.
+    height : pour modifier la hauteur de la vidéo.
+    Les proportions de la vidéo sont toujours conservées. Si vous définissez une largeur et une hauteur, le navigateur fera en sorte de ne pas dépasser les dimensions indiquées mais il conservera les proportions.
+
+Comme pour les balises audio, il est possible de proposer une solution utilisant flash ou d'indiquer un message entre les balises à destination des navigateurs qui ne les gèrent pas, par exemple : "Veuillez mettre à jour votre navigateur."
+
+/!\ Les iPhone, iPad et iPod ne reconnaissent à l'heure actuelle que le format H.264 (fichier .mp4)… et uniquement si celui-ci apparaît en premier dans la liste ! Je vous recommande donc d'indiquer le format H.264 en premier pour assurer une compatibilité maximale.
