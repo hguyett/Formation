@@ -1,0 +1,150 @@
+    Les formulaires
+
+<form></form> Permet de créer un formulaire. Tous les balises qui suivront devront se trouver à l'intérieur de ces balises.
+Il faut obligatoirement utiliser des balises <p></p> à l'intérieur du formulaire pour y faire figurer du texte.
+
+La balise form doit prendre 2 attributs :
+    method
+cet attribut peut prendre la valeur get ou la valeur post.
+La valeur get envoie les valeurs dans l'adresse de la page. Utile pour les champs de recherche, cela limite toutefois l'envoi à 255 caractères.
+La valeur post ne fait pas transiter les données par la barre d'adresse. C'est la plus utilisée.
+
+    action
+indique l'adresse de la page qui traitera les données.
+
+
+    PSEUDO-FORMATS CSS
+
+:required -> permet de changer le style des éléments requis
+:invalid -> permet de changer le style des éléments invalides
+:focus ->  permet de changer le style d'un champ lorsque le curseur se trouve à l'intérieur.
+
+
+    STRUCTURER LE FORMULAIRE
+
+Les formulaires peuvent parfois être très longs. Dans ce cas, il peut s'avérer utile de diviser le formulaire en plusieurs champs.
+<fieldset>
+    <legend>Vos coordonnées</legend>
+    [...]
+</fieldset>
+
+    L'attribut Autofocus
+autofocus: Permet de sélectionner un champ par défaut au chargement de la page. Cet attribut ne prend pas de valeur.
+
+
+    RENDRE UN CHAMP OBLIGATOIRE
+
+    L'attribut Required
+required: rend un champ obligatoire. Cet attribut ne prend pas de valeur.
+Cet attribut n'étant pas reconnu par les anciens navigateurs, il sera donc nécessaire de compléter les tests de validation par du javascript.
+
+    ZONES DE SAISIE
+
+    Zone de texte multilignes
+<textarea>Texte de pré-remplissage
+On peut aussi passer à la ligne, ça fonctionne</textarea>
+(Il est possible de la redimensionner en CSS avec les propriétés width et height ou en HTML avec les attributs rows et cols)
+
+    Zone de texte monoligne
+<imput type="text" name="nom_du_champ" id="ID_du_champ" /> (On peut mettre la même valeur pour le nom et l'ID)
+
+        Attributs
+    size: permet d'agrandir le champ (la taille s'indique en nombre de caractères)
+    maxlength: limite le nombre de caractères que l'on peut saisir
+    value: permet de pré-remplir le champ
+    placeholder: permet de donner un exemple de contenu
+
+    libellé
+<label for="ID_du_champ_relié_à_ce_label"></label> (permet de sélectionner le champ correspondant au label en cliquant dessus)
+
+    Zone de mot de passe
+<input type="password" />
+
+
+    ZONES DE SAISIE ENRICHIES
+
+    RAPPEL :
+        Attributs
+    size: permet d'agrandir le champ (la taille s'indique en nombre de caractères)
+    maxlength: limite le nombre de caractères que l'on peut saisir
+    value: permet de pré-remplir le champ
+    placeholder: permet de donner un exemple de contenu
+
+    Adresses e-mail
+<input type="email" /> (le champ apparaîtra en rouge si le contenu n'est pas un mail. Les mobiles affichent un clavier spécifique à la sasie d'adresses mail)
+
+    URL
+<input type="url" /> (clavier également adapté sur mobile)
+
+    Numéro de téléphone
+<input type="tel" /> (idem)
+
+    Nombre entier
+<inpute type="number" />
+
+        Attributs:
+    min: valeur minimale autorisée
+    max: valeur maximale autorisée
+    step: indique un "pas" de déplacement. Le nombre devra être divisible par le step.
+
+    Curseur
+<input type="range" />
+
+        Attributs
+    min, max, step
+
+    Couleur (Encore peu connu des navigateurs)
+<input type="color" />
+
+    Date (Encore peu connu des navigateurs)
+<input type="date" /> (date)
+<input type="time" /> (heure)
+<input type="week" /> (semaine)
+<input type="month" /> (mois)
+<input type="datetime" /> (date et heure avec gestion du décalage horaire)
+<input type="datetime-local" /> (date et heure sans gestion du décalage horaire)
+
+    Champ de recherche
+<input type="search" /> (permet au navigateur d'afficher une loupe ou d'enregistrer les dernières recherches)
+
+
+    LES ÉLÉMENTS D'OPTIONS
+
+    Cases à cocher
+<input type="checkbox" name="news" id="news" /> <label for="news">S'abonner aux newsletters</label><br>
+        Attributs
+    checked: permet de précocher la case (cet attribut ne prend pas de valeur. Comme normalement tout attribut prend une valeur, on peut mettre checked="checked" si ça nous perturbe, mais c'est un peu redondant. On peut mettre n'importe quelle valeur, cela fonctionnera de toute façon.)
+
+    Boutons radio
+<input type="radio" name="Nom_du_groupe_de_boutons_radio" value="nom_du_bouton" id="id_du_bouton" /> <label for="id_du_bouton">Libellé</label>
+L'attribut name permet de regrouper les boutons radios afin d'indiquer au navigateur que dans cet ensemble, un seul bouton peut être coché.
+Étant donné qu'un ID doit être unique, on ne peut plus donner la même valeur pour le nom et l'id. On utilisera en général la valeur de value comme ID.
+
+        Attributs
+    checked
+
+    Listes déroulantes
+
+<label for="id_de_la_liste">Choississez une option :</label><br>
+<select name="nom_de_la_liste" id="id_de_la_liste">
+    <optgroup label="Premier groupe d'options"> (Permet de regrouper les options sous un intitulé mit en gras. Cet intitulé ne peut pas être sélectionné dans la liste)
+        <option value="option1">option1</option>
+        <option value="option2">option2</option>
+        <option value="option3">option3</option>
+    </optgroup>
+    <optgroup label="Second groupe d'options">
+        <option value="option4">option4</option>
+        <option value="option5">option5</option>
+    </optgroup>
+</select>
+
+    Attributs
+selected: sélectionne cette option par défaut. (cet attribut ne prend pas de valeur)
+
+
+    BOUTONS DU FORMULAIRE
+
+<input type="submit" value="Envoyer le formulaire" />
+<input type="image" src="URL_de_L'image" /> (équivalent à submit avec une image)
+<input type="reset" value="Remettre le formulaire à zéro" />
+<input type="button" value="Texte du bouton" /> (Bouton générique, à utiliser avec du JavaScript)
