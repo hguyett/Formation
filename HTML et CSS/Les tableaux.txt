@@ -41,7 +41,8 @@ Pour fusionner 2 lignes, c'est le même principe avec l'attribut rowspan
     Si l'on souhaite fusionner les bordures des cellules adjacentes, on applique la propriété border-collapse avec la valeur collapse à la table.
         caption-side: bottom;
     Il est possible de placer le titre au dessus ou en dessous d'un tableau à l'aide de la propriété CSS caption-side
-
+        vertical-align
+    Il est possible de modifier l'alignement vertical du texte des cellules grâce à la propriété vertical-align.
 
 Exemple de tableau vertical :
 
