@@ -1,0 +1,57 @@
+/*Feuille de style pour mon CV*/
+
+/*Polices personnalisées*/
+@font-face {
+    font-family: fontastique;
+    src: url("../Fonts/fontastique.ttf");
+}
+
+* ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+header {
+    text-align: center;
+}
+
+header h1 {
+    font-family: fontastique, Verdana;
+}
+
+header p {
+    font-style: oblique;
+    color: rgb(199,0,11);
+}
+
+.wrapper {
+    display: flex;
+    justify-content: space-around;
+
+}
+
+.wrapper:nth-child(2n+1) {
+    background-color: rgb(255,204,153);
+    padding: 15px;
+    border-radius: 5%;
+}
+
+h1 {
+    font-family: fontastique;
+    text-align: center;
+    color: rgb(199,0,11);
+}
+
+header h1 {
+    color: black;
+}
+
+.date {
+    font-style: oblique;
+    text-decoration: underline;
+    margin: 15px 0 5px 0;
+}
+
+.description {
+    margin: 0 15px;
+}
