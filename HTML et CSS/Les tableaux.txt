@@ -1,0 +1,149 @@
+    Les tableaux
+
+Pour dessiner un tableau, on commence par utiliser les balises <table></table>
+On indique ensuite un nombre de lignes souhaitées avec les balises <tr></tr>
+On indique enfin le nombre de cellules dans une ligne avec les balises <td></td>
+
+
+    L'en-tête
+
+Pour indiquer l'en-tête d'une colonne ou d'une ligne du tableau, on utilise des balises <th></th>
+
+
+    Titre
+
+Pour donner un titre à un tableau, on utilise les balises <caption></caption>
+Il est possible de placer le titre au dessus ou en dessous d'un tableau à l'aide de la propriété CSS caption-side
+
+
+    Structure d'un tableau complexe
+
+Il est possible de diviser un tableau en 3 parties :
+- l'en-tête avec <thead></thead>
+- le corps avec <tbody></tbody>
+- Le pied de page avec <tfoot></tfoot>. Celui-ci permet, par exemple, de répeter les cellules d'en-tête en bas du tableu si celui-ci est trop grand.
+
+Il est conseillé d'écrire l'en-tête suivi du pied de page AVANT le corps du tableau.
+
+
+    Fusion de cellules
+
+Il est possible de fusionner plusieurs cellules pour créer une seule cellule plus grosse.
+Pour fusionner 2 colonnes, on ajoutera l'attribut colspan à une balise td
+    Comme ceci : <td colspan="2">
+Pour fusionner 2 lignes, c'est le même principe avec l'attribut rowspan
+
+    Propriétés CSS
+
+        border
+    Pour délimiter les cellules d'un tableau, on utilise la propriété border.
+        border-collapse: collapse;
+    Si l'on souhaite fusionner les bordures des cellules adjacentes, on applique la propriété border-collapse avec la valeur collapse à la table.
+        caption-side: bottom;
+    Il est possible de placer le titre au dessus ou en dessous d'un tableau à l'aide de la propriété CSS caption-side
+
+
+Exemple de tableau vertical :
+
+<table>
+   <tr>
+       <th>Titre du film</th>
+       <th>Pour enfants ?</th>
+       <th>Pour adolescents ?</th>
+   </tr>
+   <tr>
+       <td>Massacre à la tronçonneuse</td>
+       <td >Non, trop violent</td>
+       <td>Oui</td>
+   </tr>
+   <tr>
+       <td>Les bisounours font du ski</td>
+       <td>Oui, adapté</td>
+       <td>Pas assez violent...</td>
+   </tr>
+   <tr>
+       <td>Lucky Luke, seul contre tous</td>
+       <td colspan="2">Pour toute la famille !</td>
+   </tr>
+</table>
+
+
+Exemple de tableau horizontal :
+
+<table>
+   <tr>
+       <th>Titre du film</th>
+       <th>Pour enfants ?</th>
+       <th>Pour adolescents ?</th>
+   </tr>
+   <tr>
+       <td>Massacre à la tronçonneuse</td>
+       <td >Non, trop violent</td>
+       <td>Oui</td>
+   </tr>
+   <tr>
+       <td>Les bisounours font du ski</td>
+       <td>Oui, adapté</td>
+       <td>Pas assez violent...</td>
+   </tr>
+   <tr>
+       <td>Lucky Luke, seul contre tous</td>
+       <td colspan="2">Pour toute la famille !</td>
+   </tr>
+</table>
+
+
+Exemple de tableau complexe :
+
+<table>
+   <caption>Passagers du vol 377</caption>
+
+   <thead> <!-- En-tête du tableau -->
+       <tr>
+           <th>Nom</th>
+           <th>Âge</th>
+           <th>Pays</th>
+       </tr>
+   </thead>
+
+   <tfoot> <!-- Pied de tableau -->
+       <tr>
+           <th>Nom</th>
+           <th>Âge</th>
+           <th>Pays</th>
+       </tr>
+   </tfoot>
+
+   <tbody> <!-- Corps du tableau -->
+       <tr>
+           <td>Carmen</td>
+           <td>33 ans</td>
+           <td>Espagne</td>
+       </tr>
+       <tr>
+           <td>Michelle</td>
+           <td>26 ans</td>
+           <td>États-Unis</td>
+       </tr>
+       <tr>
+           <td>François</td>
+           <td>43 ans</td>
+           <td>France</td>
+       </tr>
+       <tr>
+           <td>Martine</td>
+           <td>34 ans</td>
+           <td>France</td>
+       </tr>
+       <tr>
+           <td>Jonathan</td>
+           <td>13 ans</td>
+           <td>Australie</td>
+       </tr>
+       <tr>
+           <td>Xu</td>
+           <td>19 ans</td>
+           <td>Chine</td>
+       </tr>
+   </tbody>
+</table>
