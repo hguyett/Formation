@@ -1,0 +1,81 @@
+    Media queries
+
+Il y a 2 manières de faire : soit créer un fichier css séparé, soit ajouter les media queries dans le fichier css existant.
+
+    Uiliser un autre fichier CSS
+
+<link rel="stylesheet" media="screen and (max-width: 1280px)" href="petite_resolution.css" />
+
+
+    Utiliser le fichier CSS existant
+
+@media screen and (max-width: 1280px)
+{
+    /* Rédigez vos propriétés CSS ici */
+}
+
+
+    Règles existantes pour les media queries :
+
+color : gestion de la couleur (en bits/pixel).
+height : hauteur de la zone d'affichage (fenêtre).
+width : largeur de la zone d'affichage (fenêtre).
+device-height : hauteur du périphérique.
+device-width : largeur du périphérique.
+orientation : orientation du périphérique (portrait ou paysage).
+media : type d'écran de sortie. Quelques-unes des valeurs possibles :
+    screen : écran « classique » ;
+    handheld : périphérique mobile ;
+    print : impression ;
+    tv : télévision ;
+    projection : projecteur ;
+    all : tous les types d'écran.
+
+/!\ Malheureusement, aucun navigateur mobile à part Opera mobile ne reconnaît handheld. Ils se comportent tous comme s'ils étaient des écrans normaux (screen). On ne peut donc pas vraiment utiliser handheld pour viser les mobiles.
+
+On peut rajouter le préfixe min- ou max- devant la plupart de ces règles. Ainsi, min-width signifie « Largeur minimale », max-height « Hauteur maximale », etc.
+La différence entre width et device-width se perçoit surtout sur les navigateurs mobiles des smartphones
+
+Les règles peuvent être combinées à l'aide des mots suivants :
+
+only : « uniquement » ;
+and : « et » ;
+not : « non ».
+
+
+    Cibler les écrans des smartphones
+
+les écrans des smartphones sont beaucoup moins larges que nos écrans habituels (seulement quelques centaines de pixels de large). Pour s'adapter, les navigateurs mobiles affichent le site en « dézoomant », ce qui permet d'avoir un aperçu de l'ensemble de la page. La zone d'affichage simulée est appelée le viewport : c'est la largeur de la fenêtre du navigateur sur le mobile.
+En CSS, avec les media queries, si vous ciblez l'écran avec max-width sur un mobile, celui-ci va comparer la largeur que vous indiquez avec celle de son viewport. Le problème, c'est que le viewport change selon le navigateur mobile utilisé !
+
+Pour cibler les smartphones, plutôt que d'utiliser max-width, il peut être intéressant de recourir à max-device-width : c'est la largeur du périphérique. Les périphériques mobiles ne dépassant pas 480 px de large, on pourra viser uniquement les navigateurs mobiles avec cette media query :
+@media all and (max-device-width: 480px)
+{
+    /* Vos règles CSS pour les mobiles ici */
+}
+
+/!\ Malheureusement, aucun navigateur mobile à part Opera mobile ne reconnaît handheld. Ils se comportent tous comme s'ils étaient des écrans normaux (screen). On ne peut donc pas vraiment utiliser handheld pour viser les mobiles.
+
+
+    Adapter le site à la résolution réelle des smartphones
+
+Vous pouvez modifier la largeur viewport du navigateur mobile avec une balise meta à insérer dans l'en-tête (<head>) du document :
+<meta name="viewport" content="width=320" />
+
+Vous pouvez utiliser cette balise pour modifier la façon dont le contenu de votre page s'organise sur les mobiles. Pour obtenir un rendu facile à lire, sans zoom, vous pouvez demander à ce que le viewport soit le même que la largeur de l'écran :
+<meta name="viewport" content="width=device-width" />
+
+
+    Exemples de media queries
+
+/* Sur les écrans, quand la largeur de la fenêtre fait au maximum 1280px */
+@media screen and (max-width: 1280px)
+
+/* Sur tous types d'écran, quand la largeur de la fenêtre est comprise entre 1024px et 1280px */
+@media all and (min-width: 1024px) and (max-width: 1280px)
+
+/* Sur les téléviseurs */
+@media tv
+
+/* Sur tous types d'écrans orientés verticalement */
+@media all and (orientation: portrait)
