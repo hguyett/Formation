@@ -1,0 +1,10 @@
+La doc : https://devdocs.io/
+La méthode : SCRUM
+
+Pour proposer des patchs de code pour de nouvelles fonctionnalités/corrections : Github.
+Pour lister vos tâches / user stories : Pivotal, Jira, Trello.
+Pour suivre votre activité : Asana.
+Pour communiquer : slack, workplace.
+
+Liste des bonnes pratiques concernant l'accessibilité :
+http://www.accessiweb.org/index.php/accessiweb_2.2_liste_generale.html
