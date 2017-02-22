@@ -30,13 +30,9 @@ aside {
     height: 100vh;
 }
 
-/*utilisation d'un block div pour éviter de sortir aside du flow de flexbox avec la propriété position: fixed*/
-
-
-
 #photo {
     width: 83px; /*Définition de la taille du cadre de l'image*/
-    height: 98px;
+    height: 83px;
     border-radius: 50%;
     border: 2px solid orange;
     overflow: hidden;
@@ -65,6 +61,7 @@ h1 {
     border: 2px solid silver;
     border-radius: 20px/8px;
     background-color: #505050;
+    padding: 1px 0px;
 }
 
 /*Apparence du corps de la page*/
@@ -73,13 +70,14 @@ h1 {
     flex: 4;
     display: flex;
     justify-content: space-around;
+    height: 50%;
 }
 
 section {
     min-width: 20%;
     text-align: justify;
-    margin: 1.5%;
-    background-color: rgba(255,255,255,0.1);
+    margin: 15px;
+    background-color: rgba(255,255,255,0.2);
     padding: 0 1.5% 0 1.5%;
     border-radius: 20px;
     height: auto;
@@ -100,10 +98,13 @@ section ul {
 .date {
     font-weight: bold;
     color: black;
-    padding-bottom: 2%;
-    padding-left: 4%;
-    background-color: rgba(255, 255, 255, 0.2);
+    /*padding-bottom: 2%;
+    padding-left: 4%;*/
+    padding: 1% 0% 1% 4%;
+
+    background-color: rgba(255, 255, 255, 0.3);
     border-radius: 5px 5px 0 0;
+    vertical-align: bottom;
 }
 
 .description, #competences li {
@@ -117,4 +118,58 @@ section ul {
 #competences li {
     border-radius: 5px;
     width: auto;
+}
+
+/*Adaptation du design aux petits écrans*/
+@media all and (max-width: 1024px) {
+
+    /*Transformation du liseré en entête*/
+    body {
+        flex-direction: column;
+    }
+
+    aside {
+        height: 20%;
+        margin: 0 0 20px 0;
+
+    }
+
+    h1, #jobtitle, #photo {
+        margin-bottom: 20px;
+    }
+
+    /*Affichage des sections en colonne*/
+    .wrapper {
+        flex-direction: column;
+    }
+
+    .description, #competences li {
+        margin-bottom: 10px;
+    }
+
+    /*Suppression des puces*/
+    section ul {
+        list-style-image: none;
+        list-style-type: none;
+    }
+
+    /*Modification du design des sections*/
+    section {
+        background-color: inherit;
+        border: 2px solid black;
+        border-right: 0px;
+        border-bottom: 0px;
+    }
+}
+
+    /*IE Fix pour le responsive design*/
+
+@media all and (-ms-high-contrast: active), (-ms-high-contrast: none) and (max-width: 1024px) {
+   body {
+       display: block;
+   }
+
+   .wrapper {
+       display: block;
+   }
 }
