@@ -1,0 +1,8 @@
+Pour insérer du code php dans une page html :
+
+<?php Mon code php
+...
+...
+?>
+
+Il est conseillé de ne par fermer la balise s'il s'agit d'une page qui ne contient QUE du php. Car par exemple, si des caractères sont ajoutés par mégarde à la fin de la balise, une modification du header http pourrait ne pas fonctionner.
