@@ -36,8 +36,11 @@ else
 
         Joindre des conditions
 
-    Et : AND - &&
-    Ou : OR - ||
+    Et : and - &&
+    Ou : or - ||
+
+    Doit être en minuscule conformément à la PSR-2
+    http://www.php-fig.org/psr/psr-2/#keywords-and-truefalsenull
 
         Comparateurs
 

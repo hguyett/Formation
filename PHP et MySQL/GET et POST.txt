@@ -1,0 +1,46 @@
+GET et POST permettent de faire transiter des données d'une page à l'autre.
+
+    GET
+
+GET fera transiter les informations en paramètres de l'URL, ce qui les rend facilement modifiables par l'utilisateur.
+
+Exemple :
+http://monsite.com/index.php?nom=Dupont&prenom=Jean
+(/!\ En HTML, & doit être noté &amp;)
+
+On récupère ces informations via le tableau associatif $_GET
+Dans cet exemple, $_GET['nom'] vaudra "Jean"
+
+    POST
+
+La méthode POST ne fait pas transiter les informations par l'URL, ce qui permet d'en faire transiter autant qu'on le souhaite.
+
+    Sécurité
+
+Il est très important de tester rigoureusement les variables qui transitent par la méthode GET et POST pour des raisons de sécurité.
+/!\ IL NE FAUT PAS FAIRE PLUS CONFIANCE À LA MÉTHODE POST QU'À LA MÉTHODE GET
+La fonction PHP isset() permet de vérifier qu'une variable existe.
+Il est possible de transtyper (caster) les variables pour s'assurer qu'elles soient du bon type.
+Il est possible de transformer les caractères spéciaux en entités html grâce à la fonction htmlspecialchars() et htmlentities()
+
+Cf. https://secure.php.net/manual/en/function.htmlentities.php et commentaires
+
+    Données renvoyées par les formulaires
+
+        Zones de texte monoligne, multilignes et mot de passes
+
+    L'entrée de l'utilisateur est récupérée tel quel.
+
+        Liste déroulante
+
+    La valeur de l'attribut "value" est renvoyée, avec comme clé la valeur de l'attribut "name" de la balise select.
+
+        Cases à cocher
+
+    Si la case est cochée, le string 'on' est renvoyé avec comme clé la valeur de l'attribut "name" de la case.
+    La méthode isset() peut être utilisée pour savoir si la case est cochée.
+
+        Boutons radio
+
+    La valeur de l'attribut "value" du bouton est renvoyée, avec comme clé la valeur de l'atribut "name" de bouton (ce qui correspond au nom du groupe de boutons).
+    Attention à gérer le cas où aucun bouton n'est coché (il est également possible de cocher un bouton par défaut).

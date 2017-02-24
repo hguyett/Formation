@@ -60,6 +60,12 @@ On peut aussi passer à la ligne, ça fonctionne</textarea>
     Zone de mot de passe
 <input type="password" />
 
+    Champ caché
+<input type="hidden" name="pseudo" value="Mateo21" />
+
+Ces champs peuvent être utilisés pour envoyer des informations fixes.
+/!\ Les utilisateurs peuvent visualiser ces champs dans le code source et peuvent en modifier le contenu avec les outils appropriés.
+
 
     ZONES DE SAISIE ENRICHIES
 
