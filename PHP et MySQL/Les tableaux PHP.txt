@@ -1,0 +1,109 @@
+    LES TABLEAUX
+
+TABLEAUX NUMÉROTÉS
+
+    Initialisation
+
+<?php
+$prenoms = array ('François', 'Michel', 'Nicole', 'Véronique', 'Benoît');
+?>
+
+<?php
+$prenoms[0] = 'François';
+$prenoms[1] = 'Michel';
+$prenoms[2] = 'Nicole';
+?>
+
+<?php
+$prenoms[] = 'François'; // Créera $prenoms[0]
+$prenoms[] = 'Michel'; // Créera $prenoms[1]
+$prenoms[] = 'Nicole'; // Créera $prenoms[2]
+?>
+
+
+    Affichage
+
+<?php
+echo $prenoms[1];
+?>
+
+<?php
+foreach ($prenoms as $prenom) {
+    echo $prenom;
+}
+
+    Débogage
+
+<?php
+echo '<pre>';
+print_r($prenoms);
+echo '</pre>';
+?>
+
+
+TABLEAUX ASSOCIATIFS
+
+    Initialisation
+
+<?php
+$coordonnees = array (
+    'prenom' => 'François',
+    'nom' => 'Dupont',
+    'adresse' => '3 Rue du Paradis',
+    'ville' => 'Marseille');
+?>
+
+<?php
+$coordonnees['prenom'] = 'François';
+$coordonnees['nom'] = 'Dupont';
+$coordonnees['adresse'] = '3 Rue du Paradis';
+$coordonnees['ville'] = 'Marseille';
+    ?>
+
+
+    Affichage
+
+<?php
+echo $coordonnees['ville'];
+?>
+
+<?php
+echo '<tr>'
+foreach ($coordonnees as $key => $value) {
+    echo '<th>' . $key . '</th>' . '<td>' . $value . '</td>';
+}
+echo '</tr>'
+?>
+
+
+    Débogage
+
+<?php
+echo '<pre>';
+print_r($coordonnees);
+echo '</pre>';
+?>
+
+
+RECHERCHES DANS UN TABLEAU
+
+    array_key_exists
+
+<?php
+array_key_exists('clé', $array);
+?>
+Cette fonction renvoie un booléen.
+
+    in_array
+
+<?php
+in_array('valeur', $array);
+?>
+Cette fonction renvoie un booléen.
+
+    array_search
+
+<?php
+array_search('valeur', $array);
+?>
+Cette fonction renvoie soit le numéro, soit le nom de la clé, soit false.

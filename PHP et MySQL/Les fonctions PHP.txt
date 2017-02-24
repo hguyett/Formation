@@ -1,0 +1,25 @@
+    Déclaration
+
+function name($parameter)
+{
+    Instructions();
+    OtherInstructions();
+}
+
+function name2($parameter)
+{
+    Instructions();
+    $fctrslt = OtherInstructions();
+    Return $fctrslt;
+}
+
+
+    Appel
+
+<?php
+name('value');
+?>
+
+<?php
+$result = name2('value');
+?>

@@ -1,8 +1,91 @@
-Pour insérer du code php dans une page html :
+    INSÉRER DU CODE PHP DANS UN FICHIER HTML
 
-<?php Mon code php
-...
-...
+<?php
+[Code PHP ici]
+[...]
 ?>
 
 Il est conseillé de ne par fermer la balise s'il s'agit d'une page qui ne contient QUE du php. Car par exemple, si des caractères sont ajoutés par mégarde à la fin de la balise, une modification du header http pourrait ne pas fonctionner.
+
+
+    VARIABLES ET ASSIGNATION
+
+<?php
+$variable = valeur;
+?>
+
+
+    OPÉRATIONS CONDITIONNELLES
+
+<?php
+if ($variable <= 10)
+{
+    DoSomething();
+}
+elseif ($variable >=50)
+{
+?>
+    <p>J'écris du code html car la condition est remplie</p>
+<?php
+}
+else
+{
+    DoSomethingElse();
+}
+?>
+
+        Joindre des conditions
+
+    Et : AND - &&
+    Ou : OR - ||
+
+        Comparateurs
+
+    ==, >, <, >=, <=, !=
+
+        Switch
+
+    <?php
+    Switch ($variable)
+    {
+        case 0:
+            DoSomething();
+        break;
+
+        case 5:
+            DoSomethingElse();
+        break;
+
+        default:
+            DoAnything();
+    }
+    ?>
+
+        Ternaires
+
+    $Variable = ($var2 >= 42) ? ReturnThisWhenTrue() : ReturnThisWhenFalse();
+
+
+    BOUCLES
+
+        While
+
+    <?php
+    i = 0;
+    while (i < 10) {
+        DoSomething();
+        i++;
+    }
+    ?>
+
+        For
+
+    <?php
+    For (i = 0; i < 10; i++) {
+        Do Something();
+    }
+    ?>
+
+        Foreach
+
+    Cf. Affichage des tableaux.

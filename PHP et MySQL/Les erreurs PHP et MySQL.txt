@@ -1,0 +1,49 @@
+    Les erreurs PHP courantes
+
+        Parse error
+
+    erreur dans la synthaxe. SOuvent un point virgule, une parenthèse ou un guillement manquant.
+    L'erreur se trouve soit à la ligne indiquée, soit à la ligne au dessus.
+    Si la ligne indiquée est celle de la fin du fichier, il manque probablement une accolade.
+
+        Undefined function
+
+    Soit la fonction n'existe pas (probablement à cause d'une faute de frappe dans son nom)
+    Soit la fonction n'a pas été chargée (une extension de php n'a pas été activée, librairie manquante)
+
+        Wrong parameter count
+
+    Un ou plusieurs paramètres sont manquants ou en trop dans un appel de fonction. Se référer à la doc.
+
+        Maximum execution time exceeded
+
+    Cette erreur survient généralement quand le programme boucle.
+
+
+    Quelques erreurs moins courantes
+
+        Cannot modify header information - headers already sent by ...
+
+    Cet erreur survient quand on travaille avec les sessions et les cookies.
+    L'erreur survient probablement parce que le code n'est pas au début de la page. Si du texte est présent avant, un header est automatiquement généré avec que le code php ne soit interprèté.
+
+    Afficher les erreurs SQL
+
+<?php
+$reponse = $bdd->query('SELECT nom FROM jeux_video') or die(print_r($bdd->errorInfo()));
+?>
+
+    D'autres erreurs
+
+        L'image contient des erreurs
+
+    Cette erreur survient quand on travaille avec la bibliothèque GD. Elle est générée par le navigateur et non pas par PHP.
+    Si vous avez fait une erreur dans votre code (par exemple une banale « parse error »), cette erreur sera inscrite dans l'image. Du coup, l'image ne sera pas valide et le navigateur ne pourra pas l'afficher.
+
+    2 possibilités :
+
+    Supprimer la ligne suivante
+    <?php header ("Content-type: image/png"); ?>
+    L'erreur apparaîtra à la place du message « L'image contient des erreurs »
+
+    Ou regarder le code source de la page. L'erreur s'y trouvera.
