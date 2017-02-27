@@ -4,6 +4,7 @@
 Il faut obligatoirement utiliser des balises <p></p> à l'intérieur du formulaire pour y faire figurer du texte.
 
 La balise form doit prendre 2 attributs :
+
     method
 cet attribut peut prendre la valeur get ou la valeur post.
 La valeur get envoie les valeurs dans l'adresse de la page. Utile pour les champs de recherche, cela limite toutefois l'envoi à 255 caractères.
@@ -147,6 +148,11 @@ L'attribut name permet de regrouper les boutons radios afin d'indiquer au naviga
     Attributs
 selected: sélectionne cette option par défaut. (cet attribut ne prend pas de valeur)
 
+
+    Formulaire d'envoi de fichiers
+
+1. Ajouter l'attribut enctype="multipart/form-data" à la balise <form>. Grâce à enctype, le navigateur du visiteur sait qu'il s'apprête à envoyer des fichiers.
+2. <input type="file" name="myFile" />
 
     BOUTONS DU FORMULAIRE
 
