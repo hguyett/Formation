@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +7,12 @@
     <title>Document</title>
 </head>
 <body>
-    <?php echo time(); ?>
+
+    <section id="minichat">
+        <?php
+        include('minichat.php');
+        ?>
+    </section>
+
 </body>
 </html>

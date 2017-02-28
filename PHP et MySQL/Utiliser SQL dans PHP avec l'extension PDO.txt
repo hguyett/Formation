@@ -13,11 +13,12 @@ La connexion doit être établie sur chaque page php utilisant la base de donné
 $database = new PDO('mysql:host=localhost;dbname=test;charset=utf8', 'username', 'password', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
 Cette connexion permet d'afficher les erreurs SQL.
 
+
     Gérer les erreurs MySQL
 
 try
 {
-	$bdd = new PDO('mysql:host=localhost;dbname=test;charset=utf8', 'root', '');
+	$database = new PDO('mysql:host=localhost;dbname=test;charset=utf8', 'root', '');
 }
 catch (Exception $e)
 {
@@ -25,10 +26,24 @@ catch (Exception $e)
 }
 
 
+    Utilisation des transactions
+
+Les transactions permmettent d'effectuer plusieurs requêtes SQL sur une base de TOUT OU RIEN. Elles offrent les 4 fonctionnalités majeures à une bonne gestion de base de données : Atomicité, Consistance, Isolation et Durabilité (ACID).
+
+https://secure.php.net/manual/fr/pdo.transactions.php
+
+
     Envoyer une requête
 
-$data = $bdd->query('Tapez votre requête SQL ici');
+<?php
+    //Cette requête renvoie des informations.
+    $data = $database->query('Tapez votre requête SELECT ici');
+?>
 
+<?php
+    //Cette requête renvoie le nombre de lignes affectées.
+    $database->exec('Tapez votre requête UPDATE ici');
+?>
 
     Envoyer une requête préparée
 

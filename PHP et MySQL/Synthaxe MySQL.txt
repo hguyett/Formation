@@ -1,7 +1,30 @@
+    Rechercher des données
+
 SELECT * FROM table WHERE conditions ORDER BY fields DESC LIMIT 29, 10
 
 Cette requête récupère les 10 entrées après l'entrée n°30 (29 + 1) de la table qui respectent les conditions, triées dans l'ordre inverse par rapport au champ.
 /!\ L'ordre des mots clefs est important. LIMIT vient toujours après ORDER BY.
+
+
+     Insérer des données
+
+ INSERT INTO jeux_video(field1, field2, field3, field4, field5) VALUES('', 3, '', '', 45)
+ Si un champ est configuré comme devant être automatiquement incrémenté, il ne doit pas être mentionné.
+
+
+     Modifier des données
+
+UPDATE table SET field2 = 34, field5='' WHERE IDfield = 34
+
+/!\ Il est captial de définir des conditons sous peine de modifier toutes les entrées de la base de données.
+
+
+    Supprimer des données
+
+DELETE FROM table WHERE field=''
+
+/!\ Il est captial de définir des conditons sous peine de SUPPRIMER toutes les entrées de la base de données.
+
 
     Conditions operators
 
