@@ -3,7 +3,6 @@ SELECT * FROM table WHERE conditions ORDER BY fields DESC LIMIT 29, 10
 Cette requête récupère les 10 entrées après l'entrée n°30 (29 + 1) de la table qui respectent les conditions, triées dans l'ordre inverse par rapport au champ.
 /!\ L'ordre des mots clefs est important. LIMIT vient toujours après ORDER BY.
 
-
     Conditions operators
 
 =, <, >, >=, <=, OR, AND
