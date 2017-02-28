@@ -1,0 +1,51 @@
+    Les sessions
+
+Les sessions sont gérées par le serveur PHP. Quand un utilisateur se connecte sur le site, PHP lui génère automatiquement un ID de session (PHPSESSID) si la fonction session_start() est appelée. Celui-ci est conservé sur l'ordinateur du visiteur à l'aide d'un cookie. Quand la fontion session_destroy() est appelée, la session est détruite. Cet appel peut être fait par l'utilisateur (à l'aide d'un bouton déconnexion) ou par PHP après un temps de timeout.
+
+/!\ session_start() doit être appelé avant tout contenu html (doctype compris).
+
+Pendant toute la durée de la session, il est possible de faire transiter des informations entre les pages à l'aide de la variable superglobales $_SESSION.
+
+
+        Créer une variable de session
+
+    $_SESSION['username']="Drenock";
+
+        Récupérer une variable de session
+
+    $_SESSION['username']
+
+
+    Les cookies
+
+/!\ Les cookies peuvent être modifiés par les visiteurs. Il est donc important de faire attention à leur contenu.
+
+Un cookie est un petit fichier texte enregistré sur l'ordinateur du visiteur. Il permet d'enregistrer des données afin de les récupérer lors de sa prochaine visite.
+Il est conseillé de créer un cookie par information. Ainsi, si l'on souhaite enregistrer le username et la date de naissance du visiteur, nous ferons 2 cookies.
+/!\ Tout cookie qui se respecte a une date d'expiration.
+
+Lors de la création d'un cookie, nous indiquerons généralement 3 valeurs :
+1. Le nom du cookie
+2. Son contenu
+3. Sa date d'expiration
+
+La date d'expiration est notée en timestamp, c'est à dire en nombre de secondes écoolées depuis ler janvier 1970. Pour connaitre le timestamp actuel, il faut faire appel à la fonction time(). On ajoute ensuite au résultat de la fonction la durée de temps de vie du cookie en secondes.
+
+/!\ Il est recommandé de créer un cookie en mode httpOnly afin de rendre le cookie inaccessible en JavaScript. Cette option réduit drastiquement les risques de faille XSS.
+
+/!\ setcookie() doit être appelé avant tout contenu html (doctype compris).
+
+        Créer un cookie
+
+    <?php setcookie('username', 'Drenock', time() + 365*24*3600, null, null, false, true); ?>
+    (C'est le dernier paramètre qui active le mode httpOnly)
+
+    /!\ <?php setcookie('username', 'Drenock', time() + 365*24*3600); ?>
+
+        Changer la valeur du cookie
+
+    Il suffit d'en créer un nouveau avec le même nom, le contenu sera écrasé.
+
+        Récupérer le contenu d'un cookie
+
+    $_COOKIE['username']

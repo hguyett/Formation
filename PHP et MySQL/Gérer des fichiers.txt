@@ -1,0 +1,37 @@
+/!\ Avant de pouvoir gérer des fichiers, il faut donner les droits nécessaires à PHP pour lire et écrire dans le dossier.
+
+    Ouvrir un fichier
+
+$file = fopen('myFile.txt', 'r+');
+
+        Le second paramètre
+
+    r: read-only
+    r+: read and write
+    a: write-only (will create a file if it doesn't exist already).
+    a+: read and write without erasing. (will create a file if it doesn't exist already. If it already exists, informations will be written at the end of it).
+    et d'autres : https://secure.php.net/manual/en/function.fopen.php
+
+    Fermer un fichier
+
+fclose($file);
+
+
+    Lire un fichier
+
+fgetc($file) : lire caractère par caractère.
+fgets($file) : lire ligne par ligne.
+
+Le curseur de PHP (là où il lit et où il écrit) se trouvera à la fin de la ligne avec l'appel à la fonction fgets.
+
+
+    Écrire dans un fichier
+
+fputs($file, 'Data');
+
+
+    Replacer le curseur au début du fichier
+
+fseek($file, 0);
+
+/!\ Ne fonctionnera pas si le fichier a été ouvert avec 'a' ou 'a+' en second paramètre.

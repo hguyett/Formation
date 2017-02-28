@@ -1,0 +1,66 @@
+Il existe trois groupes de méthodes pour se connecter à une base de donnée MySQL avec PHP :
+mysql_ : Ces méthodes sont obsolètes, il est recommandé de ne plus les utiliser.
+mysqli_ : Ces méthodes offrent plus de fonctionnalités et sont à jour.
+PDO : Il s'agit des méthodes les plus récentes. Elles ont l'avantage de s'adapter à toutes les bases de données. C'est celles que nous utiliserons.
+
+
+    Se connecter à la base de données
+
+$database = new PDO('mysql:host=localhost;dbname=test;charset=utf8', 'root', '');
+Le premier paramètre (qui commence parmysql) s'appelle le DSN : Data Source Name. C'est généralement le seul qui change en fonction du type de base de données auquel on se connecte.
+La connexion doit être établie sur chaque page php utilisant la base de données.
+
+$database = new PDO('mysql:host=localhost;dbname=test;charset=utf8', 'username', 'password', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
+Cette connexion permet d'afficher les erreurs SQL.
+
+    Gérer les erreurs MySQL
+
+try
+{
+	$bdd = new PDO('mysql:host=localhost;dbname=test;charset=utf8', 'root', '');
+}
+catch (Exception $e)
+{
+        die('Erreur : ' . $e->getMessage());
+}
+
+
+    Envoyer une requête
+
+$data = $bdd->query('Tapez votre requête SQL ici');
+
+
+    Envoyer une requête préparée
+
+Afin d'empêcher les injections SQL, si l'on souhaite insérer une valeur provenant d'un formulaire ou d'une entrée utilisateur dans la requête, il faut créer une requête préparée. De plus, ce systême permet d'effectuer facilement plusieurs requêtes en y changeant quelques arguments.
+
+        Préparer la requête
+    <?php
+        $query = $database->prepare('SELECT fields FROM table WHERE field = ? AND anotherField <= ?');
+    ?>
+
+    <?php
+        $query = $database->prepare('SELECT fields FROM table WHERE field = :this AND anotherField <= :that');
+        //Cette méthode permet d'utiliser un tableau associatif, ce qui est pratique quand il y a beaucoup de paramètres.
+    ?>
+
+        Exécuter la requête
+
+    <?php
+        $query->execute(array($_GET[something], $somethingElse))
+    ?>
+
+    <?php
+        $query->execute(array('this' => $_GET[something], 'that' => $somethingElse))
+        //Cette méthode permet d'utiliser un tableau associatif, ce qui est pratique quand il y a beaucoup de paramètres. Dans ce cas, l'ordre n'a plus d'importance.
+    ?>
+
+    Lire le résultat d'une requête
+
+while ($data_record = $data->fetch())
+{
+    echo '<p>' . $data_record['field'] . '</p>'
+}
+$data->closeCursor(); //Cette ligne provoque la fermeture du curseur d'analyse de résultats. Elle est éssentielle au bon déroulement du traitement de la prochaine requête car elle libère la connexion au serveur.
+
+La fonction fetch() permet de lire la réponse de la base de données ligne par ligne. Fetch vaut "False" si aucune ligne n'est présente, ce qui quitte la boucle.
