@@ -1,0 +1,80 @@
+    les fonctions scalaires
+
+Elles agissent sur chaque entrée. Par exemple, vous pouvez transformer en majuscules la valeur de chacune des entrées d'un champ ;
+
+        UPPER(field)
+    Convertit les valeurs en majuscules.
+    Exemple: SELECT UPPER(field) FROM table
+
+
+        LOWER(field)
+    Convertit les valeurs en minuscule.
+
+        LENGTH(field)
+    Compte le nombre de caractères.
+
+        ROUND(field, number)
+    Arrondi les décimaux à X nombres après la virgule.
+    Exemple: SELECT ROUND(prix, 2) AS prix_arrondi FROM jeux_video
+
+        NOW(), CURDATE(), CURTIME()
+    Permet de récupérer la date et/ou l'heure actuelle. Utile lors de l'insertion de dates.
+    Exemple : INSERT INTO table VALUES (date_field) (NOW())
+
+        DATE_ADD(), DATE_SUB()
+    Permet de récupérer une date et de la modifier.
+    Exemple: DATE_ADD(date_field, INTERVAL 15 DAY) AS later_date FROM table
+
+        DAY(), DAYNAME(), MONTH(), YEAR(), HOUR(), MINUTE() ...
+    Permet de récupérer une information précise concernant une date.
+    Exemple: SELECT DAY(date_field) AS day_of_date FROM table
+
+        DATE_FORMAT()
+    Permet d'insérer ou de récupérer une date écrite dans un format précis.
+    Exemples:
+    DATE_FORMAT(date_field, '%W %M %Y %H:%i') -> Sunday October 2009 22:34
+    INSERT INTO table VALUES (date_field) (DATE_FORMAT(2/3/17, '%e/%c/%y'))
+    https://dev.mysql.com/doc/refman/5.7/en/date-and-time-functions.html#function_date-format
+
+        Autres fonctions
+    Dates et heures : https://dev.mysql.com/doc/refman/5.7/en/date-and-time-functions.html
+    Chaines de caractères :https://dev.mysql.com/doc/refman/5.7/en/string-functions.html
+    Fonctions numériques : https://dev.mysql.com/doc/refman/5.7/en/numeric-functions.html
+
+
+    les fonctions d'agrégat
+
+Lorsque vous utilisez ce type de fonctions, des calculs sont faits sur l'ensemble de la table pour retourner une valeur. Par exemple, calculer la moyenne des prix retourne une valeur : le prix moyen. Il est fortement conseillé d'utiliser des champs virtuels pour retourner la valeur afin de ne pas la confondre avec autre chose. De plus, il ne faut pas mélanger une fonction d'agrégat avec d'autres champs : SELECT AVG(prix) AS prix_moyen, nom FROM jeux_video n'a pas de sens.
+
+        AVG(field)
+    Calcule la moyenne.
+    Exemple : SELECT AVG(field) AS field_average FROM table
+
+        SUM(field)
+    Calcule la somme.
+
+        MAX(field)
+    Retourne la valeur maximale.
+
+        MIN(field)
+    Retourne la valeur minimale.
+
+        COUNT(*)
+    Compte le nombre d'entrées. Si on indique un champ à la place de *, il comptera le nombre d'entrées pour lesquels ce champ ne vaut pas NULL. Avec le mot clé DISTINCT, il est possible de compter le nombre de valeurs uniques existantes pour un champ.
+    Exemple : SELECT COUNT(DISTINCT field) AS nb_of_field FROM table
+
+        GROUP BY
+    Ce mot clé peut être utilisé en combinaison avec une fonction d'agrégat afin de ressortir une valeur par catégorie, les catégories étant définies par le champ indiqué après GROUP BY.
+    Exemple :
+    SELECT AVG(price) AS price_average, console FROM table GROUP BY category_field
+
+        HAVING
+    Permet de filtrer les résultats APRÈS le GROUP BY et donc après l'exécution de la fonction d'agrégat (contrairement à WHERE qui filtre les résultats avant l'exécution de la fonction d'agrégat).
+    Exemple : SELECT AVG(price) AS average_price, game_platform FROM games WHERE owner='Patrick' GROUP BY game_platform HAVING average_price <= 10
+    Ici, on demande à récupérer le prix moyen par console de tous les jeux de Patrick (WHERE), à condition que le prix moyen des jeux de la console ne dépasse pas 10 euros (HAVING).
+
+
+    Les champs virtuels
+
+Il est possible de créer un nouveau champ qui contiendra les valeurs renvoyées par la fonction. Ceci permet de renommer le champ username en Upper_username quand il a été transformé en majuscules, ce qui donne plus de cohérence au code lors du traitement du champ.
+Exemple: SELECT UPPER(field) AS upper_field, field2, field3 FROM table

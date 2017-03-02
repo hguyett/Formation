@@ -1,0 +1,15 @@
+form {
+    overflow: hidden;
+    max-width: 50%;
+    margin: auto;
+    padding: 10px;
+    background-color: grey;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+form p:first-child {
+    display: flex;
+    flex-direction: column;
+    max-width: 80%;
+}

@@ -28,4 +28,4 @@ DELETE FROM table WHERE field=''
 
     Conditions operators
 
-=, <, >, >=, <=, OR, AND
+=, <, >, >=, <=, OR, AND, BETWEEN
