@@ -9,7 +9,9 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Commentaires</h1>
+    <header>
+        <h1>Commentaires</h1>
+    </header>
 <?php
 if (isset($_GET['ID']) and (int)$_GET['ID']>0) {
     try {
