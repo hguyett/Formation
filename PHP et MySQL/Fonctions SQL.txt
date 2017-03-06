@@ -72,9 +72,3 @@ Lorsque vous utilisez ce type de fonctions, des calculs sont faits sur l'ensembl
     Permet de filtrer les résultats APRÈS le GROUP BY et donc après l'exécution de la fonction d'agrégat (contrairement à WHERE qui filtre les résultats avant l'exécution de la fonction d'agrégat).
     Exemple : SELECT AVG(price) AS average_price, game_platform FROM games WHERE owner='Patrick' GROUP BY game_platform HAVING average_price <= 10
     Ici, on demande à récupérer le prix moyen par console de tous les jeux de Patrick (WHERE), à condition que le prix moyen des jeux de la console ne dépasse pas 10 euros (HAVING).
-
-
-    Les champs virtuels
-
-Il est possible de créer un nouveau champ qui contiendra les valeurs renvoyées par la fonction. Ceci permet de renommer le champ username en Upper_username quand il a été transformé en majuscules, ce qui donne plus de cohérence au code lors du traitement du champ.
-Exemple: SELECT UPPER(field) AS upper_field, field2, field3 FROM table

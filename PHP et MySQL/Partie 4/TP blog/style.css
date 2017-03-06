@@ -1,0 +1,43 @@
+/*Color Palette
+Base : #B2462B
+#663C31
+#8DBF4B*/
+
+header {
+    background-color: #B2462B;
+    color: #8DBF4B;
+    padding: 5px;
+    border-radius: 100px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+article {
+    background-color: #663C31;
+    padding: 5px;
+    border-radius: 15px 15px 0 0;
+    border: solid #B2462B;
+    border-width: 5px 0 0 5px;
+}
+
+article h1 {
+    color: #8DBF4B;
+}
+
+article p {
+    margin: 0;
+    color: white;
+}
+
+article + p {
+    margin-top: 0;
+    padding: 5px 0 5px 10px;
+    background-color: #663C31;
+    border: solid #B2462B;
+    border-width: 5px 0 5px 5px;
+    border-radius: 0 0 15px 15px;
+}
+
+article + p a {
+    color: #8DBF4B;
+}

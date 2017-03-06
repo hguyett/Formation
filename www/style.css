@@ -1,36 +1,69 @@
-/*Color Palette
-Base : #B2462B
-#663C31
-#8DBF4B
-#122D7F
-#7295FF*/
+form {
+    /*display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;*/
+    width: 50%;
+    margin: auto;
+    overflow: auto;
+    padding: 5px 0 5px 0;
+    background-color: grey;
+    border: 2px solid black;
+    border-radius: 10px;
+}
 
-header {
-    background-color: #B2462B;
-    color: #8DBF4B;
-    padding: 5px;
-    border-radius: 100px;
+label {
+    color: maroon;
+    font-weight: bold;
+}
+
+input[type="text"] {
+    border: 0;
+    border-radius: 3px;
+    padding: 3px 0;
+    text-indent: 2px;
+}
+
+input[type="submit"] {
+    border-radius: 5px;
+
+}
+
+textarea {
+    width: 98%;
+    resize: none;
+    margin: 5px 1%;
+    border: 0;
+    border-radius: 5px;
+    padding: 5px 0;
+    text-indent: 2px;
+}
+
+.day-wrapper {
+    background-color: white;
+    width: 80%;
+    border: solid black;
+    border-width: 2px 0 0 2px;
+    border-radius: 5px;
+    padding-bottom: 16px;
+    margin: 15px auto;
+}
+
+.day-wrapper h1 {
+    margin: 0 5px;
+    color: maroon;
+    text-align: left;
+}
+
+/*
+form p {
+    flex-direction: column;
+}
+
+textarea {
+    resize: none;
+}*/
+
+#minichat {
     text-align: center;
-    margin-bottom: 15px;
-}
-
-article {
-    background-color: #663C31;
-    padding: 5px;
-    border-radius: 15px 15px 0px 0px;
-    border: solid #B2462B;
-    border-width: 5px 0px 0px 5px;
-}
-
-article h1 {
-    color: #8DBF4B;
-}
-
-article p {
-    margin: 0;
-    color: #7295FF;
-}
-
-article + p {
-    margin-top: 5px;
 }

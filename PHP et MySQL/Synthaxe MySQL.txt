@@ -29,3 +29,19 @@ DELETE FROM table WHERE field=''
     Conditions operators
 
 =, <, >, >=, <=, OR, AND, BETWEEN
+
+
+Les alias (champs et tables virtuels)
+
+Il est possible de créer un nouveau champ qui contiendra les valeurs renvoyées par la fonction. Ceci permet de renommer le champ username en Upper_username quand il a été transformé en majuscules, ce qui donne plus de cohérence au code lors du traitement du champ.
+Exemple: SELECT UPPER(field) AS upper_field, field2, field3 FROM table
+
+Il est également possible de renommer les tables. Cette pratique est utile lors de jointures pour rendre les requêtes plus lisibles.
+
+    Exemple
+
+SELECT t1.field, t2.field
+FROM table1 AS t1, table2 AS t2
+WHERE t1.key = t2.ID
+
+NOTE : Le mot clé AS est facultatif.

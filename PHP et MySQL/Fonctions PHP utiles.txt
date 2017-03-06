@@ -1,0 +1,13 @@
+    isset()
+
+Vérifie si une variable est initialisée.
+
+
+    empty()
+
+Vérifie si une variable est vide.
+
+
+    nl2br()
+
+Permet de transformer les retours à la ligne dans un texte en <br />.

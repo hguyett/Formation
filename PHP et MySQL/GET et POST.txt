@@ -21,9 +21,11 @@ On récupère ces informations via le tableau associatif $_POST.
 Il est très important de tester rigoureusement les variables qui transitent par la méthode GET et POST pour des raisons de sécurité.
 /!\ IL NE FAUT PAS FAIRE PLUS CONFIANCE À LA MÉTHODE POST QU'À LA MÉTHODE GET.
 
-La fonction PHP isset() permet de vérifier qu'une variable existe.
+La fonction PHP isset() permet de vérifier qu'une variable existe, et empty() permet de vérifier si elle est vide.
 Il est possible de transtyper (caster) les variables pour s'assurer qu'elles soient du bon type.
-Il est possible de transformer les caractères spéciaux en entités html grâce à la fonction htmlspecialchars() et htmlentities(). Cf. https://secure.php.net/manual/en/function.htmlentities.php et commentaires
+Il est possible de transformer les caractères spéciaux en entités html grâce à la fonction htmlspecialchars() et htmlentities().
+Si l'insertion a lieu dans un attribut HTML, il est IMPÉRATIF d'utiliser les options d'encodage des guillemets simpes et double pour prévenir des failles XSS. Par ailleurs, cela ne permet pas d'éviter la faille XSS si l'insertion se fait dans l'attribut href d'une balise a par exemple.
+Cf. https://secure.php.net/manual/fr/function.htmlentities.php#99896
 
     Données renvoyées par les formulaires
 

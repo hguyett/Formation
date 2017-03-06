@@ -1,0 +1,42 @@
+Les jointures permettent de lier les tables entre elles afin de récupérer des informations liées entre elles.
+
+    Jointure interne
+
+La jointure interne ne sélectionne que les données qui ont une correspondance entre les deux tables.
+
+        Synthaxe
+
+    SELECT t1.field field_t1, t2.field field_t2
+    FROM table1 t1
+    INNER JOIN table2 t2
+    ON t1.key = t2.ID
+    WHERE
+    ORDER BY
+    LIMIT
+
+        Ancienne synthaxe
+
+    SELECT t1.field field_t1, t2.field field_t2
+    FROM table1 t1, table2 t2
+    WHERE t1.key = t2.ID
+
+
+    Jointure externe
+
+La jointure externe sélectionne toutes les données de l'une des deux tables, même si certaines n'ont pas de corerespondance dans l'autre table. Quand il n'y a pas de correspondance, les valeurs pour les champs de l'autre table ont pour valeur NULL.
+
+        Sythaxe
+
+    SELECT t1.field field_t1, t2.field field_t2
+    FROM table1 t1
+    LEFT JOIN table2 t2
+    ON t1.key = t2.ID
+
+    Sélectionnera également les données de la table t1 qui n'ont pas de correspondance dans la table t2.
+
+    SELECT t1.field field_t1, t2.field field_t2
+    FROM table1 t1
+    RIGHT JOIN table2 t2
+    ON t1.key = t2.ID
+
+    Sélectionnera également les données de la table t2 qui n'ont pas de correspondance dans la table t1.

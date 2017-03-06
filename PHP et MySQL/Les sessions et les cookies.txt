@@ -18,7 +18,7 @@ Pendant toute la durée de la session, il est possible de faire transiter des in
 
     Les cookies
 
-/!\ Les cookies peuvent être modifiés par les visiteurs. Il est donc important de faire attention à leur contenu.
+/!\ Les cookies peuvent être modifiés par les visiteurs. Il est donc important de faire attention à leur contenu. Le contenu d'un cookie est automatiquement transcodé en URL avec setcookie(), mais pas avec setrawcookie().
 
 Un cookie est un petit fichier texte enregistré sur l'ordinateur du visiteur. Il permet d'enregistrer des données afin de les récupérer lors de sa prochaine visite.
 Il est conseillé de créer un cookie par information. Ainsi, si l'on souhaite enregistrer le username et la date de naissance du visiteur, nous ferons 2 cookies.
