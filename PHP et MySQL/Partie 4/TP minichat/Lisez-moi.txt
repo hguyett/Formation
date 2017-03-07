@@ -1,0 +1,15 @@
+Le fichier SQL créer une nouvelle base de donnée nommée "minichat_hguyett", avec une table nommée "messages" contenant 4 champs :
+
+'ID': int(11) Auto_increment
+'Pseudo': varchar(30)
+'Time_posted' : datetime
+'Message' : text
+
+Les identifiants utilisés pour le serveur MySQL sont les suivants :
+username = "root"
+password = ""
+
+Si ces identifiants ne sont pas les mêmes pour votre serveur, pensez à modifier la ligne de connection à la base de donnée dans les fichiers minichat.php et minichat_POST.php
+
+Me contacter :
+hadrien.guyette@bluesustainia.be

@@ -1,15 +1,58 @@
 form {
-    overflow: hidden;
-    max-width: 50%;
+    width: 50%;
     margin: auto;
-    padding: 10px;
+    overflow: auto;
+    padding: 5px 0 5px 0;
     background-color: grey;
     border: 2px solid black;
     border-radius: 10px;
 }
 
-form p:first-child {
-    display: flex;
-    flex-direction: column;
-    max-width: 80%;
+label {
+    color: maroon;
+    font-weight: bold;
+    margin-left: 15px;
+}
+
+input[type="text"] {
+    border: 0;
+    border-radius: 3px;
+    padding: 3px 0;
+    text-indent: 2px;
+    margin-left: 1%;
+}
+
+input[type="submit"] {
+    border-radius: 5px;
+}
+
+#submit {
+    text-align: center;
+}
+
+textarea {
+    width: 98%;
+    resize: none;
+    margin: 5px 1%;
+    border: 0;
+    border-radius: 5px;
+    padding: 5px 0;
+    text-indent: 2px;
+}
+
+.day-wrapper {
+    background-color: white;
+    width: 70%;
+    border: solid black;
+    border-width: 2px 0 0 2px;
+    border-radius: 5px;
+    padding: 0 15px 16px 15px;
+    margin: 30px auto;
+    word-wrap: break-word;
+}
+
+.day-wrapper h1 {
+    margin: 0 5px;
+    color: red;
+    text-align: left;
 }
