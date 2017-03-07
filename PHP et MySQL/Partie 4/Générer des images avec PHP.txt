@@ -1,0 +1,112 @@
+Pour générer des images avec PHP, on utilise l'extension php_gd2.
+
+
+    Créer une image vierge
+
+$image = iamgecreate(200,50);
+Créer une image vierge 256 couleurs de 200 pixels de large et 50 de haut.
+
+$image = imagecreatetruecolor(200,50);
+
+
+    Créer une image à partir d'une image
+
+$image = imagecreatefromjpeg("couchersoleil.jpg");
+$image = imagecreatefrompng("avatar.png");
+
+
+    Générer l'image
+
+imagepng($image);
+imagejpeg($image);
+
+    Déclarer une page php comme étant une image
+
+header ("Content-type: image/png");
+
+
+    Afficher l'image
+
+<img src="image.php">
+L'image sera regénérée à chaque affichage ! Pratique quand on veut la personnaliser.
+
+
+    Enregistrer l'image sur le disque
+
+imagepng($image, "images/monimage.png");
+imagejpeg($image, "images/monimage.jpeg");
+Pratique si l'image ne doit pas être personnalisée : évite au serveur PHP de recalculer l'image systématiquement.
+
+
+    Créer des miniatures
+
+/!\ Générer une miniature demande beaucoup de calculs, aussi il est VIVEMENT déconseillé de regénérer les miniatures à chaque chargement de la page. Il vaut mieux les enregistrer sur le disque. En effet, PHP doit recalculer toutes les couleurs pour que la miniature soit la plus fidèle possible.
+
+$image_de_destination = imagecreatetruecolor(200,50);
+imagecopyresampled($image_de_destination, $image, $x_destination, $y_destination, $x, $y, $largeur_destination, $hauteur_destination, $largeur_source, $hauteur_source);
+$x_destination et $y_destination déterminent l'endroit où placer la miniature sur l'image de destination
+$x et $y indiquent où miniaturiser.
+$largeur_destination et $hauteur_destination indiquent la taille de la miniature à créer
+$largeur_source et $hauteur_source indiquent combien de pixels miniaturiser.
+
+
+    Sélectionner une couleur
+
+$noir = imagecolorallocate($image, 0, 0, 0);
+Le premier appel à cette fonction change la couleur de fond de l'image.
+
+
+    Écrire sur l'image
+
+imagestring($image, $police, $x, $y, $texte_a_ecrire, $couleur);
+$image : variable contenant l'image.
+$police : La police de caractères que vous voulez utiliser. Vous devez mettre un nombre de 1 à 5 ; 1 = petit, 5 = grand. Il est aussi possible d'utiliser une police de caractères personnalisée, mais il faut avoir des polices dans un format spécial.
+$x et $y : ce sont les coordonnées auxquelles vous voulez placer votre texte sur l'image. L'origine se trouve en haut à gauche de votre image. Les valeurs vont de 0 à pixels - 1
+$texte_a_ecrire :Texte à afficher.
+$couleur : Couleur créée avec imagecolorallocate.
+
+
+    Rendre une couleur transparente
+
+imagecolortransparent($image, $couleur);
+
+
+    Récupérer la hauteur et la largeur d'une image
+
+$largeur_image = imagesx($source);
+$hauteur_image = imagesy($source);
+
+    Fusionner deux images
+
+imagecopymerge($image, $image_à_ajouter, $x, $y, $x_image_à_ajouter, $y_image_à_ajouter, $largeur_image, $hauteur_image, 60);
+$x et $y indiquent où placer l'image à ajouter sur l'image source.
+$x_image_à_ajouter et $y_image_à_ajouter permettent de ne prendre qu'une partie de l'image à ajouter.
+$largeur_image et $hauteur_image permmettent de ne prendre qu'une partie de l'image source.
+Le dernier paramètre indique la transparence de l'image à ajouter en pourcentage.
+
+
+    Changer un pixel
+
+ImageSetPixel ($image, $x, $y, $couleur);
+
+
+    Tracer une ligne
+
+ImageLine ($image, $x1, $y1, $x2, $y2, $couleur);
+
+
+    Tracer une éllipse
+
+ImageEllipse ($image, $x, $y, $largeur, $hauteur, $couleur);
+
+
+    Tracer un rectangle
+
+ImageRectangle ($image, $x1, $y1, $x2, $y2, $couleur);
+Les deux points représentent les angles opposés du rectangle.
+
+
+    Tracer un polygone
+
+ImagePolygon ($image, $array_points, $nombre_de_points, $couleur);
+ L'array $array_points contient les coordonnées de tous les points du polygone dans l'ordre : $x_1$, $y_1$, $x_2$, $y_2$, $x_3$, $y_3$, $x_4$, $y_4$…

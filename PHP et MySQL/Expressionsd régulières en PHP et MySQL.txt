@@ -1,0 +1,103 @@
+Les expressions régulières (REGEX) constituent un système très puissant et très rapide pour faire des recherches dans des chaînes de caractères (des phrases, par exemple).
+
+Il existe deux types d'expressions régulières : POSIX ET PCRE.
+POSIX: propre au PHP, elle est un peu plus simple.
+PCRE: Issue de PERL, considéré comme un peu plus complexe, Les PCRE ont pour avantage d'être beaucoup plus rapides et performantes. C'est donc ces expressions que nous allons apprendre à utiliser.
+
+/!\ MySQL comprend les REGEX POSIX, pas les PCRE. Les différences sont :
+Il n'y a pas de délimiteurs ni d'options.
+Il n'y a pas de classes abrégées, excepté le ".".
+
+Exemple :
+SELECT nom FROM visiteurs WHERE ip REGEXP '^84\.254(\.[0-9]{1,3}){2}$'
+Cette requête sélectionnera tous les noms des visiteurs dont l'ip commence par 84.254.
+
+    Les fonctions disponibles
+
+preg_grep
+preg_split
+preg_quote
+preg_match($expression_régulière, $string): Renvoie un booléen. Vrai si le mot est trouvé, faux sinon.
+preg_match_all
+preg_replace($expression_régulèire, $règle_de_remplacement, $string): Renvoie le string modifié par les indications données dans $règle_de_remplacement.
+Pour récupérer les caractères de l'expression régulière afin de les réutiliser dans la règle de remplacement, il faut les entourer des parenthèses. On utilise ensuite $1, $2, $3,... pour récupérer respectivement ce qui se trouve dans la première parenthèse, dans la deuxième, dans la 3ème, etc.
+
+preg_replace_callback
+
+    Synthaxe
+
+        Les délimiteurs
+
+    #Regex#options
+    N'importe quel caractère spécial peut être utilisé comme délimiteur. Ici, j'ai utilisé dièse. On indiquera les options après le délimiteur de fin.
+
+
+        Les options
+
+    #Regex#i : Rend insensible à la casse.
+    #.#s : Indique que les points peuvent également représenter une nouvelle ligne (\n).
+
+
+        Recherche simple
+
+    #word#
+    les suites de caractères seront recherchées tel quel.
+
+
+        OU
+
+    #http|https|ftp# : La chaîne doit contenir htttp, https ou ftp.
+
+
+        Début et fin de chaîne
+
+    #^Start# : La chaîne doit commencer par "Start".
+    #End$# : La chaîne doit finir par "End".
+    #^String$# : La chaîne doit être égale à "String".
+
+
+        Les classes de caractères et intervalles de classe.
+
+    #gr[iao]s# : La chaîne doit contenir gris, gras ou gros.
+    #[a-z]# : La chaine doit contenir une lettre minuscule.
+    #[a-zA-Z1-9]# : La chaine doit contenir une lettre minuscule, majuscule ou un chiffre.
+    #[^c-h]# : La chaine doit contenir au moins une lettre qui ne se trouve pas entre c et h.
+    #[a-hwx]# : La chaine doit contenir une lettre comprise entre a et h, ou w, ou x.
+
+    /!\ Il n'est pas possible d'indiquer des nombres. Il faut pour cela indiquer une suite de chiffres. exemples :
+    #^[1-68]$# : La chaine doit être un chiffre de 1 à 6 ou le 8.
+    #^[0-9]+$# : La chaine doit être un nombre.
+            Les classes abrégées
+
+        . : indique n'importe quel caractère SAUF \n.
+        \d : indique un chiffre. [0-9]
+        \D : indique ce qui n'est PAS un chiffre. [^0-9]
+        \w : Indique un caractère alphanumérique ou un tiret de soulignement. [a-zA-Z0-9_]
+        \W : Indique ce qui n'est PAS un mot. [^a-zA-Z0-9_]
+        \t : indique une tabulation.
+        \n : indique une nouvelle ligne.
+        \r : indique un retour chariot.
+        \s : indique un espace blanc.
+        \S : indique ce qui n'est PAS un espace blanc (\t \n \r)
+
+
+        Les quantificateurs
+
+    ?: indique que le caractère doit être présent zéro ou une fois.
+    exemple : #https?# signifie http ou https.
+    +: le caractère doit être présent une ou plusieurs fois.
+    *: le caractère doit être présent zéro, une ou plusieurs fois.
+    {4}: le caractère doit être présent quatre fois.
+    {3,6}: le caractère doit être présent de trois à six fois.
+    {5,}: le caractère doit être présent au moins 5 fois.
+
+    Pour appliquer un quantificateur à plusieurs caractères, il faut les entourer de parenthèses.
+    #(Ay|Oy)+#: Recherche une chaine de caractères composée de répétition de Ay et/ou de Oy, comme "AyOyOyAyAyAyOyAy".
+
+
+        Échappement des métacaractères
+
+    Pour échapper un métacaractère, on utilisera l'antislash.
+    #\?# Recherchera un point d'interrogation.
+    Voici la liste des métacaractères : # (ou un autre délimiteur) ! ^ $ ( ) [ ] { } ? + * . \ |
+    /!\ à l'intérieur d'une classe de caractères, seuls ces 3 caractères doivent être échappés : # ] -
