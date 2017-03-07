@@ -101,3 +101,10 @@ preg_replace_callback
     #\?# Recherchera un point d'interrogation.
     Voici la liste des métacaractères : # (ou un autre délimiteur) ! ^ $ ( ) [ ] { } ? + * . \ |
     /!\ à l'intérieur d'une classe de caractères, seuls ces 3 caractères doivent être échappés : # ] -
+
+
+    Exemples de REGEX
+
+Numéro de téléphone français : #^0[1-68]([-. ]?[0-9]{2}){4}$#
+
+Adresse e-mail : #^[a-z0-9_.\-]+@[a-z0-9._\-]+\.[a-z]{2,4}$#
