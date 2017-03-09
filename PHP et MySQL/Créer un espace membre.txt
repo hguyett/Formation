@@ -5,3 +5,15 @@ Il faut au moins 3 pages php : inscription.php, connexion.php et deconnexion.php
 On utilisera soit l'adresse, soit le login pour identifier l'utilisateur. Le mail est souvent utiliser dans les sites d'e-commerce, toutefois si le visiteur peut être amené à poster des messages, il préfèrera pouvoir utiliser un pseudonyme.
 Il est préférable de ne demander que le strict minimum, tout en laissant la possibilité au membre de remplir le reste des informations dans son espace membre.
 Demander à réécrir le mot de passe 2 fois : le visiteur ne peut pas vérifier s'il c'est trompé ou non étant donné que les caractères sont cachés.
+Le mot de passe doit être stocké sous forme de hash dans la DB. Il est possible de le saler.
+
+    Lors de la connexion
+
+Il faudra hasher à nouveau le mot de passe pour le comparer au hash dans la DB.
+On peut stocker le login et le hash dans un cookie pour permettre un connexion automatique.
+
+    Aller plus loin
+
+Proposer aux membres d'utiliser un avatar.
+Créer des pages de profil pour les membres.
+Laisser la possibilité de changer ses identifiants.
