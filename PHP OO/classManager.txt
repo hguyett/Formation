@@ -1,0 +1,81 @@
+//Un manager est une classe qui va gérer la représentation d'un objet dans la base de donnée. On sépare ainsi la gestion de l'objet PHP de l'entrée dans la base de données.
+
+class MyClassManager
+{
+    private $database; //Instance de PDO. Un setter est nécessaire, mais pas de getter.
+
+    //Construit le manager en initialisant l'objet PDO à l'aide du mutateur.
+    public function __construct($database)
+    {
+        $this->setDatabase($database);
+    }
+
+    // Préparation de la requête d'insertion.
+    // Assignation des valeurs pour les propriétés de l'objet de type MyClass.
+    // Exécution de la requête.
+    public function add(MyClass $object)
+    {
+        $query = $this->database->prepare('INSERT INTO myclass(property1, property2, property3, property4) VALUES (:property1, :property2, :property3, :property4)');
+
+        $query->bindValue(':property1', $MyClass->property1(), PDO::PARAM_INT);
+        $query->bindValue(':property2', $MyClass->property2(), PDO::PARAM_INT);
+        $query->bindValue(':property3', $MyClass->property3(), PDO::PARAM_INT);
+        $query->bindValue(':property4', $MyClass->property4(), PDO::PARAM_INT);
+
+        $query->execute();
+    }
+
+    // Exécute une requête de type DELETE.
+    public function delete(MyClass $object)
+    {
+        $this->_db->exec('DELETE FROM myclass WHERE id = '.$object->id());
+    }
+
+    // Prépare une requête de type UPDATE.
+    // Assignation des valeurs à la requête.
+    // Exécution de la requête.
+    public function update(Personnage $perso)
+    {
+        $query = $this->database->prepare('UPDATE myclass SET property1 = :property1, property2 = :property2, property3 = :property3, property4 = :property4 WHERE id = :id');
+
+        $query->bindValue(':property1', $object->property1(), PDO::PARAM_INT);
+        $query->bindValue(':property2', $object->property2(), PDO::PARAM_INT);
+        $query->bindValue(':property3', $object->property3(), PDO::PARAM_INT);
+        $query->bindValue(':property4', $object->property4(), PDO::PARAM_INT);
+        $query->bindValue(':id', $object->id(), PDO::PARAM_INT);
+
+        $query->execute();
+    }
+
+
+    // Exécute une requête de type SELECT avec une clause WHERE, et retourne un objet MyClass.
+    public function get($id)
+    {
+        $id = (int) $id;
+
+        $query = $this->database->query('SELECT id, property1, property2, property3, property4 FROM myclass WHERE id = '.$id);
+        $data = $query->fetch(PDO::FETCH_ASSOC);
+
+        return new MyClass($data); //Appel au constructeur de la classe pour renvoyer une instance hydratée.
+    }
+
+    // Retourne la liste de tous les objets.
+    public function getList()
+    {
+    $objects = [];
+
+        $query = $this->database->query('SELECT id, property1, property2, property3, property4 FROM myclass ORDER BY id');
+
+        while ($data = $query->fetch(PDO::FETCH_ASSOC))
+        {
+          $objects[] = new MyClass($data);
+        }
+
+        return $objects;
+    }
+
+    public function setDatabase($db);
+    {
+        $this->$database = $db;
+    }
+}

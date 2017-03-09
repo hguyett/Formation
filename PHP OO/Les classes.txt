@@ -1,0 +1,77 @@
+<?php
+class ClassName // Présence du mot-clé class suivi du nom de la classe.
+// /!\ Les noms de classes sont notés en UpperCamelCase.
+// Chaque classe devrait être enregistrée séparément dans un fichier PHP qui lui est propre. ici : ClassName.php
+{
+    // Déclaration des attributs et méthodes ici.
+    //Les attributs AKA propriétés ne doivent pas prendre un underscore au début de leur nom contrairement à la notation PEAR. Cette règle est définie dans la PSR-2.
+
+    private $id; //Cet attribut représente l'ID del'entrée dans la base de donnée correspondant à l'objet.
+    private $property1;
+    public $property2; //UN ATTRIBUT NE DOIT NORMALEMENT JAMAIS ÊTRE DÉCLARÉ PUBLIC
+    private $property3 = 18;
+    private static $property4 = 1; //Un attribut static a la même valeur pour toutes les instances d'une même classe. On peut par exemple s'en servir pour compter le nombre de fois que la classe a été instanciée.
+
+    /!\ Si une valeur par défaut est donnée à une propriété, il doit s'agir d'une expression scalaire statique. En d'autres mots, pas d'appels à des fonctions. Pour les versions PHP 5.6 et antérieurs, il doit s'agir d'une valeur statique. En d'autres mots, pas de calculs comme 3600*24*365 ou 'Hello ' . 'World !'.
+
+    const CONSTANT_NAME = 10; //Les constantes permettent d'éviter le code muet (introduire des valeurs en dur sans expliquer ce qu'elles signifient). Une constante ne prend pas de $ devant son nom. Elles sont généralement notées en SCREAMING_SNAKE_CASE.
+
+    function __construct() { //Un constructeur vide est présent par défaut.
+        // /!\ Les connections à la DB se font dans le constructeur
+        // /!\ Les mutateurs (setters) doivent être utilisés pour assigner des valeurs aux propriétés, sinon le principe d'encapsulation n'est pas respecté.
+    }
+
+    private function function1(ClassName obj) // Il est possible d'exiger que la variable passée en paramètres soit d'un certains type d'objet, ou soit un tableau. Il est en revanche impossible d'exiger type primaire (entier, String, ...).
+    //Les noms des fonctions sont notés en lowerCamelCase.
+    {
+
+    }
+
+    public function setProperty1($arg){
+        if (!is_int($arg)) {
+            trigger_error('the argument must be an integer.');
+        return;
+        }
+    }
+
+    public fuction function2()
+    {
+        //Le mot clé $this permet de faire appel à l'instance appelée de la classe. Il permet donc de travailler sur l'objet même qui est utilisé pour appeller une méthode.
+        $this->property3 = 16;
+        $this->function1();
+    }
+
+    public static staticFunction() // static doit être déclaré APRÈS la visibilité, abstract et final doivent être déclarés AVANT la visibilité.
+    {
+        // Le mot clé $this ne peut êtr utilisé dans une classe statique. En effet, une classe statique est liée à sa classe et non pas aux instances d'une classe.
+        echo self::$property4; //Le mot clé self permet d'appeler une fonction ou une propriété statique définie dans la classe.
+    }
+}
+
+// ----------------------------------------------------------------------------------------------------------------------------
+
+/********************
+********MAIN*********
+********************/
+
+require ClassName.php; //Charge la classe ClassName
+
+
+//Il est possible de charger dynamiquement les classes dont on a besoin :
+
+function classAutoLoader($class)
+{
+    require $class . '.php';
+}
+spl_autoload_register('classAutoLoader'); // On enregistre la fonction en autoload pour qu'elle soit appelée dès qu'on instanciera une classe non déclarée. De cette façon, l'autoload étant déclaré dans le main, chaque fois qu'une classe non chargée sera utilisée dans l'application, elle sera automatiquement chargée.
+
+$perso = new Personnage;
+
+
+$obj = new ClassName;
+$obj->function2(); //function1 ne peut être appelée en dehors de la classe, elle est privée.
+$obj->property2 = 13; //property1 ne peut être accédée en dehors de la classe, elle est privée. Il ne faut jamais déclarer une variable publique car celle-ci pourraeitn être modifiées par n'importe qui, et elle pourrait alors contenir une valeur qui ne correspond pas du tout à ce qui est attendu. On préfèrera utiliser des setters qui pourront contrôler la valeur que peut prendre la variable.
+
+//Pour accéder aux constantes et méthodes statiques, il faut utiliser le nom de la classe suivi de l'opérateur de résolution de portée (aussi appelé Paamayim Nekudotayim) qui est "::". En effet, les constantes et méthodes statiques sont liées aux classes et non pas aux instances de classes (aux objets).
+$var = ClassName::CONSTANT_NAME;
+ClassName::staticFunction(); //(ClassName->staticFunction() works too, but is not recommended and can generate E_STRICT errors).

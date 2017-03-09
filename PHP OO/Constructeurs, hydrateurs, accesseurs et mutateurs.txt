@@ -1,0 +1,38 @@
+Dans une classe, on doit normalement retrouver un constructeur, un hydrateur, des accesseurs (getters) et des mutateurs (setters).
+
+class MyClass
+{
+    private $property1;
+    private $property2;
+    private $property3;
+    private $property4;
+
+    //Le constructeur construit l'objet. Son nom est invariablement __construct.
+    //Il est courant de voir un constructeur demandant un tableau associatif contenant les valeurs des paramètres. Ceci permet simplement de lier une entrée d'une base de données à un objet.
+    public function __construct(array $data)
+    {
+        this->hydrate($data);
+    }
+
+    //l'hydrateur initialise les attributs (propriétés) de l'objet. la fonction est généralement appelée hydrate.
+    public function hydrate(array $data)
+    {
+        foreach ($donnees as $key => $value) { //Pour chaque valeur $value du tableau associatif ayant comme clé $key
+            $method = 'set'.ucfirst($key); //ucfirst signifie UpperCaseFirst. $method vaut set suivi du nom de la clé avec une majuscule, soit le nom du mutateur.
+            if (method_exists ($this, $method)) { //Si le mutateur existe dans la classe
+                $this->method($value); //exécuter la //alors attribuer $value à la valeur de la propriété $key à l'aide de son mutateur.
+            }
+        }
+    }
+
+    //Les accesseurs (getters) renvoient la valeur de la propriété correspondante. Son nom est généralement le même que celui de la propriété.
+    public function property1()
+    {
+        return this->property1;
+    }
+
+    //Les mutateurs (setters) permettent de modifier la valeur de la propriété correspondante. Son nom est généralement le nom de la propriété avec une majuscule et précédé de "set".
+    public function setProperty1($value){
+        $this->property1 = $value;
+    }
+}
