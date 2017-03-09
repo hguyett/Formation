@@ -8,7 +8,7 @@ class ClassName // Présence du mot-clé class suivi du nom de la classe.
 
     private $id; //Cet attribut représente l'ID del'entrée dans la base de donnée correspondant à l'objet.
     private $property1;
-    public $property2; //UN ATTRIBUT NE DOIT NORMALEMENT JAMAIS ÊTRE DÉCLARÉ PUBLIC
+    public $property2; //UN ATTRIBUT NE DOIT NORMALEMENT JAMAIS ÊTRE DÉCLARÉ PUBLIC. Sinon, il y a violation du principe d'encapsulation.
     private $property3 = 18;
     private static $property4 = 1; //Un attribut static a la même valeur pour toutes les instances d'une même classe. On peut par exemple s'en servir pour compter le nombre de fois que la classe a été instanciée.
 
