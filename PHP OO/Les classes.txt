@@ -16,7 +16,8 @@ class ClassName // Présence du mot-clé class suivi du nom de la classe.
 
     const CONSTANT_NAME = 10; //Les constantes permettent d'éviter le code muet (introduire des valeurs en dur sans expliquer ce qu'elles signifient). Une constante ne prend pas de $ devant son nom. Elles sont généralement notées en SCREAMING_SNAKE_CASE.
 
-    function __construct() { //Un constructeur vide est présent par défaut.
+    function __construct() //Un constructeur vide est présent par défaut.
+    {
         // /!\ Les connections à la DB se font dans le constructeur
         // /!\ Les mutateurs (setters) doivent être utilisés pour assigner des valeurs aux propriétés, sinon le principe d'encapsulation n'est pas respecté.
     }
@@ -27,7 +28,8 @@ class ClassName // Présence du mot-clé class suivi du nom de la classe.
 
     }
 
-    public function setProperty1($arg){
+    public function setProperty1($arg)
+    {
         if (!is_int($arg)) {
             trigger_error('the argument must be an integer.');
         return;
