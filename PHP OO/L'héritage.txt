@@ -1,0 +1,57 @@
+Une classe peut être étendue par plusieurs classes, mais elle ne peut pas étendre plusieurs classes (plusieurs enfant pour un parent, l'inverse n'est pas possible). Pour procéder à un héritage (c'est-à-dire faire en sorte qu'une classe hérite des attributs et méthodes d'une autre classe), il suffit d'utiliser le mot-clé extends comme ceci :
+
+class NewClass extends ClassName {
+
+}
+
+    Héritage
+
+La classe héritée sert de modèle à la nouvelle classe : Elle dispose des mêmes méthodes et attributs publiques et protégés, et dispose également des attributs privés auxquels elle n'a accès que via les getters et setters de la classe parent. Il est possible de modifier le comportement de ces méthodes en les réécrivant, c'est ce qui s'appelle l'overriding (la redéfinition). Si l'on souhaitre faire appel à une méthode de la classe parent, on utilise le mot clé parent. Exemple :
+
+public function function1() { //overriding. /!\ la visibilité de la fonction doit être la même ou être plus permissive.
+    parent::function1();
+}
+
+    Final
+
+Le mot clé final permet d'empêcher une méthode d'être redéfinie ou une classe d'avoir des filles. Celui-ci se met tout devant le nom d'une classe ou d'une fonction. Par exemple :
+
+final class FinalClassName {
+
+    final public function FinalFunctionName(){
+
+    }
+}
+
+    Résolution statique à la volée (Late static binding)
+
+Lors de l'appel d'une méthode héritée qui n'a pas été redéfinie, on utilise la méthode de la classe parent. Or, si cette méthode fait appelle à une autre méthode qui cette fois à été redéfinie dans la classe fille, c'est tout de même la méthode de la classe parent qui sera utilisée (self::). Pour éviter ce problème, il faut utiliser static:: devant l'appel de méthodes dans la classe parent. static:: appelle l'élément de la classe qui est appelée pendant l'exécution. Exemple :
+
+<?php
+class Mother
+{
+  public function launchTest()
+  {
+    static::whoAmI();
+  }
+
+  public function whoAmI()
+  {
+    echo 'Mother !';
+  }
+}
+
+class Son extends Mother
+{
+  public function whoAmI()
+  {
+    echo 'Son !';
+  }
+}
+
+$e = new Son;
+$e->launchTest(); // It will now return 'Son !' instead of 'Mother !'
+
+L'opération peut être plus complexe lorsqu'il y a 3 classes. Pour voir des exemples :
+https://secure.php.net/manual/fr/language.oop5.late-static-bindings.php
+https://openclassrooms.com/courses/programmez-en-oriente-objet-en-php/l-heritage-3

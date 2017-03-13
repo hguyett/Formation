@@ -1,0 +1,7 @@
+La visibilité est déclarée avant le nom d'une méthode ou d'un attribut (propriété).
+
+Public : Tout le monde peut accéder à ces attributs et méthodes. IL EST VIVEMENT RECOMMANDÉ DE NE JAMAIS METTRE UN ATTRIBUT EN PUBLIQUE. On préferera le mettre en privé et se servir d'accesseurs et de mutateurs. On peut ainsi facilement contrôler les types de données qu'ont ces attributs.
+Protected : Seul la classe et ses classes filles peuvent utiliser ces méthodes et accéder ces attributs.
+Private : Seul la classe peut accéder à ces méthodes et ces attributs. Les classes filles héritent de ces attributs, mais ne peuvent y accéder que via les accesseurs et les putateurs de la classe parent.
+
+Lors de la création d'une classe fille, si une méthode est redéfinie, sa visibilité DOIT être la même ou plus permissive.

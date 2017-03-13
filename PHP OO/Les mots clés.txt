@@ -1,0 +1,45 @@
+$this
+self::
+parent::
+static::
+::class // Retourne le nom de la classe
+
+class
+const
+function
+
+new
+return
+throw
+
+if
+else
+elseif
+switch
+while
+for
+foreach
+try
+catch
+
+    Types
+
+int
+bool
+String
+array
+float
+double
+
+    Visibilité
+
+public
+protected
+private
+
+abstract
+final
+extends
+
+require
+include

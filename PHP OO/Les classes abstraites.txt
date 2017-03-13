@@ -1,0 +1,13 @@
+Pour créer une classe abstraite, on se sert du mot clé abstract comme ceci :
+
+abstract class AbstractClassName {
+
+}
+
+Une classe abstraite ne peut pas être instanciée (on ne peut pas créer d'objets avec). Leurs utilité est de servir de modèle aux classes filles.
+
+Il est possible de définir des fonctions abstraites dans une classe abstraite. Ceci force toutes les classes filles à implémenter cette fonction sous peine de générer une erreur.
+
+abstract public function AbstractFunctionName($Arg1, $Arg2) {
+    //La classe étant abstraite, on ne l'implémente pas.
+}
