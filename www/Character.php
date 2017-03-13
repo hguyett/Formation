@@ -1,4 +1,7 @@
 <?php
+/**
+ * This class describes a character. A character have an id (for MySQL database), a name and an amount of damages taken.
+ */
 class Character
 {
     /**
