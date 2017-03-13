@@ -131,13 +131,11 @@ class Character
 
     public function receiveDamages(int $damages)
     {
-        $this->setDamages($this->damages() + $damages);
         if ($this->damages() + $damages >= self::HEALTH_POINTS) {
             //Character is dead
             $this->setDamages(self::DEAD);
         } else {
-            setDamages($this->damages() + $damages);
+            $this->setDamages($this->damages() + $damages);
         }
-
     }
 }

@@ -1,8 +1,8 @@
     Les tableaux
 
 Pour dessiner un tableau, on commence par utiliser les balises <table></table>
-On indique ensuite un nombre de lignes souhaitées avec les balises <tr></tr>
-On indique enfin le nombre de cellules dans une ligne avec les balises <td></td>
+On indique ensuite les lignes avec les balises <tr></tr>
+On indique enfin les cellules dans une ligne avec les balises <td></td>
 
 
     L'en-tête

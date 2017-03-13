@@ -28,16 +28,21 @@ class CharactersManager
      */
     public function add(Character $character): bool
     {
-        $query = $this->database->prepare('INSERT INTO characters (name) VALUES (:name)');
-        $query->bindValue(':name', $character->name(), PDO::PARAM_STR);
-
-        if ($isQueryExecuted = (bool)$query->execute()) {
-            $character->hydrate([
-                'id' => $this->database->lastInsertId(),
-                'damages' => 0,
-            ]);
+        try {
+            $query = $this->database->prepare('INSERT INTO characters (name) VALUES (:name)');
+            $query->bindValue(':name', $character->name(), PDO::PARAM_STR);
+            $query->execute();
+        } catch (Exception $e) {
+            // Le personnage existe déjà.
+            return false;
         }
-        return $isQueryExecuted;
+
+        $character->hydrate([
+            'id' => $this->database->lastInsertId(),
+            'damages' => 0,
+        ]);
+
+        return true;
     }
 
     /**
@@ -47,7 +52,7 @@ class CharactersManager
      */
     public function update(Character $character): bool
     {
-        $query = $this->database->prepare('UPDATES characters SET name = :name, damage = :damages WHERE id = '.$character->id());
+        $query = $this->database->prepare('UPDATE characters SET name = :name, damages = :damages WHERE id = '.$character->id());
         $query->bindValue(':name', $character->name(), PDO::PARAM_STR);
         $query->bindValue(':damages', $character->damages(), PDO::PARAM_INT);
 
@@ -68,22 +73,31 @@ class CharactersManager
 
     /**
      * Return a character from the database.
-     * @param  mixed $info Can be character's name or id.
+     * @param  mixed $info Can be character's name (String) or id (int).
      * @return array       Return the array sent by the database.
+     * @throws Exception If the character can't be found, an exception is thrown.
      */
-    public function get(mixed $info): array
+    public function get($info): array
     {
+        $query = new PDOStatement();
         if (is_int($info) and $info > 0) {
             $query = $this->database->prepare('SELECT * FROM characters WHERE ID = :id');
             $query->bindValue(':id', $info, PDO::PARAM_INT);
-            $query->execute();
-            return $query;
         } else if (is_string($info)) {
             $query = $this->database->prepare('SELECT * FROM characters WHERE name = :name');
             $query->bindValue(':name', $info, PDO::PARAM_STR);
-            $query->execute();
-            return $query;
         }
+        try {
+            $query->execute();
+        } catch (Exception $e) {
+            throw $e;
+        }
+        $data = $query->fetch();
+        $query->closeCursor();
+        if (!$data) {
+            throw new Exception("Character doesn't exist.", 1);
+        }
+        return $data;
     }
 
     /**
@@ -92,7 +106,9 @@ class CharactersManager
      */
     public function getList(): array
     {
-        $data = $this->database->query('SELECT nom, damages FROM characters');
+        $result = $this->database->query('SELECT name, damages FROM characters');
+        $data = $result->fetchAll(PDO::FETCH_ASSOC);
+        $result->closeCursor();
         return $data;
     }
 }
