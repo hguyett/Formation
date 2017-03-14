@@ -12,3 +12,4 @@
     <p><label for="skillTarget">Choisissez une cible : </label><input type="text" name="skillTarget"></p>
     <p><input type="submit" name="use_skill_submit" value="Valider"></p>
 </form>
+<?php include 'character_list.php'; ?>
