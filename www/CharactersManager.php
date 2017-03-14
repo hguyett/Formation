@@ -28,14 +28,15 @@ class CharactersManager
      */
     public function add(Character $character): bool
     {
-        try {
-            $query = $this->database->prepare('INSERT INTO characters (name) VALUES (:name)');
+        // try {
+            $query = $this->database->prepare('INSERT INTO characters (name, class) VALUES (:name, :class)');
             $query->bindValue(':name', $character->name(), PDO::PARAM_STR);
+            $query->bindValue(':class', $character->class(), PDO::PARAM_STR);
             $query->execute();
-        } catch (Exception $e) {
-            // Le personnage existe déjà.
-            return false;
-        }
+        // } catch (Exception $e) {
+        //     // Le personnage existe déjà.
+        //     return false;
+        // }
 
         $character->hydrate([
             'id' => $this->database->lastInsertId(),
@@ -106,7 +107,7 @@ class CharactersManager
      */
     public function getList(): array
     {
-        $result = $this->database->query('SELECT name, damages FROM characters');
+        $result = $this->database->query('SELECT name, class, damages FROM characters');
         $data = $result->fetchAll(PDO::FETCH_ASSOC);
         $result->closeCursor();
         return $data;
