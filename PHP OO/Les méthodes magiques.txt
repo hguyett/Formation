@@ -1,0 +1,91 @@
+Les méthodes magiques sont des fonctions qui, si elles sont présentes dans la classe, seront automatiquement appelées lors de certains événements.
+
+    __construct
+
+Cette méthode est appelée lors de l'instanciation d'une classe (création d'un objet).
+
+    __destruct
+
+Cette méthode est appelée lors de la désinstanciation (destruction d'un objet).
+
+    Surcharge magique des attributs et des méthodes
+
+La surcharge magique d'attributs ou méthodes consiste à créer dynamiquement des attributs et méthodes. Cela est possible lorsque l'on tente d'accéder à un élément qui n'existe pas ou auquel on n'a pas accès (s'il est privé et qu'on tente d'y accéder depuis l'extérieur de la classe par exemple).
+
+        __set
+
+     Cette méthode est appelée lorsque l'on essaye d'assigner une valeur à un attribut auquel on n'a pas accès ou qui n'existe pas. Cette méthode prend deux paramètres : le premier est le nom de l'attribut auquel on a tenté d'assigner une valeur, le second paramètre est la valeur que l'on a tenté d'assigner à l'attribut. Cette méthode ne retourne rien.
+
+        __get
+
+    Cette méthode est appelée lorsque l'on essaye d'accéder à un attribut qui n'existe pas ou auquel on n'a pas accès. Elle prend un paramètre : le nom de l'attribut auquel on a essayé d'accéder. Cette méthode peut retourner ce qu'elle veut (ce sera, en quelque sorte, la valeur de l'attribut inaccessible).
+
+        __isset
+
+    Cette méthodeest appelée lorsque l'on appelle la fonction isset sur un attribut qui n'existe pas ou auquel on n'a pas accès. Étant donné que la fonction initiale isset renvoie true ou false, la méthode magique __isset doit renvoyer un booléen. Cette méthode prend un paramètre : le nom de l'attribut que l'on a envoyé à la fonction isset.
+
+        __unset
+
+    le principe est le même que pour __isset : cette méthode est appelée lorsque l'on tente d'appeler la fonction unset sur un attribut inexistant ou auquel on n'a pas accès.
+
+        __call
+
+    La méthode__call sera appelée lorsque l'on essayera d'appeler une méthode inexistante ou à laquelle on a pas accès. Elle prend deux arguments : le premier est le nom de la méthode que l'on a essayé d'appeler et le second est la liste des arguments qui lui ont été passés (sous forme de tableau). Cette méthode ne prend pas en charge les appels aux fonctions dynamiques. Pour cela, il faut utiliser __callStatic.
+
+        __callStatic
+
+    Cette méthode est appelée lorsque vous appelez une méthode dans un contexte statique alors qu'elle n'existe pas. La méthode magique __callStatic doit obligatoirement être static !
+
+        __sleep et __wakeup
+
+    Cf. La liénarisation aka sérialisation
+
+        __toString
+
+    La méthode magique __toString est appelée lorsque l'objet est amené à être converti en chaîne de caractères. Cette méthode doit retourner la chaîne de caractères souhaitée.
+
+        __invoke
+
+    Cette méthode magique est appelée dès qu'on essaye d'utiliser l'objet comme fonction.
+
+    Exemple :
+
+    $object = new MyClass();
+    $object('Call __invoke', 'other arg');
+
+        __set_state
+
+    La méthode magique__set_state est appelée lorsque vous appelez la fonction var_export en passant votre objet à exporter en paramètre. Cette fonction var_export a pour rôle d'exporter la variable passée en paramètre sous forme de code PHP (chaîne de caractères). Si vous ne spécifiez pas de méthode __set_state dans votre classe, une erreur fatale sera levée.
+
+    La méthode __set_state prend un paramètre la liste des attributs ainsi que leur valeur dans un tableau associatif (['attribut' => 'valeur']). la méthode magique devra retourner l'objet à exporter. Il faudra donc créer un nouvel objet et lui assigner les valeurs qu'on souhaite, puis le retourner.
+
+    Puisque la fonction var_export retourne du code PHP valide, on peut utiliser la fonction eval qui exécute du code PHP sous forme de chaîne de caractères qu'on lui passe en paramètre.
+
+    /!\ Ne jamais retourner $this, car cette variable n'existera pas dans cette méthode !var_exportreportera donc une valeur nulle.
+
+        __debugInfo
+
+    Cette méthode magique est invoquée sur notre objet lorsqu'on appelle la fonction var_dump. Pour ceux qui ne connaissent pas son principe, cette fonction permet d'obtenir des informations sur la variable qu'on lui donne. Si on lui donne un objet, var_dump va afficher les détails de tous les attributs de l'objet, qu'ils soient publics, protégés ou privés. La méthode magique __debugInfo permet de modifier ce comportement en ne sélectionnant que les attributs à afficher ainsi que ce qu'il faut afficher. Pour ce faire, cette méthode renverra sous forme de tableau associatif la liste des attributs à afficher avec leurs valeurs.
+
+            Exemple
+
+            <?php
+        class FileReader
+        {
+            protected $f;
+
+        	public function __construct($path)
+        	{
+        		$this->f = fopen($path, 'c+');
+        	}
+
+        	public function __debugInfo()
+        	{
+        		return ['f' => fstat($this->f)];
+        	}
+        }
+
+        $f = new FileReader('fichier.txt');
+        var_dump($f); // Affiche les informations retournées par fstat.
+
+        On a ici un gestionnaire de fichiers qui nous permet de gérer facilement la lecture et l'écriture d'un fichier (du moins, on imagine que ça le fait). Unvar_dump sur notre objet ne serait pas très révélateur. Par contre, obtenir les informations sur le fichier actuellement ouvert le serait plus, et c'est précisément ce que l'on fait en écrivant la méthode__debugInfo  avec l'appel defstat.

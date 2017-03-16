@@ -8,6 +8,8 @@ class
 const
 function
 
+global // À utiliser avec des pincettes
+
 new
 return
 throw

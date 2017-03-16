@@ -8,6 +8,29 @@ Vérifie si une variable est initialisée.
 Vérifie si une variable est vide.
 
 
+    sort()
+
+Trie un tableau dans l'ordre croissant.
+
+
     nl2br()
 
 Permet de transformer les retours à la ligne dans un texte en <br />.
+
+
+    eval()
+
+Permet d'exécuter du code contenu dans un String.
+
+
+    explode()
+
+Permet de couper un string en plusieurs segments dans un tableau à l'aide d'un séparateur défini.
+
+
+    var_dump()
+
+ cette fonction permet d'obtenir des informations sur la variable qu'on lui donne. Si on lui donne un objet, var_dump va afficher les détails de tous les attributs de l'objet, qu'ils soient publics, protégés ou privés. La méthode magique __debugInfo permet de modifier ce comportement en ne sélectionnant que les attributs à afficher ainsi que ce qu'il faut afficher.
+
+ Pour plus d'informations, consulter "Les méthodes magiques" dans le dossier PHP OO.
+https://secure.php.net/manual/fr/function.var-dump.php

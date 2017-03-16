@@ -1,0 +1,28 @@
+En informatique, la sérialisation (de l'anglais américain serialization) est un processus visant à coder l'état d'une information qui est en mémoire sous la forme d'une suite d'informations plus petites (dites atomiques, voir l'étymologie de atome) le plus souvent des octets voire des bits. Cette suite pourra par exemple être utilisée pour la sauvegarde (persistance) ou le transport sur le réseau (proxy, RPC…). L'activité symétrique, visant à décoder cette suite pour créer une copie conforme de l'information d'origine, s'appelle la désérialisation (ou unmarshalling).
+
+Le terme marshalling (mobilisation, canalisation, organisation) est souvent employé de façon synonyme, de même que le terme linéarisation. Les termes marshalling et unmarshalling s'emploient le plus souvent dans le contexte d'échanges entre programmes informatiques, alors que les termes sérialisation et désérialisation sont plus généraux1.
+
+D'apparence simple, ces opérations posent en réalité un certain nombre de problèmes, comme la gestion des références entre objets ou la portabilité des encodages. Par ailleurs, les choix entre les diverses techniques de sérialisation ont une influence sur les critères de performances comme la taille des suites d'octets sérialisées ou la vitesse de leur traitement.
+
+    La méthode serialize()
+
+serialize() retourne une chaîne contenant une représentation linéaire de value, pour stockage.
+C'est une technique pratique pour stocker ou passer des valeurs de PHP entre scripts, sans perdre ni leur structure, ni leur type.
+/!\ Il n'est pas possible de linéariser une ressource !
+
+Cette méthode peut être utilisée pour transmettre des informations vi une barre d'adresse par exemple, en utilisant un formulaire avec comme action get et la méthode urlencode().
+Cette méthode peut être utilisée pour enregistrer l'état de plusieurs variables dans une base de donnée, par exemple pour enregistrer les préférences utilisateur.
+/!\ Dans ce cas, ne pas oublier d'échapper les caractères suscepibles de modifier la requête.
+
+    La méthode unserialize()
+
+elle fait l'inverse de serialize().
+En partant d'une chaîne de caractères provenant de serialize(), unserialize() récupère les données et renvoie les données originales.
+/!\ Lors de la délinéarisation d'un objet, un appel au constructeur a lieu. Il est donc nécessaire d'avoir chargé la classe auparavant (l'utilisation d'un autoloader est possible).
+
+    __sleep et __wakeup
+
+Des méthodes magiques __sleep et __wakeup peuvent être définies spécialement pour serialize et unserialize. __sleep sera appelée automatiquement lors de serialize, et fera son office AVANT la linéarisation. __wakeup sera appelée automatiquement lors d'unserialize, et fera ses opérations APRÈS la délinéarisation.
+Cela peut être très utile dans certains cas, comme pour une connexion à une base de données fermée par __sleep et relancée via __wakeup, pour ne transmettre qu'une partie des données ou pour crypter les données lors de l'envoi et les décrypter lors de la réception.
+
+Si __wakeup se comporte de manière relativement normale, il n'en est pas de même pour __sleep. Vous devez en effet systématiquement renvoyer un array contenant en valeurs les noms littéraux des variables.

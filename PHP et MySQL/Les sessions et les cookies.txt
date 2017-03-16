@@ -3,6 +3,7 @@
 Les sessions sont gérées par le serveur PHP. Quand un utilisateur se connecte sur le site, PHP lui génère automatiquement un ID de session (PHPSESSID) si la fonction session_start() est appelée. Celui-ci est conservé sur l'ordinateur du visiteur à l'aide d'un cookie. Quand la fontion session_destroy() est appelée, la session est détruite. Cet appel peut être fait par l'utilisateur (à l'aide d'un bouton déconnexion) ou par PHP après un temps de timeout.
 
 /!\ session_start() doit être appelé avant tout contenu html (doctype compris).
+/!\ Lors de l'enregistrement d'un objet dans la variable session, celui-ci est linéarisé. Il est délinéarisé à l'appel de session_start(), il est donc impératif de charger la classe correspondant à l'objet AVANT de démarrer la session. Pour plus d'informations, consulter "la linéarisation aka sérialisation" dans le dossier PHP OO.
 
 Pendant toute la durée de la session, il est possible de faire transiter des informations entre les pages à l'aide de la variable superglobales $_SESSION.
 

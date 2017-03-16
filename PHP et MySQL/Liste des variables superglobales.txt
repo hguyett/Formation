@@ -11,3 +11,5 @@ $_GET : vous la connaissez, elle contient les données envoyées en paramètres 
 $_POST : de même, c'est une variable que vous connaissez et qui contient les informations qui viennent d'être envoyées par un formulaire.
 
 $_FILES : elle contient la liste des fichiers qui ont été envoyés via le formulaire précédent.
+
+$GLOBALS : Contient les variables globales, c'est-à-dire qu'elles sont accessibles partout dans le script. À utiliser avec des pincettes.
