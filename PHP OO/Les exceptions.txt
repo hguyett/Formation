@@ -1,0 +1,55 @@
+Pour lancer une exception, on utilise le mot clé throw. Une exception étant un type objet, il faut créer un nouvel objet avec le mot clé new.
+Une exception prend 3 paramètres qui sont tous facultatifs : sa description, son code d'erreur et l'exception précédente.
+Une exception qui n'est pas rattrapée provoque une erreur fatale de type 'UncaughtException'.
+Une fois l'erreur gérée, le code poursuit sa route après le bloc catch. Il est donc important de gérer les erreurs aux bons endroits.
+
+Une erreur ne peut jamais être lancée d'un destructeur. Une telle chose déclenche une erreur fatale : Exception thrown without a stack frame in Unknown on line 0.
+
+    Exemple de lancé d'exception :
+
+function add($nb1, $nb2) {
+    if (!is_numeric($nb1) or !is_numeric($nb2))
+    {
+        throw new Exception('description', 1, $previousException)
+    }
+}
+
+    Rattraper une exception
+
+Pour rattraper une exception, il faut tout d'abord entourer le code susceptible de lancer une exception dans un block try. Immédiatement à la suite de ce bloc try doit se trouver un bloc catch, qui définira les types d'exceptions à rattraper entre parenthèses et qui décidera quoi faire. Si le type d'exception spécifié est hérité par l'exception qui est lancée (il s'agit donc d'une exception plus spécifique), celle-ci sera rattrapée.
+
+    Les méthodes des exceptions
+
+Exception::__construct — Construit l'exception
+Exception::getMessage — Récupère le message de l'exception
+Exception::getPrevious — Retourne l'exception précédente
+Exception::getCode — Récupère le code de l'exception
+Exception::getFile — Récupère le fichier dans lequel l'exception est survenue
+Exception::getLine — Récupère la ligne dans laquelle l'exception est survenue
+Exception::getTrace — Récupère la trace de la pile
+Exception::getTraceAsString — Récupère la trace de la pile en tant que chaîne
+Exception::__toString — Représente l'exception sous la forme d'une chaîne
+Exception::__clone — Clone l'exception
+
+    Des exceptions spécialisées
+
+Il est possible de créer des exceptions personnalisées. Pour cela, il faut créer une classe qui héritera de la classe Exception.
+La classe exception comporte 4 propriétés avec une visibilité protected (il est donc possible d'accéder à ces propriétés depuis une exception personnalisée) et 2 fonctions non finales (qu'il est donc possible de redéfinir). les voici :
+
+protected $message = 'exception inconnu'; // Message de l'exception.
+protected $code = 0; // Code de l'exception défini par l'utilisateur.
+protected $file; // Nom du fichier source de l'exception.
+protected $line; // Ligne de la source de l'exception.
+
+function __construct ($message = NULL, $code = 0); // Il est vivement conseillé que le constructeur d'une exception étendue fasse appel au constructeur parent afin d'assurer l'hydratation de l'exception.
+function __toString(); // Chaîne formatée pour l'affichage.
+
+Une fois le type d'exception créé, il est possible de lancer ces exceptions avec throw et de les rattraper avec catch. Cette façon de faire éclaircit le code car on sait quels types d'exception est susceptible d'être généré par le bloc try.
+
+    Utiliser plusieurs blocs catch
+
+Il est possible de mettre plusieurs blocs catch l'un à la suite de l'autre. Une exception ne sera rattrapée qu'une fois, il est donc important de mettre ces blocs dans l'ordre : les exceptions plus spécifiques doivent être gérées en premier.
+
+    Les exceptions prédéfinies
+
+https://3v4l.org/sDMsv

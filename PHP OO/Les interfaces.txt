@@ -1,0 +1,61 @@
+    Les interfaces
+
+une interface est une classe entièrement abstraite. Son rôle est de décrire un comportement à notre objet. Les interfaces ne doivent pas être confondues avec l'héritage : l'héritage représente un sous-ensemble (exemple : un magicien est un sous-ensemble d'un personnage). Ainsi, une voiture et un personnage n'ont aucune raison d'hériter d'une même classe. Par contre, une voiture et un personnage peuvent tous les deux se déplacer, donc une interface représentant ce point commun pourra être créée.
+
+Une interface se déclare avec le mot clé interface. Elle est ajoutée à une classe avec le mot clé implements. Toutes les fonctions d'une interface doivent être déclarées publiques, elles ne peuvent être déclarées ni abstraites, ni finales, et elles ne peuvent pas avoir le même nom qu'une classe et vice-versa. Ceci n'empêche pas une classe implémentant l'interface de déclarer la méthode abstraite (si la classe est abstraite) ou finale.
+
+Une classe peut implémenter plusieurs interfaces tant que celles-ci n'ont aucune méthode portant le même nom (excepté si les signatures la fonctions sont identiques).
+Contrairement aux classes, les interfaces peuvent hériter de plusieurs interfaces (on sépare leurs noms d'une virgule).
+Une interface ne peut pas redéfinir une méthode ou une constante héritée d'une autre interface.
+Une classe ne peut pas redéfinir une constante implémentée par une interface.
+
+Interface Movable {
+
+}
+
+
+    Les interfaces prédéfinies
+
+Il existe des interfaces prédéfinies permettant de modifier le comportement de nos objets ou de réaliser plusieurs choses pratiques.
+https://secure.php.net/manual/fr/reserved.interfaces.php
+https://secure.php.net/manual/en/refs.basic.other.php
+
+        L'interface Iterator
+
+    L'interface Iterator permet de rendre les objets d'une classe itératifs. Cela signifie que les objets peuvent être parcourus. Il est alors possible d'implémenter un itérateur (un objet qui parcourera des objets itératifs) ou d'utiliser la boucle foreach.
+
+    Cette interface comporte 5 méthodes :
+
+    current: renvoie l'élément courant ;
+    key: retourne la clé de l'élément courant ;
+    next: déplace le pointeur sur l'élément suivant ;
+    rewind: remet le pointeur sur le premier élément ;
+    valid: vérifie si la position courante est valide.
+
+        L'interface SeekableIterator
+
+    Cette interface hérite de l'interface Iterator. Elle ajoute la méthode seek. Cette méthode permet de placer le curseur interne à une position précise.
+    Il est plus que conseillé de faire appel à la méthode valid dans l'implémentation de la méthode seek.
+
+        L'interface ArrayAccess
+
+    Cette interface permet de faire en sorte qu'un objet se comporte comme un tableau (c'est à dire qu'il sera possible de modifier ses valeurs en utilisant des crochets [])
+
+    Cette interface comporte 4 méthodes :
+
+    offsetExists: méthode qui vérifiera l'existence de la clé entre crochets lorsque l'objet est passé à la fonction isset ou empty (cette valeur entre crochet est passé à la méthode en paramètre) ;
+    offsetGet: méthode appelée lorsqu'on fait un simple $obj['clé']. La valeur 'clé' est donc passée à la méthode offsetGet;
+    offsetSet: méthode appelée lorsqu'on assigne une valeur à une entrée. Cette méthode reçoit donc deux arguments, la valeur de la clé et la valeur qu'on veut lui assigner.
+    offsetUnset: méthode appelée lorsqu'on appelle la fonction unset sur l'objet avec une valeur entre crochets. Cette méthode reçoit un argument, la valeur qui est mise entre les crochets.
+
+        L'interface Countable
+
+    Cette interface rend un objet quantifiable. Elle ajoute la méthode count. Cette méthode doit renvoyer un entier.
+
+        L'interface ArrayIterator
+
+    Une classe implémentant les interfaces SeekableIterator, ArrayAccess et Countable transforment un objet en une sorte de tableau. En fait, une interface existe déjà pour ça, il s'agit de l'interface ArrayIterator. Celle-ci hérite des 4 interfaces vuent précédemment. Elle ajoute également un constructeur qui prend comme argument un tableau.
+
+        L'interface throwable
+
+    Cette interface permet de rendre un objet lancable. Les exceptions et erreurs implémentent cette interface. Pour créer une interface ou une erreur, il est préférable d'hériter directement des classes correspondates.

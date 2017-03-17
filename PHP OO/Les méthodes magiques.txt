@@ -44,6 +44,10 @@ La surcharge magique d'attributs ou méthodes consiste à créer dynamiquement d
 
     La méthode magique __toString est appelée lorsque l'objet est amené à être converti en chaîne de caractères. Cette méthode doit retourner la chaîne de caractères souhaitée.
 
+        __clone
+
+    La méthode magique clone est appelée lors de l'utilisation du mot clé clone. Cette méthode est utilisée pour modifier un objet après son clonage mais avant que celui-ci ne soit retourné. Elle permet par exemple de modifier un attribut ou d'incrémenter un compteur statique comptant le nombre d'instances de la classe.
+
         __invoke
 
     Cette méthode magique est appelée dès qu'on essaye d'utiliser l'objet comme fonction.

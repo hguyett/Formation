@@ -5,12 +5,16 @@ static::
 ::class // Retourne le nom de la classe
 
 class
+interface
+implements
 const
 function
 
 global // À utiliser avec des pincettes
 
 new
+clone
+
 return
 throw
 
@@ -20,9 +24,23 @@ elseif
 switch
 while
 for
-foreach
+foreach // Boucle pour parcourir un tableau ou un objet itératif.
 try
 catch
+
+    Opérateurs de comparaison
+
+and
+or
+xor
+== // Comparaison de contenu après transtypage. Pour des objects : comparaison de contenu et de type.
+!=
+=== // Comparaison de contenu et de type. Pour des objets : comparaison de référence.
+!==
+>=
+>
+<=
+<
 
     Types
 
