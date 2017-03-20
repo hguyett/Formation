@@ -1,0 +1,73 @@
+Il existe 3 types d'erreurs en PHP : Notice, Warning et Fatal.
+Il est possible de générer des erreurs personnalisées avec la fonction trigger_error().
+
+E_NOTICE, E_WARNING et E_ERROR sont générées par PHP. E_USER_? sont des erreurs générées par le développeur. E_ALL désigne toutes les erreurs (ou presque, ce n'est pas le cas de E_STRICT dans certaines versions PHP par exemple).
+
+D'autres erreurs existent comme E_RECOVERABLE_ERROR, E_PARSE, E_CORE_ERROR, E_CORE_WARNING, E_COMPILE_ERROR, E_COMPILE_WARNING, ...
+E_STRICT regroupe
+
+    Gérer les erreurs comme des exceptions
+
+Attention à garder en tête qu'une erreur de type Warning ou Notice n'interrompent pas le script, au contraire d'une exception.
+
+Il est possible de convertir les erreurs en exceptions grâce à la fonction set_error_handler() afin de les logger, par exemple.(Les erreurs fatales échappent à la règle étant donné qu'elles sont fatales). Celle-ci permet d'enregistrer une fonction en callback qui sera appelée à chaque fois que l'une de ces trois erreurs sera lancée.
+
+La fonction set_error_handler demande deux paramètres. Le premier est la fonction à appeler, et le deuxième, les erreurs à intercepter. Par défaut (Si seul le premier paramètre est donné), cette fonction intercepte toutes les erreurs, y compris les erreurs strictes.
+
+Nous écrirons une fonction personnalisée que nous appelerions error2exception. Cette fonction prendra entre 2 et 5 arguments (nous nous intéresserons surtout au 4 premiers) :
+
+Le numéro de l'erreur (obligatoire).
+Le message d'erreur (obligatoire).
+Le nom du fichier dans lequel l'erreur a été lancée.
+Le numéro de la ligne à laquelle l'erreur a été identifiée.
+Un tableau avec toutes les variables qui existaient jusqu'à ce que l'erreur soit rencontrée.
+
+Nous écrirons également une classe d'exception personnalisée qui héritera de ErrorException. Le constructeur de ErrorException prend 5 paramètres :
+
+Le message d'erreur.
+Le code de l'erreur.
+La sévérité de l'erreur (erreur fatale, alerte, notice, etc.) représentées par des constantes pré-définies.
+Le fichier où l'erreur a été rencontrée.
+La ligne à laquelle l'erreur a été rencontrée.
+
+        Code
+
+    <?php
+    class MonException extends ErrorException
+    {
+      public function __toString()
+      {
+        switch ($this->severity)
+        {
+          case E_USER_ERROR : // Si l'utilisateur émet une erreur fatale;
+            $type = 'Erreur fatale';
+            break;
+
+          case E_WARNING : // Si PHP émet une alerte.
+          case E_USER_WARNING : // Si l'utilisateur émet une alerte.
+            $type = 'Attention';
+            break;
+
+          case E_NOTICE : // Si PHP émet une notice.
+          case E_USER_NOTICE : // Si l'utilisateur émet une notice.
+            $type = 'Note';
+            break;
+
+          default : // Erreur inconnue.
+            $type = 'Erreur inconnue';
+            break;
+        }
+
+        return '<strong>' . $type . '</strong> : [' . $this->code . '] ' . $this->message . '<br /><strong>' . $this->file . '</strong> à la ligne <strong>' . $this->line . '</strong>';
+      }
+    }
+
+    function error2exception($code, $message, $fichier, $ligne)
+    {
+      // Le code fait office de sévérité.
+      // Reportez-vous aux constantes prédéfinies pour en savoir plus.
+      // http://fr2.php.net/manual/fr/errorfunc.constants.php
+      throw new MonException($message, 0, $code, $fichier, $ligne);
+    }
+
+    set_error_handler('error2exception');

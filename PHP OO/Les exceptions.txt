@@ -18,6 +18,10 @@ function add($nb1, $nb2) {
 
 Pour rattraper une exception, il faut tout d'abord entourer le code susceptible de lancer une exception dans un block try. Immédiatement à la suite de ce bloc try doit se trouver un bloc catch, qui définira les types d'exceptions à rattraper entre parenthèses et qui décidera quoi faire. Si le type d'exception spécifié est hérité par l'exception qui est lancée (il s'agit donc d'une exception plus spécifique), celle-ci sera rattrapée.
 
+    Finally
+
+Un bloc finally peut être déclaré après un bloc catch. Le code du bloc finally sera exécuté quoi qu'il arrive, même si une exception a été lancée mais qu'elle n'a pas été rattrapée. Ceci permet d'effectuer des opérations de "nettoyage" afin de permettre au script de s'exécuter tout de même correctement : fermer les fichiers, couper les connexions, etc.
+
     Les méthodes des exceptions
 
 Exception::__construct — Construit l'exception
@@ -50,6 +54,24 @@ Une fois le type d'exception créé, il est possible de lancer ces exceptions av
 
 Il est possible de mettre plusieurs blocs catch l'un à la suite de l'autre. Une exception ne sera rattrapée qu'une fois, il est donc important de mettre ces blocs dans l'ordre : les exceptions plus spécifiques doivent être gérées en premier.
 
+    Personnaliser l'affichage des exceptions
+
+Il est possible de personnaliser l'affichage des exceptions quand celles-ci ne sont pas rattrapées afin de les rendre plus lisibles. Il faut pour cela utiliser la fonction set_exception_handler(). Cette fonction prend comme seul paramètre le nom de la fonction en charge de l'affichage. Cette fonction prendra un seul parametre : une exception. Elle ne devra renvoyer aucune valeur, elle doit uniquement afficher l'exception.
+Une fois que l'erreur non attrappée est affichée, l'exécution du script s'interromp comme il l'aurait fait auparavant.
+
+function customException($e)
+{
+  echo 'Ligne ', $e->getLine(), ' dans ', $e->getFile(), '<br /><strong>Exception lancée</strong> : ', $e->getMessage();
+}
+
+set_exception_handler('customException');
+
+    Convertir les erreurs PHP en exceptions
+
+Ceci permet de logger les erreurs.
+Cf. "Les erreurs PHP.txt".
+
     Les exceptions prédéfinies
 
 https://3v4l.org/sDMsv
+http://fr2.php.net/manual/fr/spl.exceptions.php
