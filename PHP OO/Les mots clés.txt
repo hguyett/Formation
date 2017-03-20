@@ -6,7 +6,11 @@ static::
 
 class
 interface
+trait
 implements
+use
+insteadof
+as
 const
 function
 

@@ -1,0 +1,46 @@
+Il n'est pas toujours évident de savoir par quoi commencer quand on a un projet en tête. Afin de partir sur une base solide, il est intéressant de construire un modèle sur base duquel sera construit l'application. Il s'agira en fait d'un squelette modélisant les classes, leurs propriétés et leurs méthodes, mais aussi les tables de la base de donnée.
+
+Pour créer ce modèle, nous utiliserons l'UML (Unified Modeling Language).
+
+Les diagrammes UML sont d'une grande aide pour comprendre comment construire les objets, et voir ce qu'il serait intelligent de faire ou non. Ces diagrammes sont aussi très utiles pour la documentation.
+
+    Représentation d'une classe
+
+En haut et en gras se trouve le nom de la classe.
+En dessous se trouve la liste de propriétés.
+En bas se trouve la liste des méthodes.
+Les propriétés et les méthodes sont précédées d'un symbole de visibilité et suivi par un type. Il s'agit du type de la propriété ou du type de retour de la méthode (void indique qu'il n'y a pas de retour, mixed indique que le type peut varier).
+
+Chaque méthode liste ses arguments entre parenthèse, avec leur nom, suivi de ':', puis du type de l'argument.
+
+Pour indiquer qu'un élément est final, il est précédé de la mention "<<leaf>>" (leaf entre chevrons).
+
+Une constante est représentée comme une propriété, mais on indiquera à la place de son type la formule suivante : "const = " + valeur de la constante.
+
+        Les symboles de visibilité
+
+    + : public
+    # : protected
+    - : private
+
+        Les styles
+
+    italic : abstract
+    underlined : static
+
+
+    Représentation des interactions
+
+Solid link with arrow : inheritance
+Dotted link with arrow : implements (interface)
+Solid link : Association (above the link, a few words describe the interaction and a little arrow give the direction of this interaction. At the extremities, the cardinality is indicated. It can ben an integer, an interval (1..5 or 1..*) or an infinty (*))
+Solid link with empty diamond : Aggregation (Used when a class contains at least an instance of the other class. On the main class, we found cardinality. On the other side, we found the diamond (but not cardinality as it is necessarily 1))
+Solid link with solid diamond : Composition. (The composition is an aggregation, but when the main object is destructed, the linked objets have to be destructed too)
+
+Doc : http://uml.free.fr/cours/uml_free_fr_cours.html
+
+    Logiciel
+
+Il existe plusieurs logiciels permettant la représentation UML. Nous nous servirons de Dia. Ce logiciel a l'avantage d'avoir une extension permettant de transformer un diagramme en code PHP : uml2php5.
+
+http://dia-installer.de/

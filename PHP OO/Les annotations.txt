@@ -1,0 +1,15 @@
+Les annotations sont des méta-données relatives à la classe, méthode ou attribut, qui apportent des informations sur l'entité souhaitée. Elles sont insérées dans des commentaires utilisant le syntaxe doc block.
+
+Les annotations sont utilisées par les frameworks et les ORM dans un but de configuration dynamique, afin de s'épargner l'utilisation de fichiers de configuration.
+
+/**
+ * @version 2.0
+ */
+class Personnage
+{
+  // ...
+}
+
+    Il est possible d'utiliser la librairie addendum/annotations pour parser le code et récupérer les informations contenues dans les doc block. Elle est utile dans le cas où on voudrait l'utiliser dans le cadre de l'API de réflexivité. Sinon, Doctrine peut également être utilisé. L'avantage de Doctrine est sa communauté, son ORM, etc.
+
+    https://github.com/jsuchal/addendum

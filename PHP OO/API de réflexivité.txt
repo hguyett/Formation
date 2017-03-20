@@ -1,0 +1,118 @@
+l'API de réflexivité permet d'avoir des informations sur les classes et les objets. Celle-ci se sert notamment des annotations doc block.
+
+    Les classes
+
+        Instanciation
+
+            Instanciation directe
+
+        $wizardClass = new ReflectionClass('Wizard'); // Le nom de la classe doit être passée comme un String
+
+            Instanciation par récupération sur un objet
+
+        $wizard = new Wizard('name' => 'azerty');
+        $wizardClass = ReflectionObject($wizard);
+
+    https://secure.php.net/manual/fr/class.reflectionclass.php
+
+        Informations relatives aux classes
+
+    ReflectionClass::getName();
+    ReflectionClass::hasProperty('propertyName');
+    ReflectionClass::hasMethod('methodName');
+    ReflectionClass::hasConstant('constantName');
+    ReflectionClass::getConstant('constantName');
+    ReflectionClass::getConstants();
+    ReflectionClass::getParentClass();
+    // Retournent des bouléens
+    ReflectionClass::isSubclassOf('className')
+    ReflectionClass::isAbstract();
+    ReflectionClass::isFinal();
+    ReflectionClass::isInstantiable();
+
+    Exemple de code pour récupérer le nom de la classe parente :
+
+    /**
+     * ReflectionClass for the parent class
+     * @type ReflectionClass
+     */
+    $parentClass = $wizardClass->getParentClass();
+    echo $parentClass->getName();
+
+
+    Les interfaces
+
+        Informations relatives aux interfaces
+
+    ReflectionClass::isInterface();
+    ReflectionClass::implementsInterface('interfaceName')
+    ReflectionClass::getInterfaces(); // Renvoie autant de ReflectionClass qu'il n'y a d'interfaces
+    ReflectionClass::getInterfaceNames(); // Renvoie un tableau
+
+
+    Les propriétés
+
+On utilise pour cela la classe ReflectionProperty. Ici encore, il y a 2 façons d'instancier cet objet :
+
+    Instanciation
+
+        Instanciation directe
+
+    $manaProperty = new ReflectionProperty('Wizard', 'mana');
+
+        Instanciation par récupération sur une ReflectionClass
+
+    $wizardClass = new ReflectionClass('Wizard');
+    $manaProperty = $wizardClass->getProperty('mana');
+
+        Récupération des toutes les porpriétés
+
+    $wizardClass = new ReflectionClass('Wizard');
+    $wizardProperties = $wizardClass->getProperties();
+
+    Informations relatives aux propriétés
+
+ReflectionProperty::getName();
+ReflectionProperty::getValue($object); // L'objet doit être une instanciation de la classe concernée (et nom pas de ReflectionProperty) étant donné que chaque instance peut avoir une valeur différente pour la propriété. De plus, cela ne fonctionnera que pour une propriété publique. Donc jamais à priori. Toutefois il est possible de changer la visibilité de l'attribut avec setAccessible
+ReflectionProperty::setAccessible(true) //Permet de rendre un attribut accessible pour le lire ou le modifier avec setValue.
+/!\ Étant donné que ceci va a l'encontre du principe d'encapsulation, il ne faut pas oublier de rendre l'attribut à nouveau inaccessible après l'avoir lu.
+
+ReflectionProperty::isPrivate();
+ReflectionProperty::isProtected();
+ReflectionProperty::isPublic();
+// Pour les propriétés statiques
+ReflectionProperty::isStatic();
+ReflectionProperty::getValue();
+ReflectionClass::getStaticPropertyValue('propertyName');
+ReflectionClass::setStaticPropertyValue('propertyName', $value)
+ReflectionClass::getStaticProperties(); // Le tableau renvoie les valeurs de chaque attribut et non des objets ReflectionProperty.
+
+
+    Les méthodes
+
+Cette fois, on utilisera la classe ReflectionMethod.
+
+    Instanciation
+
+        Instanciation directe
+
+    $fireballMethod = new ReflectionMethod('Wizard', 'fireball');
+
+        Instanciation par récupération sur une ReflectionClass
+
+    $wizardClass = new ReflectionClass('Wizard');
+    $fireballMethod = wizardClass->getMethod('fireball');
+
+    Informations relatives aux méthodes
+
+ReflectionMethod::isPrivate();
+ReflectionMethod::isProtected();
+ReflectionMethod::isPublic();
+ReflectionMethod::isAbstract();
+ReflectionMethod::isFinal();
+ReflectionMethod::isConstructor(); //Répondra vrai si la méthode est nommée __construct ou si elle porte le nom de la classe (manière d'implémenter le constructeur sous PHP 4. Il est préférable d'utiliser la méthode magique prévue à cet effet.)
+ReflectionMethod::isDestructor();
+ReflectionMethod::invoke($object, $arg1, $arg2, ...) // Appelle la méthode sur l'objet passé en premier argument. Les autres arguments seront passés à la méthode concernée.
+ReflectionMethod::invokeArgs($object, array [$arg1, $arg2, ...]) //même principe avec un tableau d'arguments.
+ReflectionMethod::setAccessible(true) //Permet de rendre une méthode accessible, même si sa visibilité ne le permet pas.
+/!\ Brise le principe d'encapsulation.

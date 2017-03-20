@@ -1,0 +1,55 @@
+Les traits regroupent plusieurs fonctions qui peuvent être utilisées par les classes. Les traits permettent de regrouper des fonctions qui seraient alors communes à plusieurs classes. Ceci permet de palier au fait que l'héritage ne permet d'avoir qu'un seul parent.
+
+Pour utiliser un trait dans une classe, on utilise le mot clé use.
+Un trait peut utiliser un autre trait.
+
+trait NewTrait
+{
+    protected $property; // Les propriétés sont importées dans les classes
+
+    public function prioritizedFunctionName() {
+
+    }
+}
+
+    Priorité des fonctions
+
+    class > trait
+    trait > inheritance
+
+Afin d'éviter une erreur fatale lors de l'utilisation de plusieurs traits implémentant la même méthode, il est possible de donner une priorité aux fonctions d'un trait. La méthode avec la plus haute priorité sera utilisée. Pour définir les priorités, on créer un bloc avec des accolades après le mot clé use dans lequel on indique les méthodes prioritaires à l'aide du mot clé insteadof de la manière suivante :
+
+class MyClass
+{
+    use NewTrait, SecondTrait
+    {
+        NewTrait::prioritizedFunctionName insteadof SecondTrait;
+        SecondTrait::otherPrioritizedFunctionName insteadof NewTrait;
+    }
+}
+
+    Changer le nom ou la visibilité des fonctions
+
+Il est possible de créer un alias pour une fonction d'un trait : ceci permet de changer son nom afin de rendre le code plus clair, ou de changer sa visibilité. L'alias ne remplace pas le nom de la fonction, aussi il est toujours possible d'appeler la fonction avec son nom d'origine.
+
+Ceci se fait dans le même bloc que la déclaration des priorités. On utilise cette fois le mot clé as.
+
+class MyClass
+{
+    use NewTrait
+    {
+        FunctionName as protected;
+        anotherFunctionName as aliasFunctionName;
+        aLastFunctionName as protected thisFunctionName;
+    }
+}
+
+    Utilisation des attributs
+
+Les attributs sont importés dans les classes. Toutefois, contrairement aux fonctions, un attribut déclaré dans un trait ne peut pas être redéfini dans la classe qui l'utilise. Dans ce cas, une erreur fatale est levée, sauf si celui-ci a la même visibilité et la même valeur par défaut : dans ce cas, il s'agira d'une erreur stricte.
+
+Il n'est pas possible de donné une priorité à des attributs de traits.
+
+    Trait et fonctions abstraites
+
+Il est possible de déclarer des fonctions abstraites dans un trait. Dans ce cas, les classes utilisant ces traits doivent implémenter ces fonctions. Toutefois, une classe abstraite utilise un trait disposant d'une fonction abstraite, elle n'est pas obligée de la redéfinir. En revanche, ses héritières le seront.
