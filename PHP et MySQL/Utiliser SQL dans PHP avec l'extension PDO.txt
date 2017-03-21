@@ -72,6 +72,7 @@ Afin d'empêcher les injections SQL, si l'on souhaite insérer une valeur proven
 
     Lire le résultat d'une requête
 
+
 while ($data_record = $data->fetch())
 {
     echo '<p>' . $data_record['field'] . '</p>'
@@ -79,3 +80,35 @@ while ($data_record = $data->fetch())
 $data->closeCursor(); //Cette ligne provoque la fermeture du curseur d'analyse de résultats. Elle est éssentielle au bon déroulement du traitement de la prochaine requête car elle libère la connexion au serveur.
 
 La fonction fetch() permet de lire la réponse de la base de données ligne par ligne. Fetch vaut "False" si aucune ligne n'est présente, ce qui quitte la boucle.
+
+    Les arguments de la méthode fetch()
+
+La méthode fetch() retourne par défaut un tableau associatif contenant, pour chaque entrée dans la base de données, le numéro du champ suivi de son contenu, mais également le nom du champ suivi de son contenu (il envoie donc les inforamtions en double). Il est possible de passer un argument à la méthode afin de changer ce comportement.
+
+PDO::FETCH_ASSOC: retourne un tableau indexé par le nom de la colonne comme retourné dans le jeu de résultats
+
+PDO::FETCH_BOTH (défaut): retourne un tableau indexé par les noms de colonnes et aussi par les numéros de colonnes, commençant à l'index 0, comme retournés dans le jeu de résultats
+
+PDO::FETCH_BOUND: retourne TRUE et assigne les valeurs des colonnes de votre jeu de résultats dans les variables PHP à laquelle elles sont liées avec la méthode PDOStatement::bindColumn()
+
+PDO::FETCH_CLASS: retourne une nouvelle instance de la classe demandée, liant les colonnes du jeu de résultats aux noms des propriétés de la classe. Si fetch_style inclut PDO::FETCH_CLASS (c'est-à-dire PDO::FETCH_CLASS | PDO::FETCH_CLASSTYPE), alors le nom de la classe est déterminé à partir d'une valeur de la première colonne.
+/!\ Pour instancier correctement les objets, il est recommandé d'utiliser cette valeur avec PDO::FETCH_PROPS_LATE. Sinon, l'objet est créé, les propriétés lui sont assignées, et ensuite l'objet est construit.
+<?php
+    $query->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'MyClass');
+?>
+
+PDO::FETCH_INTO : met à jour une instance existante de la classe demandée, liant les colonnes du jeu de résultats aux noms des propriétés de la classe
+
+PDO::FETCH_LAZY : combine PDO::FETCH_BOTH et PDO::FETCH_OBJ, créant ainsi les noms des variables de l'objet, comme elles sont accédées
+
+PDO::FETCH_NAMED : retourne un tableau de la même forme que PDO::FETCH_ASSOC, excepté que s'il y a plusieurs colonnes avec les mêmes noms, la valeur pointée par cette clé sera un tableau de toutes les valeurs de la ligne qui a ce nom comme colonne
+
+PDO::FETCH_NUM : retourne un tableau indexé par le numéro de la colonne comme elle est retourné dans votre jeu de résultat, commençant à 0
+
+PDO::FETCH_OBJ : retourne un objet anonyme avec les noms de propriétés qui correspondent aux noms des colonnes retournés dans le jeu de résultats
+
+    setFetchMode()
+
+Il est également possible de déterminer lae mode de récupération par défaut de la requête à l'aide de la méthode setFetchMode()
+
+http://fr2.php.net/manual/fr/pdostatement.setfetchmode.php
