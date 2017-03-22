@@ -1,13 +1,7 @@
 <?php
-class MaClasse
+function functionName(int $test = null)
 {
-  private $position = 0;
-  private $tableau = ['Premier élément', 'Deuxième élément', 'Troisième élément', 'Quatrième élément', 'Cinquième élément'];
+    echo $test;
 }
 
-$objet = new MaClasse;
-
-foreach ($objet as $key => $value)
-{
-  echo $key, ' => ', $value, '<br />';
-}
+FunctionName(null);
