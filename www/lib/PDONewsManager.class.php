@@ -67,28 +67,59 @@ class PDONewsManager implements NewsManager
         $query = $this->database->prepare('SELECT * FROM news WHERE id = :id');
         $query->bindValue(':id', $id, PDO::PARAM_INT);
         $query->execute();
-        $query->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'News');
-        $news = $query->fetch();
+        $query->setFetchMode(PDO::FETCH_ASSOC);
+        $newsData = $query->fetch();
         $query->closeCursor();
+        $news = $this->arrayToNews($newsData);
         return $news;
     }
 
 
     /**
-     * Return a list of news from the database ordered by creation date.
+     * Return a list of news from the database ordered by decreasing creation date.
      * @access public
      * @param  int  $numberOfNews  Number of news to return.
      * @param  int  $startPosition Define at which position to start selecting news.
      * @return array Array of news.
      */
-    public function getList(int $numberOfNews, int $startPosition) : array
+    public function getList(int $numberOfNews = null, ?int $startPosition = null) : array
     {
         /**
-         * @var PDOStatement $newsArrayData
+         * @var PDOStatement $query
          */
-        $newsArrayData = $this->database->query('SELECT * FROM news ORDER BY dateAdded');
-        $newsArrayData->setFetchMode(PDO::FETCH_CLASS | PDO::FETCH_PROPS_LATE, 'News');
+        $query = null;
+        $queryString = 'SELECT * FROM news ORDER BY dateAdded DESC';
+
+        switch (func_num_args()) {
+            case 0 :
+                break;
+
+            case 1 :
+                $queryString .= ' LIMIT :limitNumber';
+                $query = $this->database->prepare($queryString);
+                $query->bindValue(':limitNumber', $numberOfNews, PDO::PARAM_INT);
+                break;
+
+            case 2 :
+                $queryString .= ' LIMIT :firstLimitNumber, :secondLimitNumber';
+                $query = $this->database->prepare($queryString);
+                $query->bindValue(':firstLimitNumber', $startPosition, PDO::PARAM_INT);
+                $query->bindValue(':secondLimitNumber', $numberOfNews, PDO::PARAM_INT);
+                break;
+
+            default:
+                throw new RuntimeException("Too many arguments in PDONewsManager getList()");
+                break;
+            }
+
+        $query->execute();
+        $newsArrayData = $query;
+        $newsArrayData->setFetchMode(PDO::FETCH_ASSOC);
         $newsArray = $newsArrayData->fetchAll();
+        $newsArrayData->closeCursor();
+        foreach ($newsArray as $news => &$values) {
+            $values = $this->arrayToNews($values);
+        }
         return $newsArray;
     }
 
@@ -101,7 +132,16 @@ class PDONewsManager implements NewsManager
      */
     protected function update(News  $news) : bool
     {
-        $this->database->prepare('UPDATE news (author, title, content, dateEdited) VALUES (:author, :title, :content, NOW()) WHERE id = :id');
+        try {
+            $query = $this->database->prepare('UPDATE news (author, title, content, dateEdited) VALUES (:author, :title, :content, NOW()) WHERE id = :id');
+            $query->bindValue(':id', $news->getId(), PDO::PARAM_INT);
+            $query->bindValue(':author', $news->getAuthor(), PDO::PARAM_STR);
+            $query->bindValue(':title', $news->getTitle(), PDO::PARAM_STR);
+            $query->bindValue(':content', $news->getContent(), PDO::PARAM_STR);
+            return $query->execute();
+        } catch (PDOException $e) {
+            return false;
+        }
     }
 
 
@@ -113,7 +153,13 @@ class PDONewsManager implements NewsManager
      */
     public function delete(News  $news) : bool
     {
-
+        try {
+            $query = $this->database->prepare('DELETE FROM news WHERE id = :id');
+            $query->bindValue(':id', $news->getId(), PDO::PARAM_INT);
+            return $query->execute();
+        } catch (PDOException $e) {
+            return false;
+        }
     }
 
 
@@ -124,7 +170,25 @@ class PDONewsManager implements NewsManager
      */
     public function save(News $news) : bool
     {
-        # code...
+        if ($news->isValid()) {
+            return ($news->isNew()) ? $this->add($news) : $this->update($news);
+        }
     }
 
+    /**
+     * Return a News built with data cointained in the array. arrayToNews will also transform String formatted date into DateTime objects.
+     * @param  array $newsData
+     * @return News
+     */
+    protected function arrayToNews(array $newsData) : News
+    {
+        if (isset($newsData['dateAdded']) and is_string($newsData['dateAdded'])) {
+            $newsData['dateAdded'] = new DateTime($newsData['dateAdded'], new DateTimeZone('Europe/Brussels'));
+        }
+        if (isset($newsData['dateEdited']) and is_string($newsData['dateEdited'])) {
+            $newsData['dateEdited'] = new DateTime($newsData['dateEdited'], new DateTimeZone('Europe/Brussels'));
+        }
+
+        return new News($newsData);
+    }
 }

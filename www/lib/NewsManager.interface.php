@@ -7,12 +7,8 @@
 
 interface NewsManager
 {
-
-	public function add(News  $news): bool;
 	public function get(int $id) : News;
-	public function getList(int $numberOfNews, int $startPosition) : array;
-	public function update(News  $news) : bool;
-	public function delete(News  $news) : bool;
+	public function getList(int $numberOfNews = null, int $startPosition = null) : array;
     public function save(News $news) : bool;
-
+	public function delete(News  $news) : bool;
 }

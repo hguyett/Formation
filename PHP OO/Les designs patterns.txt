@@ -7,5 +7,6 @@ Les patrons de conceptions du GoF sont les plus connus. On y retrouve notamment 
 L'injection de dépendances est un design patterns dont l'objectif est de supprimer les dépendances qui existent entre les classes, afin de les rendre autonomes. L'autonomie des classes est l'un des plus gros avantages de la POO.
 https://fr.wikipedia.org/wiki/Injection_de_d%C3%A9pendances
 
+Explications MVC : https://zeekat.nl/articles/mvc-for-the-web.html
 Petit exemple MVC :http://blog.nalis.fr/index.php?post/2009/10/19/Architecture-%3A-Le-Design-Pattern-MVC-en-PHP
 https://fr.wikipedia.org/wiki/Patron_de_conception#Patrons_de_conception_du_GoF

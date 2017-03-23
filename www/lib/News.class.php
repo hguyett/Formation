@@ -48,7 +48,7 @@ class News
 	 * @var DateTime
 	 * @access protected
 	 */
-	protected  $dateEdited;
+	protected  $dateEdited = null;
 
 
 	/**
@@ -77,6 +77,26 @@ class News
             }
         }
 	}
+
+
+    /**
+     * Return true if the news have not an ID. Else, return false.
+     * @return bool
+     */
+    public function isNew() : bool
+    {
+        return empty($this->id);
+    }
+
+
+    /**
+     * Return true if the news has an author, a title and a content. Else, retourn false.
+     * @return bool
+     */
+    public function isValid() : bool
+    {
+        return !(empty($this->author) or empty($this->title) or empty($this->content));
+    }
 
 
 	/**
@@ -140,12 +160,12 @@ class News
 
 
 	/**
-	 * Return the last edition date of the news.
+	 * Return the last edition date of the news or null if not set.
 	 * @access public
-	 * @return DateTime
+	 * @return mixed DateTime or null if not set.
 	 */
-
-	public function getDateEdited() : DateTime
+	
+	public function getDateEdited()
     {
         return $this->dateEdited;
 	}
@@ -217,7 +237,7 @@ class News
 	 * @param DateTime $dateEdited Edition date to set to the news.
 	 */
 
-	public function setDateEdited(DateTime $dateEdited)
+	public function setDateEdited(DateTime $dateEdited = null)
     {
         $this->dateEdited = $dateEdited;
 	}
