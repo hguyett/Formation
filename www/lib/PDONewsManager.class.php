@@ -139,7 +139,7 @@ class PDONewsManager implements NewsManager
     protected function update(News  $news) : bool
     {
         // try {
-            $query = $this->database->prepare('UPDATE news SET author = :author, title = :title, content =:content WHERE id = :id');
+            $query = $this->database->prepare('UPDATE news SET author = :author, title = :title, content =:content, dateEdited = NOW() WHERE id = :id');
             $query->bindValue(':id', $news->getId(), PDO::PARAM_INT);
             $query->bindValue(':author', $news->getAuthor(), PDO::PARAM_STR);
             $query->bindValue(':title', $news->getTitle(), PDO::PARAM_STR);

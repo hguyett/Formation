@@ -12,6 +12,13 @@ foreach ($newsArray as $News) {
     <h1><?php echo nl2br(htmlspecialchars($News->getTitle(), ENT_QUOTES, 'utf-8')); ?></h1>
     <p>Rédigé par <em><?php echo htmlspecialchars($News->getAuthor(), ENT_QUOTES, 'utf-8'); ?></em> le <time datetime="<?php echo htmlspecialchars($News->getDateAdded()->format(DateTime::COOKIE), ENT_QUOTES, 'utf-8'); ?>"><?php echo htmlspecialchars(strftime('%A %e %B %G à %H:%M', $News->getDateAdded()->getTimestamp()), ENT_QUOTES, 'utf-8'); ?></time></p>
     <p><?php echo nl2br(htmlspecialchars($News->getContent(), ENT_QUOTES, 'utf-8')); ?></p>
+<?php
+    if ($News->getDateEdited() !== null) {
+?>
+    <p>Dernières modifications le <time datetime="<?php echo htmlspecialchars($News->getDateEdited()->format(DateTime::COOKIE), ENT_QUOTES, 'utf-8'); ?>"><?php echo htmlspecialchars(strftime('%A %e %B %G à %H:%M', $News->getDateEdited()->getTimestamp()), ENT_QUOTES, 'utf-8'); ?></time></p>
+<?php
+    }
+?>
 </article>
 <?php
 }
