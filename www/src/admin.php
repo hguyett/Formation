@@ -1,5 +1,5 @@
 <nav>
-    <a href="../index.php">Retour à l'accueil</a>
+    <a href="../index.php">Accueil</a>
 </nav>
 <h1>Espace d'administration</h1>
 <?php

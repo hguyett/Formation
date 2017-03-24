@@ -42,7 +42,7 @@ class PDONewsManager implements NewsManager
      * @param News $news News to add.
      * @return bool
      */
-    protected function add(News  $news) : bool
+    protected function add(News $news) : bool
     {
         try {
             $query = $this->database->prepare('INSERT INTO news (author, title, content, dateAdded) VALUES (:author, :title, :content, NOW())');

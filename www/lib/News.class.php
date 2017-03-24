@@ -243,6 +243,5 @@ class News
     {
         $this->dateEdited = $dateEdited;
 	}
-
-
+    
 }
