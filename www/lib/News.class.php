@@ -56,9 +56,11 @@ class News
 	 * @param array $dataArray Associative array containing properties values.
 	 */
 
-	public function __construct($dataArray)
+	public function __construct($dataArray = null)
     {
-        $this->hydrate($dataArray);
+        if (isset ($dataArray)) {
+            $this->hydrate($dataArray);
+        }
 	}
 
 
@@ -164,7 +166,7 @@ class News
 	 * @access public
 	 * @return mixed DateTime or null if not set.
 	 */
-	
+
 	public function getDateEdited()
     {
         return $this->dateEdited;

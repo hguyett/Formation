@@ -61,8 +61,9 @@ class PDONewsManager implements NewsManager
      * @access public
      * @param  int  $id of the news to return.
      * @return News
+     * @throws NotFoundException If no data is found, get() throws a NotFoundException (404).
      */
-    public function get(int $id): News
+    public function get(int $id) : News
     {
         $query = $this->database->prepare('SELECT * FROM news WHERE id = :id');
         $query->bindValue(':id', $id, PDO::PARAM_INT);
@@ -70,7 +71,11 @@ class PDONewsManager implements NewsManager
         $query->setFetchMode(PDO::FETCH_ASSOC);
         $newsData = $query->fetch();
         $query->closeCursor();
-        $news = $this->arrayToNews($newsData);
+        if ($newsData) {
+            $news = $this->arrayToNews($newsData);
+        } else {
+            throw new NotFoundException();
+        }
         return $news;
     }
 
@@ -92,6 +97,7 @@ class PDONewsManager implements NewsManager
 
         switch (func_num_args()) {
             case 0 :
+                $query = $this->database->prepare($queryString);
                 break;
 
             case 1 :
@@ -132,16 +138,16 @@ class PDONewsManager implements NewsManager
      */
     protected function update(News  $news) : bool
     {
-        try {
-            $query = $this->database->prepare('UPDATE news (author, title, content, dateEdited) VALUES (:author, :title, :content, NOW()) WHERE id = :id');
+        // try {
+            $query = $this->database->prepare('UPDATE news SET author = :author, title = :title, content =:content WHERE id = :id');
             $query->bindValue(':id', $news->getId(), PDO::PARAM_INT);
             $query->bindValue(':author', $news->getAuthor(), PDO::PARAM_STR);
             $query->bindValue(':title', $news->getTitle(), PDO::PARAM_STR);
             $query->bindValue(':content', $news->getContent(), PDO::PARAM_STR);
             return $query->execute();
-        } catch (PDOException $e) {
-            return false;
-        }
+        // } catch (PDOException $e) {
+        //     return false;
+        // }
     }
 
 
