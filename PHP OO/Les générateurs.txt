@@ -1,0 +1,68 @@
+les générateurs implémentent les itéreateurs (Cf "Les interfaces.txt"). Les générateurs permettent d'éviter une surcharge de la mémoire lors du traitement de volume important de données. Il est également possible d'utiliser les générateurs pour traiter des données (on lui envoi des données au lieu d'en recevoir). Dans ce cas, on parlera de générateur inverse ou de coroutine.
+
+La création de générateurs se fait en utilisant le mot clé yield dans une fonction. Une fonction contenant le mot clé yield est automatiquement considérée comme un générateur. Un appel à la fonction créera alors un générateur qui sera retourné.
+
+function generator() {
+    $data = 'Hello World';
+    while (true)
+     {
+        yield $data;
+     }
+}
+
+
+Le mot clé yield s'utilise de différentes manières :
+Soit comme une instruction return (dans le cas d'envoi de données)
+Soit en lieu et place de la donnée attendue (dans le cas de réception de données (coroutines))
+
+Un générateur parcourt ses instructions jusqu'à atteindre le mot clé yield. Le générateur s'arrète à cette instruction et attend un appel. Lorsque le générateur est à nouveau appelé, il reprend son exécution là où il s'était arrêté jusqu'à rencontrer le mot clé yield, puis s'arrête à nouveau.
+
+Dans le cas de la réception de données, le mot clé yeld doit être contenu dans des parenthèses s'il n'est pas utilisé seul dans une expression.
+Pour envoyer des données à un générateur, on fait appel à sa fonction send().
+
+function generator(int $repeat) {
+    for ($i = 0; $i < $repeat; $i++) {
+        doSomething(yield);
+    }
+}
+
+$gen = generator(2);
+$gen->send('data');
+$gen->send('data2');
+$gen->send('data3'); // Will do nothing as $repeat has been set to 2.
+
+Il est également possible de demander à un générateur de lancer une exception. Pour cela, il faut faire appelle à sa méthode throw. Ceci aura pour effet d'interrompre le générateur dans son exécution.
+
+$gen->throw(new Exception('Generator interrupted'));
+
+Pour utiliser un générateur, on se sert la boucle foreach étant donné qu'un générateur est un objet itératif. On créer un générateur en faisant appel à la fonction, puis on utilise ce générateur comme condition de boucle.
+
+    Exemple avec la suite de Fibonacci
+
+function getFibonacci()
+{
+    $i = 0;
+    $k = 1; //first fibonacci value
+    yield $k;
+    while(true)
+    {
+        $k = $i + $k;
+        $i = $k - $i;
+        yield $k;
+    }
+}
+
+$y = 0;
+
+foreach(getFibonacci() as $fibonacci)
+{
+    echo $fibonacci . "\n";
+    $y++;
+    if($y > 30)
+    {
+        break; // infinite loop prevent
+    }
+}
+
+http://fr2.php.net/generator
+http://fr2.php.net/manual/fr/language.generators.php

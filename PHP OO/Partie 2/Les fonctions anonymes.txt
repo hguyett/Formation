@@ -1,0 +1,164 @@
+Les closures ou fonctions anonymes sont des fonctions qui n'ont pas de nom. Généralement, elles seront utilisées en tant que fonction de rappel : elles seront stockées dans une variable dans le but de les passer en paramètre à une fonction qui demande un argument callable, par exemple la fonction array_map qui permet d'exécuter une fonction sur tous les éléments d'un tableau.
+
+$additionneur = function($nbr)
+{
+  return $nbr + 5;
+};
+
+$listeNbr = [1, 2, 3, 4, 5];
+
+$listeNbr = array_map($additionneur, $listeNbr);
+
+
+Il est également possible de demander à une closure d'utiliser une variable externe :
+
+<?php
+$quantite = 5;
+$additionneur = function($nbr) use($quantite)
+{
+  return $nbr + $quantite;
+};
+
+$listeNbr = [1, 2, 3, 4, 5];
+
+$listeNbr = array_map($additionneur, $listeNbr);
+
+var_dump($listeNbr);
+
+
+Cette variable n'est malheureusement pas modifiable telle quelle. Pour pouvoir la modifier, il faudra inclure la closure dans une fonction anonyme qui renverra la closure avec la bonne valeur :
+
+<?php
+function creerAdditionneur($quantite)
+{
+  return function($nbr) use($quantite)
+  {
+    return $nbr + $quantite;
+  };
+}
+
+$listeNbr = [1, 2, 3, 4, 5];
+
+$listeNbr = array_map(creerAdditionneur(5), $listeNbr);
+var_dump($listeNbr);
+// On a : $listeNbr = [6, 7, 8, 9, 10]
+
+$listeNbr = array_map(creerAdditionneur(4), $listeNbr);
+var_dump($listeNbr);
+// Cette fois-ci, on a bien : $listeNbr = [10, 11, 12, 13, 14]
+
+
+Il est possible de lier une closure à un objet ou à une classe. Ceci permet d'hériter des' attributs et méthodes privés d'une classe ou d'un objet (Ceci ne brise pas le principe d'encapsulation : l'objet n'est pas modifiable). il faudra pour cela appeler la fonction bindTo sur la closure. Cette fonction prend 2 arguments : l'objet auquel on souhaite attacher la closure et le contexte dans lequel la méthode sera invoquée (le contexte peut être vide, ou il peut contenir un objet ou le nom d'une classe par exemple. Le contexte défini comment sera invoqué la closure. Pour accéder à des attributs privés, il faudra spécifier la classe ou un objet appartenant à cetta classe).
+
+<?php
+$additionneur = function()
+{
+  $this->_nbr += 5;
+};
+
+class MaClasse
+{
+  private $_nbr = 0;
+
+  public function nbr()
+  {
+    return $this->_nbr;
+  }
+}
+
+$obj = new MaClasse;
+
+// On obtient une copie de notre closure qui sera liée à notre objet $obj
+// Cette nouvelle closure sera appelée en tant que méthode de MaClasse
+// On aurait tout aussi bien pu passer $obj en second argument
+$additionneur = $additionneur->bindTo($obj, 'MaClasse');
+$additionneur();
+
+echo $obj->nbr(); // Affiche bien 5
+
+
+Afin d'alléger le code, il est possible de lier temporairement une closure à une classe pour faire de petites opérations avec la méthode call().
+
+<?php
+
+class Nombre
+{
+  private $_nbr;
+
+  public function __construct($nbr)
+  {
+    $this->_nbr = $nbr;
+  }
+}
+
+$closure = function() {
+  var_dump($this->_nbr + 5);
+};
+
+$two = new Nombre(2);
+$three = new Nombre(3);
+
+$closure->call($two);
+$closure->call($three);
+
+
+Si la closure est utilisée pour hériter d'une classe et non d'un objet, il faudra passer null en premier paramètre à la fonction bindTo.
+Il n'est pas obligatoire de définir la closure comme étant static. C'est toutefois possible. Dans ce cas, la closure ne pourra pas être liée à un objet.
+
+<?php
+$additionneur = [static] function()
+{
+  self::$_nbr += 5;
+};
+
+class MaClasse
+{
+  private static $_nbr = 0;
+
+  public static function nbr()
+  {
+    return self::$_nbr;
+  }
+}
+
+$additionneur = $additionneur->bindTo(null, 'MaClasse');
+$additionneur();
+
+echo MaClasse::nbr(); // Affiche bien 5
+
+
+Une closure peut être définie à l'intérieur d'une classe. On peut par exemple imaginer une fonction publique d'un objet renvoyant une closure. Dans ce cas, cette closure aura pour contexte la classe dans laquelle elle a été définie.
+
+<?php
+class MaClasse
+{
+  private $_nbr = 0;
+
+  public function getAdditionneur()
+  {
+    return function()
+    {
+      $this->_nbr += 5;
+    };
+  }
+
+  public function nbr()
+  {
+    return $this->_nbr;
+  }
+}
+
+$obj = new MaClasse;
+
+$additionneur = $obj->getAdditionneur();
+$additionneur();
+
+echo $obj->nbr();
+// Affiche bien 5 car notre closure est bien liée à $obj depuis MaClasse
+
+
+    Exemple d'utilisation avec SPLObserver et SPLSubject
+
+Dans le cas du design pattern observer, les closures peuvent être utilisées afin de ne pas avoir à décrire une classe différent pour chaque observateur. À la place, on décrira une classe observateur générique qui aura comme propriété une closure. Cette closure sera appelée lors de l'appel à la méthode update de l'observer. Ainsi fait, il ne sera plus nécessaire de définir une nouvelle classe pour chaque observateur : on se servira de la même classe pour tous les observateurs, et on passera une closure en paramètre au constructeur qui définira les actions à réaliser.
+
+https://openclassrooms.com/courses/programmez-en-oriente-objet-en-php/les-closures-2
