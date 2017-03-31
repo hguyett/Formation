@@ -5,10 +5,6 @@ namespace OCFram;
  */
 class HTTPRequest extends ApplicationComponent
 {
-    public function __construct(Application $app)
-    {
-        parent::__construct($app);
-    }
 
     public function cookieExists(String $key): bool
     {
