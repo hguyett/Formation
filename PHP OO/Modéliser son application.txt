@@ -34,7 +34,7 @@ Une constante est représentée comme une propriété, mais on indiquera à la p
 Solid link with arrow : inheritance
 Dotted link with arrow : implements (interface)
 Solid link : Association (above the link, a few words describe the interaction and a little arrow give the direction of this interaction. At the extremities, the cardinality is indicated. It can ben an integer, an interval (1..5 or 1..*) or an infinty (*))
-Solid link with empty diamond : Aggregation (Used when a class contains at least an instance of the other class. On the main class, we found cardinality. On the other side, we found the diamond (but not cardinality as it is necessarily 1))
+Solid link with empty diamond : Aggregation (Used when a class contains at least an instance of the other class. On the contained class, we found cardinality. On the other side, we found the diamond (but not cardinality as it is necessarily 1))
 Solid link with solid diamond : Composition. (The composition is an aggregation, but when the main object is destructed, the linked objets have to be destructed too)
 
 Doc : http://uml.free.fr/cours/uml_free_fr_cours.html

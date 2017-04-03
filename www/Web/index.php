@@ -8,6 +8,12 @@
 </head>
 <body>
 <?php
+function test(String $url, String $module, String $action, String $varsNames)
+{
+    print_r(func_get_args());
+}
+
+test('un', 'deux', 'trois', 'quatre');
 
  ?>
 </body>

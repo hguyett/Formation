@@ -29,6 +29,14 @@ abstract class Application
     abstract public function run(): void;
 
     /**
+     * @todo implements
+     */
+    public function getController(): Controller
+    {
+
+    }
+
+    /**
      * @return HTTPRequest
      */
     public function getHttpRequest(): HTTPRequest
