@@ -28,12 +28,15 @@ class HTTPResponse extends ApplicationComponent
      */
     public function redirect404(): void
     {
-
+        $this->setPage(new Page($this->app));
+        $this->page->setContentFile(__DIR__ . '/../../Errors/404.html');
+        $this->addHeader('HTTP/1.0 404 Not Found');
+        $this->send();
     }
 
     public function send(): void
     {
-        exit($this->page->getGeneratedPage());
+        exit($this->page->generatePage());
     }
 
     public function setCookie(String $name, String $value = '', int $expire = 0, String $path = null, String $domain = null, bool $secure = false, bool $httpOnly = true)

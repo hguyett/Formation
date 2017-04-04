@@ -18,15 +18,20 @@ abstract class Application
      * @var String $name Name of the application.
      */
     protected $name;
+    /**
+     * @var User $user User of the application.
+     */
+    protected $user;
 
-    public function __construct(String $name)
+    public function __construct(String $name, User $user)
     {
         $this->$name = $name;
         $this->httpRequest = new HTTPRequest($this);
         $this->httpResponse = new HTTPResponse($this);
+        $this->user = $user;
     }
 
-    abstract public function run(): void;
+    abstract public function run();
 
     /**
      * @todo implements
