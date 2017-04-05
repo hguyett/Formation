@@ -23,12 +23,20 @@ class Entity implements \ArrayAccess
     // Methods //
     /////////////
 
-
+    /**
+	 * @access public
+	 * @param array $dataArray Associative array containing properties values.
+	 */
     function __construct(array $dataArray)
     {
         $this->hydrate($dataArray);
     }
 
+    /**
+	 * Hydrate the object.
+	 * @access public
+	 * @param array $dataArray Associative array containing properties values.
+	 */
     public function hydrate(array $dataArray)
     {
         foreach ($dataArray as $key => $value) {
@@ -36,6 +44,10 @@ class Entity implements \ArrayAccess
         }
     }
 
+    /**
+     * Return true if the entity have not an ID. Else, return false.
+     * @return bool
+     */
     public function isNew(): bool
     {
         return empty($this->id);
@@ -84,6 +96,7 @@ class Entity implements \ArrayAccess
 
 
     /**
+    * Set the id of the entity
     * @param int $id
     *
     * @return static
@@ -100,6 +113,7 @@ class Entity implements \ArrayAccess
 
 
     /**
+    * return the id of the entity.
     * @return int
     */
     public function getId(): int

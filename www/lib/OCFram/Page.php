@@ -28,18 +28,22 @@ class Page extends ApplicationComponent
         $this->vars[$var] = $value;
     }
 
+    /**
+     * Generate the content to send to the client using layouts and views files.
+     * @return String Content to send.
+     */
     public function generatePage(): String
     {
         if (!file_exists(__DIR__ . '/../../App/' . $this->getApp() . '/Templates/layout.php')) {
             throw new RuntimeException('No layout.php found in ' . __DIR__ . '/../../App/' . $this->getApp() . '/Templates');
         }
 
+        $user = $this->app->getUser();
+
         extract($this->vars);
         ob_start();
         require $this->contentFile;
-        /**
-         * @todo WTF is this $content variable ?
-         */
+
         $content = ob_get_clean();
 
         ob_start();

@@ -23,8 +23,6 @@ class HTTPResponse extends ApplicationComponent
 
     /**
      * Redirect to a 404 error page.
-     *
-     * @todo implements
      */
     public function redirect404(): void
     {
@@ -34,6 +32,9 @@ class HTTPResponse extends ApplicationComponent
         $this->send();
     }
 
+    /**
+     * Send the response to the client.
+     */
     public function send(): void
     {
         exit($this->page->generatePage());

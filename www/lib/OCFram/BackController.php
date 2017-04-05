@@ -33,6 +33,12 @@ abstract class BackController extends ApplicationComponent
      */
     protected $view;
 
+    /**
+     * List of managers handled by the controller.
+     * @var ManagersList
+     */
+    protected $managersList = null;
+
     /////////////
     // Methods //
     /////////////
@@ -42,6 +48,9 @@ abstract class BackController extends ApplicationComponent
     {
         parent::__construct($app);
 
+        $PDO = new PDOFactory();
+
+        $this->managers = new ManagersList('PDO', $PDO->getMysqlConnexion());
         $this->page = new Page($app);
 
         $this->setModule($module);

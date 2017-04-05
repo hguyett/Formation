@@ -1,5 +1,6 @@
 <?php
 namespace OCFram;
+use RuntimeException;
 
 /**
  *
@@ -22,6 +23,12 @@ class Router
         }
     }
 
+    /**
+     * Create a route using a URL and the routes models loaded in the router. If no route has been found, it throws a RuntimeException.
+     * @param  String $url
+     * @return Route
+     * @throws RuntimeException
+     */
     public function createRoute(String $url): Route
     {
         // Looking for a route model fitting the url
