@@ -37,7 +37,7 @@ class Route
      */
     protected $vars;
 
-    public function __construct(String $url, String $module, String $action, String $varsNames)
+    public function __construct(String $url, String $module, String $action, array $varsNames)
     {
         $this->setUrl($url)
         ->setModule($module)

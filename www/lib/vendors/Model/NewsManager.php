@@ -1,5 +1,8 @@
 <?php
-namespace OCFram\Model;
+namespace Model;
+
+use Entity\News;
+use OCFram\Manager;
 
 /**
  * Manage News in the database.

@@ -3,6 +3,7 @@ namespace OCFram;
 use DOMElement;
 use DOMDocument;
 use RuntimeException;
+use Exception;
 
 /**
  *
@@ -42,10 +43,10 @@ abstract class Application
     /////////////
 
 
-    public function __construct(String $name, User $user)
+    public function __construct(String $name)
     {
-        $this->$name = $name;
-        $this->user = $user;
+        $this->name = $name;
+        $this->user = new User($this);
         $this->httpRequest = new HTTPRequest($this);
         $this->httpResponse = new HTTPResponse($this);
         $this->configuration = new Config($this);
@@ -61,11 +62,11 @@ abstract class Application
     {
         $router = new Router;
         $xml = new DOMDocument;
-        $routesModelsFilePath = __DIR__ . '/../../app/' . $this->name . '/Config/Routes.xml';
+        $routesModelsFilePath = realpath(__DIR__ . '/../../app/' . $this->getName() . '/Config/Routes.xml');
 
         if (file_exists($routesModelsFilePath)) {
             // Loading routes models
-            $xml->load($routeModelsFilePath);
+            $xml->load($routesModelsFilePath);
             foreach ($xml->getElementsByTagName('route') as $route) {
                 $varsName = [];
                 /**
@@ -78,8 +79,7 @@ abstract class Application
                 }
 
                 $routeModel = new Route($route->getAttribute('url'), $route->getAttribute('module'), $route->getAttribute('action'), $varsName);
-
-                $router->addRouteModel();
+                $router->addRouteModel($routeModel);
             }
         } else {
             throw new Exception('No routes file found (' . $routesModelsFilePath . ')');
@@ -98,8 +98,8 @@ abstract class Application
         // Adding route variables to $_GET
         $_GET = array_merge($_GET, $matchedRoute->getVars());
 
-        $controllerClass = 'App\\'.$this->name.'\\Modules\\'.$matchedRoute->module().'\\'.$matchedRoute->module().'Controller';
-        return new $controllerClass($this, $matchedRoute->module(), $matchedRoute->action());
+        $controllerClass = 'App\\'.$this->name.'\\Modules\\'.$matchedRoute->getModule().'\\'.$matchedRoute->getModule().'Controller';
+        return new $controllerClass($this, $matchedRoute->getModule(), $matchedRoute->getAction());
     }
 
     /////////////

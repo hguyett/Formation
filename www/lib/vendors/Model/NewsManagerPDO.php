@@ -1,28 +1,17 @@
 <?php
-namespace OCFram\Model;
+namespace Model;
+use Entity\News;
+use PDO;
+use DateTime;
+use DateTimeZone;
+use RuntimeException;
+use NotFoundException;
 
 /**
  * Manage News in the database using PDO objects.
  */
-class PDONewsManager extends NewsManager
+class NewsManagerPDO extends NewsManager
 {
-
-	/**
-	 * Connection to MySQL database.
-	 * @var PDO
-	 * @access public
-	 */
-	public  $dao;
-
-
-    /**
-     * @param PDO $dao PDO connection to the MySQL database.
-     */
-    public function __construct(PDO $dao)
-    {
-        $this->setDao($dao);
-    }
-
 
     /**
      * Establish the connection to the MySQL database.

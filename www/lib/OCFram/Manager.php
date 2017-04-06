@@ -8,11 +8,11 @@ abstract class Manager
 {
 
     /**
-     * @var object
+     * Data Access Object.
      */
     protected $dao;
 
-    public function __construct(object $dao)
+    public function __construct($dao)
     {
         $this->dao = $dao;
     }

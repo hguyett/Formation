@@ -37,7 +37,7 @@ abstract class BackController extends ApplicationComponent
      * List of managers handled by the controller.
      * @var ManagersList
      */
-    protected $managersList = null;
+    protected $managersList;
 
     /////////////
     // Methods //
@@ -50,7 +50,7 @@ abstract class BackController extends ApplicationComponent
 
         $PDO = new PDOFactory();
 
-        $this->managers = new ManagersList('PDO', $PDO->getMysqlConnexion());
+        $this->managersList = new ManagersList('PDO', $PDO->getMysqlConnexion());
         $this->page = new Page($app);
 
         $this->setModule($module);
@@ -66,10 +66,10 @@ abstract class BackController extends ApplicationComponent
     public function execute()
     {
         $method = 'execute' . ucfirst($this->action);
-        if (is_callable($method)) {
+        if (is_callable('App\\' . $this->app->getName() . '\\Modules\\' . $this->module . '\\' . $this->module . 'Controller' . '::' . $method)) {
             $this->$method($this->app->getHttpRequest());
         } else {
-            throw new RuntimeException('Action ' . $this->action . 'is not defined on this module.');
+            throw new RuntimeException('Action ' . $this->action . ' is not defined on this module.');
         }
     }
 
@@ -108,7 +108,7 @@ abstract class BackController extends ApplicationComponent
     public function setView(String $view)
     {
         $this->view = $view;
-        $this->page->setContentFile(__DIR__.'/../../App/'.$this->app->name().'/Modules/'.$this->module.'/Views/'.$this->view.'.php');
+        $this->page->setContentFile(realpath(__DIR__.'/../../App/'.$this->app->getName().'/Modules/'.$this->module.'/Views/'.$this->view.'.php'));
         return $this;
     }
 

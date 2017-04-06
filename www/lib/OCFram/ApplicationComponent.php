@@ -13,7 +13,7 @@ abstract class ApplicationComponent
 
     function __construct(Application $app)
     {
-        $this->$app = $app;
+        $this->app = $app;
     }
 
     /**

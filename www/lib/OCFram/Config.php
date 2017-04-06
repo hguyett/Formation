@@ -23,7 +23,7 @@ class Config extends ApplicationComponent
     {
         //loading variables
         if (empty($this->vars)) {
-            $configFile = __DIR__ . '/../../App/' . $this->app . '/Config/app.xml';
+            $configFile = realpath(__DIR__ . '/../../App/' . $this->app->getName() . '/Config/app.xml');
             if (file_exists($configFile)) {
                 $xml = new DOMDocument();
                 $xml->load(realpath($configFile));

@@ -1,7 +1,10 @@
 <?php
 namespace OCFram;
 use Exception;
+use RuntimeException;
+use InvalidArgumentException;
 use ArrayAccess;
+
 /**
  *
  */
@@ -39,6 +42,7 @@ class Entity implements \ArrayAccess
 	 */
     public function hydrate(array $dataArray)
     {
+        print_r($dataArray);
         foreach ($dataArray as $key => $value) {
             static::offsetSet($key, $value);
         }
@@ -58,24 +62,41 @@ class Entity implements \ArrayAccess
     //////////////////////////////
 
 
-    public function offsetExists(String $offset)
+    public function offsetExists($offset)
     {
-        if (is_callable($getter = 'get' . ucfirst($offset))) {
-            return static::$getter();
+        if (isset($offset) and is_string($offset)) {
+            if (is_callable($getter = 'get' . ucfirst($offset))) {
+                return static::$getter();
+            }
+        }
+        throw new InvalidArgumentException('Offset should be a String matching with a setter of the entity.');
+    }
+
+    public function offsetGet($offset)
+    {
+        if (isset($offset) and is_string($offset)) {
+            $getter = 'get' . ucfirst($offset);
+            if (is_callable('static::' . $getter)) {
+                return static::$getter();
+            } else {
+                throw new RuntimeException('No getter found for the property ' . $offset);
+            }
+        } else {
+            throw new InvalidArgumentException('Offset should be a String matching with a setter of the entity.');
         }
     }
 
-    public function offsetGet(String $offset)
+    public function offsetSet($offset, $value)
     {
-        if (is_callable($getter = 'get' . ucfirst($offset))) {
-            return static::$getter();
-        }
-    }
-
-    public function offsetSet(String $offset, $value)
-    {
-        if (is_callable($setter = 'set' . ucfirst($offset))) {
-            static::$setter($value);
+        if (isset($offset) and is_string($offset)) {
+            $setter = 'set' . ucfirst($offset);
+            if (is_callable('static::' . $setter)) {
+                static::$setter($value);
+            } else {
+                throw new RuntimeException('No setter found for the property ' . $offset);
+            }
+        }else {
+            throw new InvalidArgumentException('Offset should be a String.');
         }
     }
 

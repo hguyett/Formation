@@ -8,6 +8,7 @@ class ManagersList
 {
 
     /**
+     * Class of the the dao.
      * @var String
      */
     protected $api = null;
@@ -22,18 +23,17 @@ class ManagersList
      */
     protected $managers = [];
 
-    function __construct(String $api, Object $dao)
+    function __construct(String $api, $dao)
     {
         $this->api = $api;
         $this->dao = $dao;
     }
 
-    public function getManagerOf(String $Module): Manager
+    public function getManagerOf(String $module): Manager
     {
     if (!isset($this->managers[$module]))
         {
-          $manager = '\\Model\\' . $module.'Manager' . $this->api;
-
+          $manager = '\\Model\\' . $module . 'Manager' . $this->api;
           $this->managers[$module] = new $manager($this->dao);
         }
 

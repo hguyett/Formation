@@ -8,9 +8,9 @@ use OCFram\Application;
 class FrontendApplication extends Application
 {
 
-    function __construct(User $user)
+    function __construct()
     {
-        parent::__construct($this, $user);
+        parent::__construct('Frontend');
     }
 
     public function run()

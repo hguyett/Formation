@@ -14,12 +14,12 @@ class Router
      * Array containing routes models used to create routes.
      * @var array array of routes.
      */
-    protected $routesModels;
+    protected $routesModels = [];
 
-    public function addRouteModel($routeModel)
+    public function addRouteModel(Route $routeModel)
     {
-        if (!in_array($routeModel, $routesModels)) {
-            $this->$routesModels[] = $routeModel;
+        if (!in_array($routeModel, $this->routesModels)) {
+            $this->routesModels[] = $routeModel;
         }
     }
 
@@ -32,7 +32,7 @@ class Router
     public function createRoute(String $url): Route
     {
         // Looking for a route model fitting the url
-        foreach ($routesModels as $routeModel) {
+        foreach ($this->routesModels as $routeModel) {
             /**
              * @var Route $routeModel
              */
