@@ -1,5 +1,5 @@
 <?php
-foreach ($listeNews as $news)
+foreach ($newsList as $news)
 {
 ?>
   <h2><a href="news-<?= $news['id'] ?>.html"><?= $news['title'] ?></a></h2>

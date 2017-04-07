@@ -1,11 +1,11 @@
 <?php
 namespace Model;
 use Entity\News;
-use PDO;
-use DateTime;
-use DateTimeZone;
-use RuntimeException;
-use NotFoundException;
+use OCFram\NotFoundException;
+use \PDO;
+use \DateTime;
+use \DateTimeZone;
+use \RuntimeException;
 
 /**
  * Manage News in the database using PDO objects.

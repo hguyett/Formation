@@ -21,7 +21,7 @@ class Page extends ApplicationComponent
      * Contains variables for the view
      * @var array
      */
-    protected $vars;
+    protected $vars = [];
 
     public function addVar(String $var, $value)
     {
@@ -34,8 +34,8 @@ class Page extends ApplicationComponent
      */
     public function generatePage(): String
     {
-        if (!file_exists(__DIR__ . '/../../App/' . $this->getApp() . '/Templates/layout.php')) {
-            throw new RuntimeException('No layout.php found in ' . __DIR__ . '/../../App/' . $this->getApp() . '/Templates');
+        if (!file_exists(realpath(__DIR__ . '/../../App/' . $this->app->getName() . '/Templates/layout.php'))) {
+            throw new RuntimeException('No layout.php found in ' . realpath(__DIR__ . '/../../App/' . $this->app->getName() . '/Templates'));
         }
 
         $user = $this->app->getUser();
@@ -47,7 +47,7 @@ class Page extends ApplicationComponent
         $content = ob_get_clean();
 
         ob_start();
-        require __DIR__ . '/../../App/' . $this->getApp() . '/Templates/layout.php';
+        require realpath(__DIR__ . '/../../App/' . $this->app->getName() . '/Templates/layout.php');
         return ob_get_clean();
     }
 

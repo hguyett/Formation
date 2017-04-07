@@ -42,7 +42,6 @@ class Entity implements \ArrayAccess
 	 */
     public function hydrate(array $dataArray)
     {
-        print_r($dataArray);
         foreach ($dataArray as $key => $value) {
             static::offsetSet($key, $value);
         }
@@ -66,10 +65,10 @@ class Entity implements \ArrayAccess
     {
         if (isset($offset) and is_string($offset)) {
             if (is_callable($getter = 'get' . ucfirst($offset))) {
-                return static::$getter();
+                return true;
             }
         }
-        throw new InvalidArgumentException('Offset should be a String matching with a setter of the entity.');
+        return false;
     }
 
     public function offsetGet($offset)

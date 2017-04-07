@@ -33,7 +33,7 @@ class HTTPResponse extends ApplicationComponent
     }
 
     /**
-     * Send the response to the client.
+     * Generate the page and send it to the client.
      */
     public function send(): void
     {
