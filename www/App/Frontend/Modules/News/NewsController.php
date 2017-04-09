@@ -1,7 +1,7 @@
 <?php
 namespace App\Frontend\Modules\News;
 use Entity\Comment;
-use Model\CommentManager;
+use Model\CommentsManager;
 use OCFram\NotFoundException;
 use Model\NewsManager;
 use Entity\News;
@@ -48,6 +48,7 @@ class NewsController extends BackController
     {
         $id = $httpRequest->getData('id');
         $manager = $this->managersList->getManagerOf('News');
+
         /**
          * @var NewsManager $manager
          */
@@ -58,21 +59,24 @@ class NewsController extends BackController
         }
 
         $this->page->addVar('news', $news);
+        $this->page->addVar('comments', $this->managersList->getManagerOf('Comments')->getList());
     }
 
     public function executeInsertComment(HTTPRequest $httpRequest)
     {
-        $id = $httpRequest->getData('newsId');
-        $this->page->addVar('NewsId', $id);
-
-        if (isset($_POST['author']) and isset($_POST['content'])) {
-            $manager = $this->managersList->getManagerOf("Comment");
+        $this->page->addVar('title', 'Ajouter un commentaire');
+        if (isset($_POST['author']) and isset($_POST['content']) and ($newsId = $httpRequest->getData('newsId') !== null)) {
+            $manager = $this->managersList->getManagerOf("Comments");
             /**
-            * @var CommentManager $manager
+            * @var CommentsManager $manager
             */
-            $comment = new Comment(array('author' => $_POST['author'], 'content' => $_POST['content']));
-            $comment->setId($id);
+            $comment = new Comment(array(
+                'news' => $newsId,
+                'author' => $httpRequest->postData('author'),
+                'content' => $httpRequest->postData('content')));
+
             $manager->save($comment);
+            $this->app->getHttpResponse()->redirect('news-' . $newsId . '.html');
         }
     }
 

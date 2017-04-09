@@ -1,8 +1,8 @@
 <?php
 namespace Entity;
 
-use \DateTime;
 use OCFram\Entity;
+use \DateTime;
 
 /**
  * A news have an ID for the database storage, an author, a title, a content, a creation date and an edition date.

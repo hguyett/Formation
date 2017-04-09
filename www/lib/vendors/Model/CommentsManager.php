@@ -6,7 +6,7 @@ use Entity\Comment;
 /**
  *
  */
-abstract class CommentManager extends Manager
+abstract class CommentsManager extends Manager
 {
     abstract public function getList(): array;
     abstract public function save(Comment $comment): bool;

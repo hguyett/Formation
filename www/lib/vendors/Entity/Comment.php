@@ -2,6 +2,7 @@
 namespace Entity;
 
 use OCFram\Entity;
+use \DateTime;
 
 /**
  *
@@ -39,6 +40,11 @@ class Comment extends Entity
 	 * @access protected
 	 */
 	protected  $date = null;
+
+    /////////////
+    // Methods //
+    /////////////
+
 
     public function isValid()
     {

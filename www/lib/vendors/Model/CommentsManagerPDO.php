@@ -1,13 +1,16 @@
 <?php
 namespace Model;
 use PDO;
+use PDOStatement;
 use PDOException;
 use Entity\Comment;
+use \DateTime;
+use \DateTimeZone;
 
 /**
  *
  */
-class CommentManagerPDO extends CommentManager
+class CommentsManagerPDO extends CommentsManager
 {
 
     public function setDao(PDO $dao)
@@ -17,12 +20,17 @@ class CommentManagerPDO extends CommentManager
 
     public function getList(): array
     {
+        /**
+         * @var PDOStatement $commentList
+         */
         $commentList = $this->dao->query('SELECT * FROM comments ORDER BY date DESC');
-        foreach ($commentList as &$commentData) {
-            $commentData = $this->arrayToComment($commentData);
+        $commentList->setFetchMode(PDO::FETCH_ASSOC);
+        $commentArray = [];
+        foreach ($commentList as $commentData) {
+            $commentArray[] = $this->arrayToComment($commentData);
         }
 
-        return $commentList;
+        return $commentArray;
     }
 
     protected function arrayToComment(array $commentData)
@@ -30,19 +38,19 @@ class CommentManagerPDO extends CommentManager
         if (isset($commentData['date']) and is_string($commentData['date'])) {
             $commentData['date'] = new DateTime($commentData['date'], new DateTimeZone('Europe/Brussels'));
         }
-
         return new Comment($commentData);
     }
 
     public function save(Comment $comment): bool{
-        return ($comment->isNew()) ? $this->save($comment) : $this->add($comment) ;
+        return ($comment->isNew()) ? $this->add($comment) : $this->update($comment) ;
     }
 
     protected function add(Comment $comment): bool
     {
-        $query = $this->dao->prepare('INSERT INTO comments (author, content, date) VALUES (:author, :content, NOW())');
-        $query->bindValue(':author', $comment->getAuthor());
-        $query->bindValue('content', $comment->getContent());
+        $query = $this->dao->prepare('INSERT INTO comments (news, author, content, date) VALUES (:news, :author, :content, NOW())');
+        $query->bindValue(':news', $comment->getNews(), PDO::PARAM_INT);
+        $query->bindValue(':author', $comment->getAuthor(), PDO::PARAM_STR);
+        $query->bindValue('content', $comment->getContent(), PDO::PARAM_STR);
         // try {
             return $query->execute();
         // } catch (PDOException $e) {
@@ -53,9 +61,9 @@ class CommentManagerPDO extends CommentManager
     protected function update(Comment $comment): bool
     {
         $query = $this->dao->prepare('UPDATE comments SET author = :author, content =:content WHERE id = :id');
-        $query->bindValue(':id', $comment->getId());
-        $query->bindValue(':author', $comment->getAuthor());
-        $query->bindValue('content', $comment->getContent());
+        $query->bindValue(':id', $comment->getId(), PDO::PARAM_STR);
+        $query->bindValue(':author', $comment->getAuthor(), PDO::PARAM_STR);
+        $query->bindValue('content', $comment->getContent(), PDO::PARAM_STR);
         try {
             return $query->execute();
         } catch (PDOException $e) {
