@@ -20,7 +20,7 @@ $entityLoader = new SplClassLoader('Entity', realpath(__DIR__ . '/../lib/vendors
 $entityLoader->register();
 
 
-$appClass = 'App\\'.$_GET['app'].'\\'.$_GET['app'].'Application';
+$appClass = 'App\\' . $_GET['app'] . '\\' . $_GET['app'] . 'Application';
 
 /**
  * @var Application $app

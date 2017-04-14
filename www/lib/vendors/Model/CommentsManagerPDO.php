@@ -1,8 +1,9 @@
 <?php
 namespace Model;
-use PDO;
-use PDOStatement;
-use PDOException;
+use \PDO;
+use \PDOStatement;
+use \PDOException;
+use Entity\News;
 use Entity\Comment;
 use \DateTime;
 use \DateTimeZone;
@@ -13,17 +14,30 @@ use \DateTimeZone;
 class CommentsManagerPDO extends CommentsManager
 {
 
+    ////////////////////
+    // Public methods //
+    ////////////////////
+
+
     public function setDao(PDO $dao)
     {
         $this->dao = $dao;
     }
 
-    public function getList(): array
+    /**
+     * Return an array of Comment including the comments of the news.
+     * @param News $news
+     * @return array array of Comment
+     */
+    public function getNewsComments(News $news): array
     {
         /**
          * @var PDOStatement $commentList
          */
-        $commentList = $this->dao->query('SELECT * FROM comments ORDER BY date DESC');
+        $commentList = $this->dao->prepare('SELECT * FROM comments WHERE news = :newsId ORDER BY date DESC');
+        $newsId = $news->getId();
+        $commentList->bindParam(':newsId', $newsId, PDO::PARAM_INT);
+        $commentList->execute();
         $commentList->setFetchMode(PDO::FETCH_ASSOC);
         $commentArray = [];
         foreach ($commentList as $commentData) {
@@ -33,16 +47,21 @@ class CommentsManagerPDO extends CommentsManager
         return $commentArray;
     }
 
+    public function save(Comment $comment): bool{
+        return ($comment->isNew()) ? $this->add($comment) : $this->update($comment) ;
+    }
+
+    ///////////////////////
+    // Protected methods //
+    ///////////////////////
+
+
     protected function arrayToComment(array $commentData)
     {
         if (isset($commentData['date']) and is_string($commentData['date'])) {
             $commentData['date'] = new DateTime($commentData['date'], new DateTimeZone('Europe/Brussels'));
         }
         return new Comment($commentData);
-    }
-
-    public function save(Comment $comment): bool{
-        return ($comment->isNew()) ? $this->add($comment) : $this->update($comment) ;
     }
 
     protected function add(Comment $comment): bool

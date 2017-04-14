@@ -155,6 +155,16 @@ class NewsManagerPDO extends NewsManager
         }
     }
 
+    public function deleteById(int  $newsId) : bool {
+        try {
+            $query = $this->dao->prepare('DELETE FROM news WHERE id = :id');
+            $query->bindValue(':id', $newsId, PDO::PARAM_INT);
+            return $query->execute();
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+
 
     /**
      * Save (add or update) a news in the database. Return true if operation succeed.

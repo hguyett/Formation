@@ -1,13 +1,13 @@
 <?php
 namespace App\Frontend\Modules\News;
-use Entity\Comment;
-use Model\CommentsManager;
+use OCFram\BackController;
+use OCFram\ManagersList;
+use OCFram\HTTPRequest;
 use OCFram\NotFoundException;
 use Model\NewsManager;
+use Model\CommentsManager;
 use Entity\News;
-use OCFram\ManagersList;
-use OCFram\BackController;
-use OCFram\HTTPRequest;
+use Entity\Comment;
 
 /**
  *
@@ -59,17 +59,19 @@ class NewsController extends BackController
         }
 
         $this->page->addVar('news', $news);
-        $this->page->addVar('comments', $this->managersList->getManagerOf('Comments')->getList());
+        $this->page->addVar('comments', $this->managersList->getManagerOf('Comments')->getNewsComments($news));
     }
 
     public function executeInsertComment(HTTPRequest $httpRequest)
     {
         $this->page->addVar('title', 'Ajouter un commentaire');
-        if (isset($_POST['author']) and isset($_POST['content']) and ($newsId = $httpRequest->getData('newsId') !== null)) {
-            $manager = $this->managersList->getManagerOf("Comments");
+        if (isset($_POST['author']) and isset($_POST['content']) and ($httpRequest->getExists('newsId'))) {
             /**
             * @var CommentsManager $manager
             */
+            $manager = $this->managersList->getManagerOf("Comments");
+            
+            $newsId = $httpRequest->getData('newsId');
             $comment = new Comment(array(
                 'news' => $newsId,
                 'author' => $httpRequest->postData('author'),

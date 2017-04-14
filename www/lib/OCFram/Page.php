@@ -42,7 +42,11 @@ class Page extends ApplicationComponent
 
         extract($this->vars);
         ob_start();
-        require $this->contentFile;
+        if (!file_exists($this->contentFile)) {
+            $this->app->getUser()->setMessage('Aucune vue n\'est assignée à cette action.');
+        } else {
+            require $this->contentFile;
+        }
 
         $content = ob_get_clean();
 
@@ -58,9 +62,6 @@ class Page extends ApplicationComponent
      */
     public function setContentFile(String $contentFile)
     {
-        if (!file_exists($contentFile)) {
-            throw new RuntimeException('View file ' . $contentFile . 'was not found.');
-        }
         $this->contentFile = $contentFile;
         return $this;
     }
