@@ -1,6 +1,7 @@
 <?php
 namespace Model;
 use Entity\News;
+use OCFram\PDOManager;
 use OCFram\NotFoundException;
 use \PDO;
 use \DateTime;
@@ -12,16 +13,7 @@ use \RuntimeException;
  */
 class NewsManagerPDO extends NewsManager
 {
-
-    /**
-     * Establish the connection to the MySQL database.
-     * @param PDO PDO connection to the MySQL database.
-     */
-    public function setDao(PDO $dao)
-    {
-        $this->dao = $dao;
-    }
-
+    use OCFram\PDOManager;
 
     /**
      * Add a news in the database. Return true if operation succeed.
@@ -32,7 +24,7 @@ class NewsManagerPDO extends NewsManager
     protected function add(News $news) : bool
     {
         try {
-            $query = $this->dao->prepare('INSERT INTO news (author, title, content, dateAdded) VALUES (:author, :title, :content, NOW())');
+            $query = $this->getDao()->prepare('INSERT INTO news (author, title, content, dateAdded) VALUES (:author, :title, :content, NOW())');
             $query->bindValue(':author', $news->getAuthor(), PDO::PARAM_STR);
             $query->bindValue(':title', $news->getTitle(), PDO::PARAM_STR);
             $query->bindValue(':content', $news->getContent(), PDO::PARAM_STR);
@@ -52,7 +44,7 @@ class NewsManagerPDO extends NewsManager
      */
     public function get(int $id) : News
     {
-        $query = $this->dao->prepare('SELECT * FROM news WHERE id = :id');
+        $query = $this->getDao()->prepare('SELECT * FROM news WHERE id = :id');
         $query->bindValue(':id', $id, PDO::PARAM_INT);
         $query->execute();
         $query->setFetchMode(PDO::FETCH_ASSOC);
@@ -84,18 +76,18 @@ class NewsManagerPDO extends NewsManager
 
         switch (func_num_args()) {
             case 0 :
-                $query = $this->dao->prepare($queryString);
+                $query = $this->getDao()->prepare($queryString);
                 break;
 
             case 1 :
                 $queryString .= ' LIMIT :limitNumber';
-                $query = $this->dao->prepare($queryString);
+                $query = $this->getDao()->prepare($queryString);
                 $query->bindValue(':limitNumber', $numberOfNews, PDO::PARAM_INT);
                 break;
 
             case 2 :
                 $queryString .= ' LIMIT :firstLimitNumber, :secondLimitNumber';
-                $query = $this->dao->prepare($queryString);
+                $query = $this->getDao()->prepare($queryString);
                 $query->bindValue(':firstLimitNumber', $startPosition, PDO::PARAM_INT);
                 $query->bindValue(':secondLimitNumber', $numberOfNews, PDO::PARAM_INT);
                 break;
@@ -126,7 +118,7 @@ class NewsManagerPDO extends NewsManager
     protected function update(News  $news) : bool
     {
         // try {
-            $query = $this->dao->prepare('UPDATE news SET author = :author, title = :title, content =:content, dateEdited = NOW() WHERE id = :id');
+            $query = $this->getDao()->prepare('UPDATE news SET author = :author, title = :title, content =:content, dateEdited = NOW() WHERE id = :id');
             $query->bindValue(':id', $news->getId(), PDO::PARAM_INT);
             $query->bindValue(':author', $news->getAuthor(), PDO::PARAM_STR);
             $query->bindValue(':title', $news->getTitle(), PDO::PARAM_STR);
@@ -147,7 +139,7 @@ class NewsManagerPDO extends NewsManager
     public function delete(News  $news) : bool
     {
         try {
-            $query = $this->dao->prepare('DELETE FROM news WHERE id = :id');
+            $query = $this->getDao()->prepare('DELETE FROM news WHERE id = :id');
             $query->bindValue(':id', $news->getId(), PDO::PARAM_INT);
             return $query->execute();
         } catch (PDOException $e) {
@@ -157,7 +149,7 @@ class NewsManagerPDO extends NewsManager
 
     public function deleteById(int  $newsId) : bool {
         try {
-            $query = $this->dao->prepare('DELETE FROM news WHERE id = :id');
+            $query = $this->getDao()->prepare('DELETE FROM news WHERE id = :id');
             $query->bindValue(':id', $newsId, PDO::PARAM_INT);
             return $query->execute();
         } catch (PDOException $e) {

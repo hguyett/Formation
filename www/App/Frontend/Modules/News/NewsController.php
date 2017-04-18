@@ -1,5 +1,6 @@
 <?php
 namespace App\Frontend\Modules\News;
+use OCFram\Hydrator;
 use OCFram\BackController;
 use OCFram\ManagersList;
 use OCFram\HTTPRequest;
@@ -20,7 +21,7 @@ class NewsController extends BackController
         $numberOfNews = $this->app->getConfiguration()->getVar('news_number');
         $numberOfCharacters = $this->app->getConfiguration()->getVar('news_summary_characters_number');
 
-        $this->page->addVar('title', 'Liste des ' . $numberOfNews . 'dernières news');
+        $this->page->addVar('title', 'Liste des ' . $numberOfNews . ' dernières news');
 
         $manager = $this->managersList->getManagerOf('News');
 
@@ -70,7 +71,7 @@ class NewsController extends BackController
             * @var CommentsManager $manager
             */
             $manager = $this->managersList->getManagerOf("Comments");
-            
+
             $newsId = $httpRequest->getData('newsId');
             $comment = new Comment(array(
                 'news' => $newsId,

@@ -22,6 +22,10 @@ foreach ($comments as $comment)
   <fieldset>
     <legend>
       Posté par <strong><?= htmlspecialchars($comment['author']) ?></strong> le <?= $comment['date']->format('d/m/Y à H\hi') ?>
+      <?php if ($user->isAuthenticated()) { ?> -
+      <a href="admin/comment-update-<?php echo htmlspecialchars($comment['id'], ENT_QUOTES, 'utf-8') ?>.html">Modifier</a> |
+      <a href="admin/comment-delete-<?php echo htmlspecialchars($comment['id'], ENT_QUOTES, 'utf-8') ?>.html">Supprimer</a>
+    <?php } ?>
     </legend>
     <p><?= nl2br(htmlspecialchars($comment['content'])) ?></p>
   </fieldset>

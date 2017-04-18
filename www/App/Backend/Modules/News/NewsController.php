@@ -1,9 +1,12 @@
 <?php
 namespace App\Backend\Modules\News;
 use Entity\News;
+use Entity\Comment;
 use Model\NewsManager;
+use Model\CommentsManager;
 use OCFram\HTTPRequest;
 use OCFram\BackController;
+use OCFram\NotFoundException;
 
 /**
  *
@@ -59,6 +62,57 @@ class NewsController extends BackController
             $this->app->getUser()->setMessage('La news a bien été supprimée.');
         }
         $this->app->getHttpResponse()->redirect('.');
+    }
+
+    public function executeUpdateComment(HTTPRequest $httpRequest)
+    {
+        /**
+        * @var CommentsManager $manager
+        */
+        $manager = $this->managersList->getManagerOf("Comments");
+        if ($httpRequest->postExists('author')) {
+            // Update Comment and redirect to the News.
+            $comment = new Comment(array(
+                'id' => $httpRequest->getData('id'),
+                'news' => $httpRequest->postData('news'),
+                'author' => $httpRequest->postData('author'),
+                'content' => $httpRequest->postData('content')
+            ));
+
+            $manager->save($comment);
+
+            $this->app->getHttpResponse()->redirect('../news-' . $comment->getNews() . '.html');
+
+        } else {
+            $id = $httpRequest->getData('id');
+            try {
+                $comment = $manager->get($id);
+                $this->page->addVar('comment', $comment);
+            } catch (NotFoundException $e) {
+                $this->app->getHttpResponse()->redirect404();
+            }
+
+            $this->page->addVar('title', 'Modification d\'un commentaire');
+        }
+    }
+
+    public function executeDeleteComment(HTTPRequest $httpRequest)
+    {
+        /**
+         * @var CommentsManager $manager
+         */
+        $manager = $this->managersList->getManagerOf("Comments");
+        /**
+         * @var Comment $comment
+         */
+        $comment = $manager->get($httpRequest->getData('id'));
+        if ($manager->delete($comment)) {
+            $this->app->getUser()->setMessage('Le commentaire a bien été supprimé.');
+        } else {
+            $this->app->getUser()->setMessage('Une erreur est survenue.');
+        }
+
+        $this->app->getHttpResponse()->redirect('../news-' . $comment->getNews() . '.html');
     }
 
     protected function processForm(HTTPRequest $httpRequest)

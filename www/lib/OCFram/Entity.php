@@ -10,6 +10,7 @@ use ArrayAccess;
  */
 class Entity implements \ArrayAccess
 {
+    use Hydrator;
 
     ////////////////
     // Properties //
@@ -34,18 +35,7 @@ class Entity implements \ArrayAccess
     {
         $this->hydrate($dataArray);
     }
-
-    /**
-	 * Hydrate the object.
-	 * @access public
-	 * @param array $dataArray Associative array containing properties values.
-	 */
-    public function hydrate(array $dataArray)
-    {
-        foreach ($dataArray as $key => $value) {
-            static::offsetSet($key, $value);
-        }
-    }
+    
 
     /**
      * Return true if the entity have not an ID. Else, return false.
