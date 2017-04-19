@@ -26,6 +26,16 @@ abstract class Field
      * @var String $value
      */
     protected $value;
+    /**
+     * Array of Validator objects.
+     * @var array $validators
+     */
+    protected $validators = [];
+    /**
+     * Array of Strings.
+     * @var array $errorMessages.
+     */
+    protected $errorMessages = [];
 
     /////////////
     // Methods //
@@ -36,13 +46,39 @@ abstract class Field
 
     function __construct(array $options = [])
     {
-        # code...
+        $this->hydrate($options);
     }
 
 
     public function isValid(): bool
     {
+        $isValid = true;
+        foreach ($this->getValidators() as $validator) {
+            /**
+             * @var Validator $validator
+             */
+            if ($validator->isValid($this->getValue())) {
+                $isValid = false;
+                $this->addErrorMessage($validator->getErrorMessage());
+            }
 
+            return $isValid;
+        }
+    }
+
+
+    public function addValidator(Validator $validator)
+    {
+        if (!in_array($validator, $this->getValidators())) {
+            $this->validators[] = $validator;
+        }
+    }
+
+    public function addErrorMessage(String $errorMessage)
+    {
+        if (!in_array($errorMessage, $this->getErrorMessages())) {
+            $this->errorMessages[] = $errorMessage;
+        }
     }
 
     /////////////
@@ -83,6 +119,32 @@ abstract class Field
         return $this;
     }
 
+    /**
+     * @param array $validators array of Validator objects.
+     *
+     * @return static
+     */
+    public function setValidators(array $validators)
+    {
+        foreach ($validators as $validator) {
+            $this->addValidator($validator);
+        }
+        return $this;
+    }
+
+    /**
+     * @param array $errorMessages
+     *
+     * @return static
+     */
+    public function setErrorMessages(array $errorMessages)
+    {
+        foreach ($errorMessages as $errorMessage) {
+            $this->addErrorMessage($errorMessage);
+        }
+        return $this;
+    }
+
     /////////////
     // Getters //
     /////////////
@@ -110,5 +172,21 @@ abstract class Field
     public function getValue(): String
     {
         return $this->value;
+    }
+
+    /**
+     * @return array
+     */
+    public function getValidators(): array
+    {
+        return $this->validators;
+    }
+
+    /**
+     * @return array
+     */
+    public function getErrorMessages(): array
+    {
+        return $this->errorMessages;
     }
 }

@@ -1,4 +1,5 @@
 <?php
+use OCFram\SplClassLoader;
 require __DIR__ . '/../lib/OCFram/SplClassLoader.php';
 
 const DEFAULT_APP = 'Frontend';
@@ -19,6 +20,8 @@ $modelLoader->register();
 $entityLoader = new SplClassLoader('Entity', realpath(__DIR__ . '/../lib/vendors'));
 $entityLoader->register();
 
+$formBuilderLoader = new SplClassLoader('FormBuilder', realpath(__DIR__ . '/../lib/vendors'));
+$formBuilderLoader->register();
 
 $appClass = 'App\\' . $_GET['app'] . '\\' . $_GET['app'] . 'Application';
 

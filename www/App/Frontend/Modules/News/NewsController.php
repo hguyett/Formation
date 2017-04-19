@@ -1,5 +1,6 @@
 <?php
 namespace App\Frontend\Modules\News;
+use FormBuilder\CommentFormBuilder;
 use OCFram\Hydrator;
 use OCFram\BackController;
 use OCFram\ManagersList;
@@ -65,12 +66,12 @@ class NewsController extends BackController
 
     public function executeInsertComment(HTTPRequest $httpRequest)
     {
-        $this->page->addVar('title', 'Ajouter un commentaire');
-        if (isset($_POST['author']) and isset($_POST['content']) and ($httpRequest->getExists('newsId'))) {
+        /*$this->page->addVar('title', 'Ajouter un commentaire');
+        if (isset($_POST['author']) and isset($_POST['content']) and ($httpRequest->getExists('newsId'))) {*/
             /**
             * @var CommentsManager $manager
             */
-            $manager = $this->managersList->getManagerOf("Comments");
+        /*    $manager = $this->managersList->getManagerOf("Comments");
 
             $newsId = $httpRequest->getData('newsId');
             $comment = new Comment(array(
@@ -80,7 +81,41 @@ class NewsController extends BackController
 
             $manager->save($comment);
             $this->app->getHttpResponse()->redirect('news-' . $newsId . '.html');
+        }*/
+
+        $comment = new Comment;
+        if ($httpRequest->method() == 'POST') {
+            $comment->hydrate(array(
+                'news' => $newsId,
+                'author' => $httpRequest->postData('author'),
+                'content' => $httpRequest->postData('content')));
         }
+
+        $formBuilder = new CommentFormBuilder($comment);
+        $formBuilder->build();
+
+        $form = $formBuilder->getForm();
+
+        if ($httpRequest->method() == 'POST' and $form->isValid()) {
+            /**
+            * @var CommentsManager $manager
+            */
+            $manager = $this->managersList->getManagerOf("Comments");
+            if ($manager->save($comment)) {
+                $this->app->getUser()->setMessage('Votre commentaire a bien été ajouté.');
+                $this->app->getHttpResponse()->redirect('news-' . $newsId . '.html');
+            } else {
+                $this->app->getUser()->setMessage('Une erreur est survenue lors de l\'ajout de votre commentaire.');
+            }
+        } elseif ($httpRequest->method() == 'POST') {
+            foreach ($form-> as $errorMessage) {
+                $this->app->getUser()->setMessage();
+            }
+        }
+
+    $this->page->addVar('comment', $comment);
+    $this->page->addVar('form', $form->createView());
+    $this->page->addVar('title', 'Ajout d\'un commentaire');
     }
 
 }

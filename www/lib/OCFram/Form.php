@@ -4,7 +4,7 @@ use OCFram\Entity;
 use OCFram\Field;
 
 /**
- *
+ * Build a Form using Field objects.
  */
 class Form
 {
@@ -18,9 +18,10 @@ class Form
      */
     protected $entity;
     /**
+     * Array of Field objects.
      * @var array $fields
      */
-    protected $fields;
+    protected $fields = [];
 
     /////////////
     // Methods //
@@ -32,22 +33,48 @@ class Form
         $this->setEntity($entity);
     }
 
-
+    /**
+     * Add a field to the form. The field name must correspond to a property of the entity, and a getter must exists for this property.
+     * @param  Field $field
+     * @return static
+     */
     public function add(Field $field): Form
     {
-        # code...
+        $propertyGetter = 'get' . ucfirst($field->getName());
+        $field->setValue($this->entity->$propertyGetter());
+        $this->fields[] = $field;
+        return $this;
     }
 
 
     public function createView(): String
     {
-        # code...
+        $view = '';
+        foreach ($this->fields as $field) {
+            /**
+             * @var Field $field
+             */
+            $view += $field->buildWidget() . '<br>';
+        }
+
+        return $view;
     }
 
 
     public function isValid(): bool
     {
-        # code...
+        $valid = true;
+        foreach ($this->fields as $field) {
+            /**
+             * @var Field $field
+             */
+            if (!$field->isValid()) {
+                $valid = false;
+                break;
+            }
+        }
+
+        return $valid;
     }
 
     /////////////

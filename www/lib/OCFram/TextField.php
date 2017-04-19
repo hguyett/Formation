@@ -28,7 +28,20 @@ class TextField extends Field
 
     public function buildWidget(): String
     {
-        # code...
+        $widget = '<label for="' . htmlspecialchars($this->getName(), ENT_QUOTES, 'utf-8') . '">' . htmlspecialchars($this->getLabel(), ENT_QUOTES, 'utf-8') . '</label><textarea name="' . htmlspecialchars($this->getName(), ENT_QUOTES, 'utf-8') . '" id="' . htmlspecialchars($this->getName(), ENT_QUOTES, 'utf-8') . '"';
+        if (isset($this->cols)) {
+            $widget .= ' cols="' . htmlspecialchars($this->cols, ENT_QUOTES, 'utf-8') . '"';
+        }
+        if (isset($this->rows)) {
+            $widget .= ' rows="' . htmlspecialchars($this->rows, ENT_QUOTES, 'utf-8') . '"';
+        }
+        $widget .= '>';
+        if ($this->getValue() !== null) {
+            $widget .= htmlspecialchars($this->getValue(), ENT_QUOTES, 'utf-8');
+        }
+        $widget .= '</textarea>';
+
+        return $widget;
     }
 
     /////////////

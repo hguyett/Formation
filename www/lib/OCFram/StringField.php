@@ -15,7 +15,15 @@ class StringField extends Field
 
     public function buildWidget(): String
     {
-        # code...
+                $widget = '<label for="' . htmlspecialchars($this->getName(), ENT_QUOTES, 'utf-8') . '">' . htmlspecialchars($this->getLabel(), ENT_QUOTES, 'utf-8') . '</label><input type="text" id="' . htmlspecialchars($this->getName(), ENT_QUOTES, 'utf-8') . '" name="' . htmlspecialchars($this->getName(), ENT_QUOTES, 'utf-8') . '"';
+                if ($this->getValue() !== null) {
+                    $widget += ' value="' . htmlspecialchars($this->getValue(), ENT_QUOTES, 'utf-8') . '"';
+                }
+                if (isset($this->maxLength)) {
+                    $widget += ' maxLength="' . htmlspecialchars($this->maxLength, ENT_QUOTES, 'utf-8') . '"';
+                }
+                $widget += '/>';
+                return $widget;
     }
 
     /**
@@ -25,7 +33,11 @@ class StringField extends Field
      */
     public function setMaxLength($maxLength)
     {
-        $this->maxLength = $maxLength;
+        if ($maxLength > 0) {
+            $this->maxLength = $maxLength;
+        } else {
+            throw new Exception("MaxLength must be greater than zero.");
+        }
         return $this;
     }
 }
