@@ -15,7 +15,7 @@ use OCFram\NotFoundException;
  */
 class CommentsManagerPDO extends CommentsManager
 {
-    use OCFram\PDOManager;
+    use PDOManager;
 
     ////////////////////
     // Public methods //

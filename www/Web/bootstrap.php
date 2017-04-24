@@ -1,5 +1,4 @@
 <?php
-use OCFram\SplClassLoader;
 require __DIR__ . '/../lib/OCFram/SplClassLoader.php';
 
 const DEFAULT_APP = 'Frontend';

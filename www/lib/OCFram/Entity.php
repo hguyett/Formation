@@ -21,7 +21,7 @@ class Entity implements \ArrayAccess
      * Primary Key.
      * @var int
      */
-    protected $id;
+    protected $id = null;
 
     /////////////
     // Methods //
@@ -31,11 +31,11 @@ class Entity implements \ArrayAccess
 	 * @access public
 	 * @param array $dataArray Associative array containing properties values.
 	 */
-    function __construct(array $dataArray)
+    function __construct(array $dataArray = [])
     {
         $this->hydrate($dataArray);
     }
-    
+
 
     /**
      * Return true if the entity have not an ID. Else, return false.
@@ -111,7 +111,7 @@ class Entity implements \ArrayAccess
     *
     * @return static
     */
-    public function setId(int $id)
+    public function setId(?int $id)
     {
         $this->id = $id;
         return $this;
@@ -126,7 +126,7 @@ class Entity implements \ArrayAccess
     * return the id of the entity.
     * @return int
     */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }

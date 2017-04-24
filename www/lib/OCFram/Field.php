@@ -57,7 +57,7 @@ abstract class Field
             /**
              * @var Validator $validator
              */
-            if ($validator->isValid($this->getValue())) {
+            if (!$validator->isValid($this->getValue())) {
                 $isValid = false;
                 $this->addErrorMessage($validator->getErrorMessage());
             }
@@ -167,9 +167,9 @@ abstract class Field
     }
 
     /**
-     * @return String
+     * @return ?String
      */
-    public function getValue(): String
+    public function getValue(): ?String
     {
         return $this->value;
     }

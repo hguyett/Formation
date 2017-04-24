@@ -23,28 +23,28 @@ class News extends Entity
 	 * @var String
 	 * @access protected
 	 */
-	protected  $author;
+	protected  $author = null;
 
 	/**
 	 * Title of the news.
 	 * @var String
 	 * @access protected
 	 */
-	protected  $title;
+	protected  $title = null;
 
 	/**
 	 * Content of the news.
 	 * @var String
 	 * @access protected
 	 */
-	protected  $content;
+	protected  $content = null;
 
 	/**
 	 * Date indicating when the news has been added.
 	 * @var DateTime
 	 * @access protected
 	 */
-	protected  $dateAdded;
+	protected  $dateAdded = null;
 
 	/**
 	 * Date indicating when the news has been edited for the last time.
@@ -67,132 +67,129 @@ class News extends Entity
         return !(empty($this->author) or empty($this->title) or empty($this->content));
     }
 
-	/**
-	 * Return the author of the news.
+    /////////////
+    // Setters //
+    /////////////
+
+    /**
+	 * Set the author.
 	 * @access public
-	 * @return String
+	 * @param String $author Author to set to the news.
 	 */
+    public function setAuthor(String $author)
+    {
+        $this->author = $author;
+    }
+
+
+    /**
+    * Set the title.
+    * @access public
+    * @param String $title Title to set to the news.
+    */
+
+    public function setTitle(String $title)
+    {
+        $this->title = $title;
+    }
+
+
+    /**
+    * Set the content.
+    * @access public
+    * @param String $content Content to set to the news.
+    */
+
+    public function setContent(String $content)
+    {
+        $this->content = $content;
+    }
+
+
+    /**
+    * Set the creation date.
+    * @access public
+    * @param DateTime $dateAdded Creation date to set to the news.
+    */
+
+    public function setDateAdded(DateTime $dateAdded)
+    {
+        $this->dateAdded = $dateAdded;
+    }
+
+
+    /**
+    * Set the last edition date.
+    * @access public
+    * @param DateTime $dateEdited Edition date to set to the news.
+    */
+
+    public function setDateEdited(DateTime $dateEdited = null)
+    {
+        $this->dateEdited = $dateEdited;
+    }
 
     /////////////
     // Getters //
     /////////////
 
 
-	public function getAuthor() : String
+    /**
+    * Return the author.
+    * @access public
+    * @return ?String
+    */
+	public function getAuthor() : ?String
     {
         return $this->author;
 	}
 
 
 	/**
-	 * Return the title of the news.
+	 * Return the title.
 	 * @access public
-	 * @return String
+	 * @return ?String
 	 */
 
-	public function getTitle() : String
+	public function getTitle() : ?String
     {
         return $this->title;
 	}
 
 
 	/**
-	 * Return the content of the news.
+	 * Return the content.
 	 * @access public
-	 * @return String
+	 * @return ?String
 	 */
 
-	public function getContent() : String
+	public function getContent() : ?String
     {
         return $this->content;
 	}
 
 
 	/**
-	 * Return the creation date of the news.
+	 * Return the creation date.
 	 * @access public
-	 * @return DateTime
+	 * @return ?DateTime
 	 */
 
-	public function getDateAdded() : DateTime
+	public function getDateAdded() : ?DateTime
     {
         return $this->dateAdded;
 	}
 
 
 	/**
-	 * Return the last edition date of the news or null if not set.
+	 * Return the last edition date.
 	 * @access public
-	 * @return mixed DateTime or null if not set.
+	 * @return ?DateTime
 	 */
 
-	public function getDateEdited()
+	public function getDateEdited() : ?DateTime
     {
         return $this->dateEdited;
-	}
-
-	/**
-	 * Author to set to the news.
-	 * @access public
-	 * @param String $author Author to set to the news.
-	 */
-
-    /////////////
-    // Setters //
-    /////////////
-
-
-	public function setAuthor(String $author)
-    {
-        $this->author = $author;
-	}
-
-
-	/**
-	 * Set the Title.
-	 * @access public
-	 * @param String $title Title to set to the news.
-	 */
-
-	public function setTitle(String $title)
-    {
-        $this->title = $title;
-	}
-
-
-	/**
-	 * Set the content.
-	 * @access public
-	 * @param String $content Content to set to the news.
-	 */
-
-	public function setContent(String $content)
-    {
-        $this->content = $content;
-	}
-
-
-	/**
-	 * Set the creation date.
-	 * @access public
-	 * @param DateTime $dateAdded Creation date to set to the news.
-	 */
-
-	public function setDateAdded(DateTime $dateAdded)
-    {
-        $this->dateAdded = $dateAdded;
-	}
-
-
-	/**
-	 * Set the last edition date.
-	 * @access public
-	 * @param DateTime $dateEdited Edition date to set to the news.
-	 */
-
-	public function setDateEdited(DateTime $dateEdited = null)
-    {
-        $this->dateEdited = $dateEdited;
 	}
 
 }

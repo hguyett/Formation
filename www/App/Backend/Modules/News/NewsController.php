@@ -2,6 +2,8 @@
 namespace App\Backend\Modules\News;
 use Entity\News;
 use Entity\Comment;
+use FormBuilder\NewsFormBuilder;
+use FormBuilder\CommentFormBuilder;
 use Model\NewsManager;
 use Model\CommentsManager;
 use OCFram\HTTPRequest;
@@ -28,9 +30,7 @@ class NewsController extends BackController
 
     public function executeInsert(HTTPRequest $httpRequest)
     {
-        if ($httpRequest->postExists('title')) {
-            $this->processForm($httpRequest);
-        }
+        $this->processForm($httpRequest);
 
         $this->page->addVar('title', 'Ajouter une news');
     }
@@ -69,10 +69,10 @@ class NewsController extends BackController
         /**
         * @var CommentsManager $manager
         */
-        $manager = $this->managersList->getManagerOf("Comments");
-        if ($httpRequest->postExists('author')) {
+        /*$manager = $this->managersList->getManagerOf("Comments");
+        if ($httpRequest->postExists('author')) {*/
             // Update Comment and redirect to the News.
-            $comment = new Comment(array(
+            /*$comment = new Comment(array(
                 'id' => $httpRequest->getData('id'),
                 'news' => $httpRequest->postData('news'),
                 'author' => $httpRequest->postData('author'),
@@ -93,7 +93,49 @@ class NewsController extends BackController
             }
 
             $this->page->addVar('title', 'Modification d\'un commentaire');
+        }*/
+
+        // If a comment has been submitted
+        if ($httpRequest->method() == 'POST') {
+            $comment = new Comment(array(
+                'id' => $httpRequest->getData('id'),
+                'author' => $httpRequest->postData('author'),
+                'content' => $httpRequest->postData('content')
+            ));
+        } else {
+            $comment = $this->managersList->getManagerOf("Comments")->get($httpRequest->getData('id'));
         }
+        /**
+         * @var Comment $comment
+         */
+
+        $formBuilder = new CommentFormBuilder($comment);
+        $formBuilder->build();
+        $form = $formBuilder->getForm();
+
+        if ($httpRequest->method() == 'POST' and $form->isValid()) {
+            if ($this->managersList->getManagerOf("Comments")->save($comment)) {
+                $this->app->getUser()->setMessage('Le commentaire a bien été modifié.');
+                $NewsId = $this->managersList->getManagerOf("Comments")->get($httpRequest->getData('id'))->getNews();
+                $this->app->getHttpResponse()->redirect('/news-' . $NewsId . '.html');
+            } else {
+                $this->app->getUser()->setMessage('Une erreur est survenue lors de la mise à jour du commentaire');
+            }
+        } elseif ($httpRequest->method() == 'POST') {
+            $message = '';
+            foreach ($form->getFields() as $formField) {
+                /**
+                 * @var Field $formField
+                 */
+                foreach ($formField->getErrorMessages() as $errorMessage) {
+                    $message .= PHP_EOL . $errorMessage . '<br>';
+                }
+            }
+            $this->app->getUser()->setMessage($message);
+        }
+
+        $this->page->addVar('form', $form->createView());
+
     }
 
     public function executeDeleteComment(HTTPRequest $httpRequest)
@@ -117,7 +159,7 @@ class NewsController extends BackController
 
     protected function processForm(HTTPRequest $httpRequest)
     {
-        $news = new News(array(
+        /*$news = new News(array(
             'author' => $httpRequest->postData('author'),
             'title' => $httpRequest->postData('title'),
             'content' => $httpRequest->postData('content')
@@ -127,18 +169,57 @@ class NewsController extends BackController
             $news->setId($httpRequest->getData('id'));
         }
 
-        if ($news->isValid()) {
+        if ($news->isValid()) {*/
             /**
              * @var NewsManager $manager
              */
-            $manager = $this->managersList->getManagerOf('news');
-            if ($manager->save($news)) {
+            //$manager = $this->managersList->getManagerOf('news');
+            /*if ($manager->save($news)) {
                 $this->app->getUser()->setMessage('La news a bien été sauvegardée.');
             } else {
                 $this->app->getUser()->setMessage('Une erreur est survenue.');
             }
         }
-        $this->page->addVar('news', $news);
+        $this->page->addVar('news', $news);*/
+
+        $news = new News([]);
+
+        // If a news has been submitted
+        if ($httpRequest->method() == 'POST') {
+            $news->hydrate([
+                'author' => $httpRequest->postData('author'),
+                'title' => $httpRequest->postData('title'),
+                'content' => $httpRequest->postData('content')
+            ]);
+
+            // If it's an existing news, loads its ID
+            if ($httpRequest->getExists('id')) {
+                $news->setId($httpRequest->getData('id'));
+            }
+        // If we're updating an existing news, loads the news
+        } else {
+            if ($httpRequest->getExists('id')) {
+                // Loading the news
+                $news = $this->managersList->getManagerOf("News")->get($httpRequest->getData('id'));
+            }
+        }
+
+        // Creating the form
+        $formBuilder = new NewsFormBuilder($news);
+        $formBuilder->build();
+        $form = $formBuilder->getForm();
+
+        // If the news has been submitted
+        if ($httpRequest == 'POST' and $form->isValid()) {
+            if ($news = $this->managersList->getManagerOf("News")->save($news)) {
+                $this->app->getUser()->setMessage('La news a bien été enregistrée.');
+                $this->app->getHttpResponse()->redirect('/admin/');
+            } else {
+                $this->app->getUser()->setMessage('Un problème un survenu lors de l\'enregistrement de la news.');
+            }
+
+        }
+        $this->page->addVar('form', $form->createView());
     }
 
 }

@@ -18,21 +18,21 @@ class Comment extends Entity
      * Foreign key.
      * @var int
      */
-    protected $news;
+    protected $news = null;
 
 	/**
 	 * Author of the comment.
 	 * @var String
 	 * @access protected
 	 */
-	protected  $author;
+	protected  $author = null;
 
 	/**
 	 * Content of the comment.
 	 * @var String
 	 * @access protected
 	 */
-	protected  $content;
+	protected  $content = null;
 
 	/**
 	 * Date indicating when the comment has been added.
@@ -57,6 +57,7 @@ class Comment extends Entity
 
 
     /**
+     * Set the primary key.
      * @param int $news
      *
      * @return static
@@ -68,6 +69,7 @@ class Comment extends Entity
     }
 
     /**
+     * Set the Author.
      * @param String $author
      *
      * @return static
@@ -79,6 +81,7 @@ class Comment extends Entity
     }
 
     /**
+     * Set the content.
      * @param String $content
      *
      * @return static
@@ -90,6 +93,7 @@ class Comment extends Entity
     }
 
     /**
+     * Set the creation date.
      * @param DateTime $date
      *
      * @return static
@@ -106,33 +110,37 @@ class Comment extends Entity
 
 
     /**
-     * @return int
+     * Return the foreign key.
+     * @return ?int
      */
-    public function getNews()
+    public function getNews(): ?int
     {
         return $this->news;
     }
 
     /**
-     * @return String
+     * Return the author.
+     * @return ?String
      */
-    public function getAuthor()
+    public function getAuthor(): ?String
     {
         return $this->author;
     }
 
     /**
-     * @return String
+     * Return the content.
+     * @return ?String
      */
-    public function getContent()
+    public function getContent(): ?String
     {
         return $this->content;
     }
 
     /**
-     * @return DateTime
+     * Return the creation date.
+     * @return ?DateTime
      */
-    public function getDate()
+    public function getDate(): ?DateTime
     {
         return $this->date;
     }

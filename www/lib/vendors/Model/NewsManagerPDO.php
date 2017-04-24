@@ -13,7 +13,7 @@ use \RuntimeException;
  */
 class NewsManagerPDO extends NewsManager
 {
-    use OCFram\PDOManager;
+    use PDOManager;
 
     /**
      * Add a news in the database. Return true if operation succeed.

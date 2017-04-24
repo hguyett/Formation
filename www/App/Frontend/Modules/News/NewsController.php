@@ -1,6 +1,7 @@
 <?php
 namespace App\Frontend\Modules\News;
 use FormBuilder\CommentFormBuilder;
+use OCFram\Field;
 use OCFram\Hydrator;
 use OCFram\BackController;
 use OCFram\ManagersList;
@@ -85,6 +86,7 @@ class NewsController extends BackController
 
         $comment = new Comment;
         if ($httpRequest->method() == 'POST') {
+            $newsId = $httpRequest->getData('newsId');
             $comment->hydrate(array(
                 'news' => $newsId,
                 'author' => $httpRequest->postData('author'),
@@ -108,9 +110,16 @@ class NewsController extends BackController
                 $this->app->getUser()->setMessage('Une erreur est survenue lors de l\'ajout de votre commentaire.');
             }
         } elseif ($httpRequest->method() == 'POST') {
-            foreach ($form-> as $errorMessage) {
-                $this->app->getUser()->setMessage();
+            $message = '';
+            foreach ($form->getFields() as $formField) {
+                /**
+                 * @var Field $formField
+                 */
+                foreach ($formField->getErrorMessages() as $errorMessage) {
+                    $message .= PHP_EOL . $errorMessage . '<br>';
+                }
             }
+            $this->app->getUser()->setMessage($message);
         }
 
     $this->page->addVar('comment', $comment);

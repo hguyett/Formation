@@ -41,7 +41,9 @@ class Form
     public function add(Field $field): Form
     {
         $propertyGetter = 'get' . ucfirst($field->getName());
-        $field->setValue($this->entity->$propertyGetter());
+        if ($this->entity->$propertyGetter() !== null) {
+            $field->setValue($this->entity->$propertyGetter());
+        }
         $this->fields[] = $field;
         return $this;
     }
@@ -54,7 +56,7 @@ class Form
             /**
              * @var Field $field
              */
-            $view += $field->buildWidget() . '<br>';
+            $view .= $field->buildWidget() . '<br>';
         }
 
         return $view;
@@ -69,6 +71,7 @@ class Form
              * @var Field $field
              */
             if (!$field->isValid()) {
+                print_r($field);
                 $valid = false;
                 break;
             }
@@ -104,5 +107,13 @@ class Form
     public function getEntity(): Entity
     {
         return $this->entity;
+    }
+
+    /**
+     * @return array
+     */
+    public function getFields(): array
+    {
+        return $this->fields;
     }
 }
