@@ -16,14 +16,14 @@ class NewsFormBuilder extends FormBuilder
     {
         $authorField = new StringField;
         $authorField->setLabel('Auteur')->setName('author')->setMaxLength(30);
-        $authorField->addValidator(new NotNullValidator('L\'auteur doit être indiqué'));
+        $authorField->addValidator(new NotNullValidator('L\'auteur doit être spécifié'));
         $authorField->addValidator(new MaxLengthValidator('Le nom de l\'auteur ne peut pas excéder 30 caractères.', 30));
 
         $this->form->add($authorField);
 
         $titleField = new StringField;
         $titleField->setLabel('Titre')->setName('title')->setMaxLength(100);
-        $titleField->addValidator(new NotNullValidator('Un titre doit être spécifié'));
+        $titleField->addValidator(new NotNullValidator('Un titre doit être spécifié.'));
         $titleField->addValidator((new MaxLengthValidator('Le titre ne peut pas excéder 100 caractères.', 100)));
 
         $this->form->add($titleField);

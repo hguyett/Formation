@@ -71,13 +71,25 @@ class Form
              * @var Field $field
              */
             if (!$field->isValid()) {
-                print_r($field);
                 $valid = false;
-                break;
             }
         }
 
         return $valid;
+    }
+
+
+    public function getErrorMessage(): ?String {
+        $message = null;
+        foreach ($this->getFields() as $formField) {
+            /**
+             * @var Field $formField
+             */
+            foreach ($formField->getErrorMessages() as $errorMessage) {
+                $message .= PHP_EOL . $errorMessage . '<br>';
+            }
+        }
+        return $message;
     }
 
     /////////////
