@@ -6,6 +6,7 @@ use FormBuilder\NewsFormBuilder;
 use FormBuilder\CommentFormBuilder;
 use Model\NewsManager;
 use Model\CommentsManager;
+use OCFram\FormHandler;
 use OCFram\HTTPRequest;
 use OCFram\BackController;
 use OCFram\NotFoundException;
@@ -56,36 +57,7 @@ class NewsController extends BackController
 
     public function executeUpdateComment(HTTPRequest $httpRequest)
     {
-        /**
-        * @var CommentsManager $manager
-        */
-        /*$manager = $this->managersList->getManagerOf("Comments");
-        if ($httpRequest->postExists('author')) {*/
-            // Update Comment and redirect to the News.
-            /*$comment = new Comment(array(
-                'id' => $httpRequest->getData('id'),
-                'news' => $httpRequest->postData('news'),
-                'author' => $httpRequest->postData('author'),
-                'content' => $httpRequest->postData('content')
-            ));
-
-            $manager->save($comment);
-
-            $this->app->getHttpResponse()->redirect('../news-' . $comment->getNews() . '.html');
-
-        } else {
-            $id = $httpRequest->getData('id');
-            try {
-                $comment = $manager->get($id);
-                $this->page->addVar('comment', $comment);
-            } catch (NotFoundException $e) {
-                $this->app->getHttpResponse()->redirect404();
-            }
-
-            $this->page->addVar('title', 'Modification d\'un commentaire');
-        }*/
-
-        // If a comment has been submitted
+        // If a comment has been submitted, loads it
         if ($httpRequest->method() == 'POST') {
             $comment = new Comment(array(
                 'id' => $httpRequest->getData('id'),
@@ -93,6 +65,7 @@ class NewsController extends BackController
                 'content' => $httpRequest->postData('content')
             ));
         } else {
+            // Loads the comment
             $comment = $this->managersList->getManagerOf("Comments")->get($httpRequest->getData('id'));
         }
         /**
@@ -103,29 +76,23 @@ class NewsController extends BackController
         $formBuilder->build();
         $form = $formBuilder->getForm();
 
-        if ($httpRequest->method() == 'POST' and $form->isValid()) {
-            if ($this->managersList->getManagerOf("Comments")->save($comment)) {
+        // If a comment has been submitted and is valid, save it
+        if ($httpRequest->method() == 'POST') {
+            $manager = $this->managersList->getManagerOf("Comments");
+            $formHandler = new FormHandler($form, $manager, $httpRequest);
+            if ($formHandler->process()) {
                 $this->app->getUser()->setMessage('Le commentaire a bien été modifié.');
                 $NewsId = $this->managersList->getManagerOf("Comments")->get($httpRequest->getData('id'))->getNews();
                 $this->app->getHttpResponse()->redirect('/news-' . $NewsId . '.html');
+            } elseif (!$form->isValid()) {
+                // If a comment has been submitted but is not valid, return error messages
+                $this->app->getUser()->setMessage($form->getErrorMessage());
             } else {
-                $this->app->getUser()->setMessage('Une erreur est survenue lors de la mise à jour du commentaire');
+                $this->app->getUser()->setMessage('Une erreur est survenue lors de l\'enregistrement du commentaire dans la base de données.');
             }
-        } elseif ($httpRequest->method() == 'POST') {
-            $message = '';
-            foreach ($form->getFields() as $formField) {
-                /**
-                 * @var Field $formField
-                 */
-                foreach ($formField->getErrorMessages() as $errorMessage) {
-                    $message .= PHP_EOL . $errorMessage . '<br>';
-                }
-            }
-            $this->app->getUser()->setMessage($message);
         }
 
         $this->page->addVar('form', $form->createView());
-
     }
 
     public function executeDeleteComment(HTTPRequest $httpRequest)
@@ -149,29 +116,6 @@ class NewsController extends BackController
 
     protected function processForm(HTTPRequest $httpRequest)
     {
-        /*$news = new News(array(
-            'author' => $httpRequest->postData('author'),
-            'title' => $httpRequest->postData('title'),
-            'content' => $httpRequest->postData('content')
-        ));
-
-        if ($httpRequest->getExists('id')) {
-            $news->setId($httpRequest->getData('id'));
-        }
-
-        if ($news->isValid()) {*/
-            /**
-             * @var NewsManager $manager
-             */
-            //$manager = $this->managersList->getManagerOf('news');
-            /*if ($manager->save($news)) {
-                $this->app->getUser()->setMessage('La news a bien été sauvegardée.');
-            } else {
-                $this->app->getUser()->setMessage('Une erreur est survenue.');
-            }
-        }
-        $this->page->addVar('news', $news);*/
-
         $news = new News;
 
         // If a news has been submitted
@@ -200,25 +144,18 @@ class NewsController extends BackController
         $form = $formBuilder->getForm();
 
         // If a news has been submitted and is valid, save it
-        if ($httpRequest->method() == 'POST' and $form->isValid()) {
-            if ($news = $this->managersList->getManagerOf("News")->save($news)) {
+        if ($httpRequest->method() == 'POST') {
+            $manager = $this->managersList->getManagerOf("News");
+            $formHandler = new FormHandler($form, $manager, $httpRequest);
+            if ($formHandler->process()) {
                 $this->app->getUser()->setMessage('La news a bien été enregistrée.');
                 $this->app->getHttpResponse()->redirect('/admin/');
+            } elseif (!$form->isValid()) {
+                // If a news has been submitted but is not valid, return error messages
+                $this->app->getUser()->setMessage($form->getErrorMessage());
             } else {
-                $this->app->getUser()->setMessage('Un problème un survenu lors de l\'enregistrement de la news.');
+                $this->app->getUser()->setMessage('Un problème un survenu lors de l\'enregistrement de la news dans la base de données.');
             }
-        // If a news has been submitted but is not valid, return error messages
-        } elseif ($httpRequest->method() == 'POST') {
-            $message = '';
-            foreach ($form->getFields() as $formField) {
-                /**
-                 * @var Field $formField
-                 */
-                foreach ($formField->getErrorMessages() as $errorMessage) {
-                    $message .= PHP_EOL . $errorMessage . '<br>';
-                }
-            }
-            $this->app->getUser()->setMessage($message);
         }
 
         $this->page->addVar('form', $form->createView());

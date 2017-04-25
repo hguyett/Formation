@@ -1,6 +1,7 @@
 <?php
 namespace App\Frontend\Modules\News;
 use FormBuilder\CommentFormBuilder;
+use OCFram\FormHandler;
 use OCFram\Field;
 use OCFram\Hydrator;
 use OCFram\BackController;
@@ -67,24 +68,8 @@ class NewsController extends BackController
 
     public function executeInsertComment(HTTPRequest $httpRequest)
     {
-        /*$this->page->addVar('title', 'Ajouter un commentaire');
-        if (isset($_POST['author']) and isset($_POST['content']) and ($httpRequest->getExists('newsId'))) {*/
-            /**
-            * @var CommentsManager $manager
-            */
-        /*    $manager = $this->managersList->getManagerOf("Comments");
-
-            $newsId = $httpRequest->getData('newsId');
-            $comment = new Comment(array(
-                'news' => $newsId,
-                'author' => $httpRequest->postData('author'),
-                'content' => $httpRequest->postData('content')));
-
-            $manager->save($comment);
-            $this->app->getHttpResponse()->redirect('news-' . $newsId . '.html');
-        }*/
-
         $comment = new Comment;
+        // If a comment has been submitted, loads it
         if ($httpRequest->method() == 'POST') {
             $newsId = $httpRequest->getData('newsId');
             $comment->hydrate(array(
@@ -98,28 +83,22 @@ class NewsController extends BackController
 
         $form = $formBuilder->getForm();
 
-        if ($httpRequest->method() == 'POST' and $form->isValid()) {
+        // If a comment has been submitted and is valid, save it
+        if ($httpRequest->method() == 'POST') {
             /**
             * @var CommentsManager $manager
             */
             $manager = $this->managersList->getManagerOf("Comments");
-            if ($manager->save($comment)) {
+            $formHandler = new FormHandler($form, $manager, $httpRequest);
+            if ($formHandler->process()) {
                 $this->app->getUser()->setMessage('Votre commentaire a bien été ajouté.');
                 $this->app->getHttpResponse()->redirect('news-' . $newsId . '.html');
+            } elseif (!$form->isValid()) {
+                // If a comment has been submitted but is not valid, return error messages
+                $this->app->getUser()->setMessage($form->getErrorMessage());
             } else {
-                $this->app->getUser()->setMessage('Une erreur est survenue lors de l\'ajout de votre commentaire.');
+                $this->app->getUser()->setMessage('Une erreur est survenue lors de l\'ajout de votre commentaire dans la base de données.');
             }
-        } elseif ($httpRequest->method() == 'POST') {
-            $message = '';
-            foreach ($form->getFields() as $formField) {
-                /**
-                 * @var Field $formField
-                 */
-                foreach ($formField->getErrorMessages() as $errorMessage) {
-                    $message .= PHP_EOL . $errorMessage . '<br>';
-                }
-            }
-            $this->app->getUser()->setMessage($message);
         }
 
     $this->page->addVar('comment', $comment);
