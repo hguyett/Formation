@@ -22,7 +22,7 @@ La surcharge magique d'attributs ou méthodes consiste à créer dynamiquement d
 
         __isset
 
-    Cette méthodeest appelée lorsque l'on appelle la fonction isset sur un attribut qui n'existe pas ou auquel on n'a pas accès. Étant donné que la fonction initiale isset renvoie true ou false, la méthode magique __isset doit renvoyer un booléen. Cette méthode prend un paramètre : le nom de l'attribut que l'on a envoyé à la fonction isset.
+    Cette méthode est appelée lorsque l'on appelle la fonction isset sur un attribut qui n'existe pas ou auquel on n'a pas accès. Étant donné que la fonction initiale isset renvoie true ou false, la méthode magique __isset doit renvoyer un booléen. Cette méthode prend un paramètre : le nom de l'attribut que l'on a envoyé à la fonction isset.
 
         __unset
 

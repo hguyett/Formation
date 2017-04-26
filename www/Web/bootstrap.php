@@ -1,4 +1,5 @@
 <?php
+
 const DEFAULT_APP = 'Frontend';
 
 // Si l'application n'est pas valide, on va charger l'application par défaut qui se chargera de générer une erreur 404
@@ -23,9 +24,20 @@ $entityLoader->register();
 $formBuilderLoader = new SplClassLoader('FormBuilder', __DIR__.'/../lib/vendors');
 $formBuilderLoader->register();
 
+$CacheLoader = new SplClassLoader('Cache', __DIR__.'/../lib/vendors');
+$CacheLoader->register();
+
 
 // Il ne nous suffit plus qu'à déduire le nom de la classe et de l'instancier
 $appClass = 'App\\'.$_GET['app'].'\\'.$_GET['app'].'Application';
+
+$test = new Entity\Comment([
+    'author' => 'Drenock',
+    'content' => 'Ceci est un test'
+]);
+$cache = new Cache\EntityCache('test', $test, new \DateTime('now'));
+$cacheManager = new OCFram\CacheManager;
+$cacheManager->save($cache);
 
 $app = new $appClass;
 $app->run();
