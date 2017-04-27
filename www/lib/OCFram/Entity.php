@@ -1,9 +1,9 @@
 <?php
 namespace OCFram;
 
-abstract class Entity implements \ArrayAccess
+abstract class Entity implements \ArrayAccess, \Serializable
 {
-  use Hydrator;
+  use Hydrator, Serializer;
 
   protected $erreurs = [],
             $id;
@@ -63,4 +63,6 @@ abstract class Entity implements \ArrayAccess
   {
     throw new \Exception('Impossible de supprimer une quelconque valeur');
   }
+
+
 }
