@@ -3,7 +3,7 @@ namespace OCFram;
 
 abstract class Entity implements \ArrayAccess, \Serializable
 {
-  use Hydrator, Serializer;
+  use Hydrator, EntitySerializer;
 
   protected $erreurs = [],
             $id;

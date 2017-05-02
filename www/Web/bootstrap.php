@@ -31,13 +31,5 @@ $CacheLoader->register();
 // Il ne nous suffit plus qu'à déduire le nom de la classe et de l'instancier
 $appClass = 'App\\'.$_GET['app'].'\\'.$_GET['app'].'Application';
 
-$test = new Entity\Comment([
-    'auteur' => 'Drenock',
-    'contenu' => 'Ceci est un test'
-]);
-$cache = new Cache\EntityCache('test', $test, new \DateTime('now'));
-$cacheManager = new OCFram\CacheManager;
-$cacheManager->save($cache);
-
 $app = new $appClass;
 $app->run();

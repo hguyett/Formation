@@ -5,7 +5,7 @@ use \DateTime;
 /**
  *
  */
-abstract class DataCache
+class DataCache
 {
 
     /**
@@ -23,23 +23,19 @@ abstract class DataCache
      */
     protected $expirationDate;
 
-    /**
-     * Set cached data.
-     * @param mixed $data
-     */
-    abstract public function setData($data): void;
-
-    /**
-     * Return cached data.
-     * @return mixed
-     */
-    abstract public function getData();
-
     public function __construct(string $name, $data, DateTime $expirationDate)
     {
         $this->setName($name);
         $this->setData($data);
         $this->setExpirationDate($expirationDate);
+    }
+
+    public function isValid(): bool
+    {
+        if ($this->expirationDate > new DateTime('now')) {
+            return true;
+        }
+        return false;
     }
 
     /////////////
@@ -55,6 +51,17 @@ abstract class DataCache
     public function setName(string $name)
     {
         $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * @param mixed $data
+     *
+     * @return static
+     */
+    public function setData($data)
+    {
+        $this->data = $data;
         return $this;
     }
 
@@ -80,6 +87,14 @@ abstract class DataCache
     public function getName(): string
     {
         return $this->name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getData()
+    {
+        return $this->data;
     }
 
     /**

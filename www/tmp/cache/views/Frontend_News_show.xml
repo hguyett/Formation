@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DataCache>
+  <expiration_date>1493743681</expiration_date>
+  <Data>s:1977:"&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;
+      Mon premier article    &lt;/title&gt;
+    
+    &lt;meta charset="utf-8" /&gt;
+    
+    &lt;link rel="stylesheet" href="/css/Envision.css" type="text/css" /&gt;
+  &lt;/head&gt;
+  
+  &lt;body&gt;
+    &lt;div id="wrap"&gt;
+      &lt;header&gt;
+        &lt;h1&gt;&lt;a href="/"&gt;Mon super site&lt;/a&gt;&lt;/h1&gt;
+        &lt;p&gt;Comment ça, il n'y a presque rien ?&lt;/p&gt;
+      &lt;/header&gt;
+      
+      &lt;nav&gt;
+        &lt;ul&gt;
+          &lt;li&gt;&lt;a href="/"&gt;Accueil&lt;/a&gt;&lt;/li&gt;
+                  &lt;/ul&gt;
+      &lt;/nav&gt;
+      
+      &lt;div id="content-wrap"&gt;
+        &lt;section id="main"&gt;
+          &lt;p style="text-align: center;"&gt;Le commentaire a bien été ajouté, merci !&lt;/p&gt;          
+          &lt;p&gt;Par &lt;em&gt;Drenock&lt;/em&gt;, le 25/04/2017 à 15h48&lt;/p&gt;
+&lt;h2&gt;Mon premier article&lt;/h2&gt;
+&lt;p&gt;Bonjour à tous !&lt;br /&gt;&#13;
+&lt;br /&gt;&#13;
+Je vous souhaite la bienvenue sur mon nouveau blog. Celui-ci a pour objectif de m'entraîner au développement web. Je l'ai conçu moi-même en PHP orienté objet ! J'espère qu'il vous plaira :-)&lt;br /&gt;&#13;
+&lt;br /&gt;&#13;
+Je vous tiendrai informé des évolution du blog sur cette page, alors stay tuned :-D&lt;br /&gt;&#13;
+&lt;br /&gt;&#13;
+@ bientôt !&lt;/p&gt;
+
+
+&lt;p&gt;&lt;a href="commenter-1.html"&gt;Ajouter un commentaire&lt;/a&gt;&lt;/p&gt;
+
+&lt;fieldset&gt;
+  &lt;legend&gt;
+    Posté par &lt;strong&gt;Justine&lt;/strong&gt; le 25/04/2017 à 15h49      &lt;/legend&gt;
+  &lt;p&gt;Il a l'air super ton blog ! Continue comme ça :-)&lt;/p&gt;
+&lt;/fieldset&gt;
+&lt;fieldset&gt;
+  &lt;legend&gt;
+    Posté par &lt;strong&gt;ruyk&lt;/strong&gt; le 02/05/2017 à 18h35      &lt;/legend&gt;
+  &lt;p&gt;ryuk&lt;/p&gt;
+&lt;/fieldset&gt;
+&lt;fieldset&gt;
+  &lt;legend&gt;
+    Posté par &lt;strong&gt;terjyetrj&lt;/strong&gt; le 02/05/2017 à 18h37      &lt;/legend&gt;
+  &lt;p&gt;etjyetyjetj&lt;/p&gt;
+&lt;/fieldset&gt;
+&lt;fieldset&gt;
+  &lt;legend&gt;
+    Posté par &lt;strong&gt;2&lt;/strong&gt; le 02/05/2017 à 18h37      &lt;/legend&gt;
+  &lt;p&gt;2&lt;/p&gt;
+&lt;/fieldset&gt;
+&lt;fieldset&gt;
+  &lt;legend&gt;
+    Posté par &lt;strong&gt;3&lt;/strong&gt; le 02/05/2017 à 18h37      &lt;/legend&gt;
+  &lt;p&gt;3&lt;/p&gt;
+&lt;/fieldset&gt;
+
+&lt;p&gt;&lt;a href="commenter-1.html"&gt;Ajouter un commentaire&lt;/a&gt;&lt;/p&gt;        &lt;/section&gt;
+      &lt;/div&gt;
+    
+      &lt;footer&gt;&lt;/footer&gt;
+    &lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;";</Data>
+</DataCache>
