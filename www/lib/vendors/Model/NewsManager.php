@@ -1,18 +1,24 @@
 <?php
 namespace Model;
 
-use \OCFram\Manager;
+use \OCFram\Manager;;
+use \OCFram\CacheFile;
+use \OCFram\CacheManager;
 use \Entity\News;
+
 
 abstract class NewsManager extends Manager
 {
+    // Défini la période de temps après laquelle une donnée n'est plus valide en cache.
+    const CACHE_EXPIRATION_TIME = 'PT15M';
+
   /**
    * Méthode permettant d'ajouter une news.
    * @param $news News La news à ajouter
    * @return void
    */
   abstract protected function add(News $news);
-  
+
   /**
    * Méthode permettant d'enregistrer une news.
    * @param $news News la news à enregistrer
@@ -52,13 +58,44 @@ abstract class NewsManager extends Manager
    * @return array La liste des news. Chaque entrée est une instance de News.
    */
   abstract public function getList($debut = -1, $limite = -1);
-  
+
   /**
    * Méthode retournant une news précise.
    * @param $id int L'identifiant de la news à récupérer
    * @return News La news demandée
    */
   abstract public function getUnique($id);
+
+  /**
+   * Sauvegarde une news en cache.
+   * @var News $news
+   */
+  public function saveNewsToCache(News $news)
+  {
+      $cache = new CacheFile('News-' . $news->id(), $news, (new \DateTime)->add(new \DateInterval(self::CACHE_EXPIRATION_TIME)));
+      $cacheManager = new CacheManager;
+      $cacheManager->save($cache);
+  }
+
+  /**
+   * Supprime une news du cache.
+   * @return bool Renvoie true si un fichier a été supprimé.
+   */
+  public function clearNewsFromCache(int $id): bool
+  {
+      $cacheManager = new CacheManager;
+      return $cacheManager->deleteByName('News-' . $id);
+  }
+
+  public function loadNewsFromCache(int $id): ?News
+  {
+      $cacheManager = new CacheManager;
+      $newsCache = $cacheManager->load('News-' . $id);
+      if (isset($newsCache)) {
+          return $newsCache->getData();
+      }
+      return null;
+  }
 
   /**
    * Méthode permettant de modifier une news.

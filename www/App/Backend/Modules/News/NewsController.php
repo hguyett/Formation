@@ -8,17 +8,19 @@ use \Entity\Comment;
 use \FormBuilder\CommentFormBuilder;
 use \FormBuilder\NewsFormBuilder;
 use \OCFram\FormHandler;
+use OCFram\CacheManager;
 
 class NewsController extends BackController
 {
   public function executeDelete(HTTPRequest $request)
   {
     $newsId = $request->getData('id');
-    
+
     $this->managers->getManagerOf('News')->delete($newsId);
     $this->managers->getManagerOf('Comments')->deleteFromNews($newsId);
 
     $this->app->user()->setFlash('La news a bien été supprimée !');
+    $this->deleteIndexCache();
 
     $this->app->httpResponse()->redirect('.');
   }
@@ -26,9 +28,9 @@ class NewsController extends BackController
   public function executeDeleteComment(HTTPRequest $request)
   {
     $this->managers->getManagerOf('Comments')->delete($request->getData('id'));
-    
+
     $this->app->user()->setFlash('Le commentaire a bien été supprimé !');
-    
+
     $this->app->httpResponse()->redirect('.');
   }
 
@@ -128,10 +130,22 @@ class NewsController extends BackController
     if ($formHandler->process())
     {
       $this->app->user()->setFlash($news->isNew() ? 'La news a bien été ajoutée !' : 'La news a bien été modifiée !');
-      
+      $this->deleteIndexCache();
+
       $this->app->httpResponse()->redirect('/admin/');
     }
 
     $this->page->addVar('form', $form->createView());
+  }
+
+/**
+ * Supprime le cache de la page d'accueil.
+ * @return bool Renvoie true si un fichier a été supprimé.
+ */
+  protected function deleteIndexCache(): bool
+  {
+      // Supression du cache de la page d'accueil
+      $cacheManager = new CacheManager('views');
+      return $cacheManager->deleteByName('Frontend_News_index');
   }
 }

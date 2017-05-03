@@ -17,7 +17,7 @@ class CacheManager
 
     /**
      * Sauvegarde l'objet dans un fichier XML.
-     * @param  DataCache
+     * @param  CacheFile
      * @return bool
      */
 
@@ -26,10 +26,10 @@ class CacheManager
         $this->cacheFolderName = $cacheFolderName;
      }
 
-    public function save(DataCache $cache): bool
+    public function save(CacheFile $cache): bool
     {
         $xml = new DOMDocument('1.0', 'utf-8');
-        $root = $xml->appendChild($xml->createElement('DataCache'));
+        $root = $xml->appendChild($xml->createElement('CacheFile'));
         $root->appendChild($xml->createElement('expiration_date', $cache->getExpirationDate()->getTimestamp()));
         $root->appendChild($xml->createElement('Data', serialize($cache->getData())));
 
@@ -43,9 +43,9 @@ class CacheManager
     /**
      * Tente de charger la donnée depuis le cache. Si aucune donnée n'est trouvée, retourn null. Si la donnée est trouvée mais a expiré, elle est supprimée et la fonction renvoie null.
      * @param string Nom de la donnée à charger.
-     * @return ?DataCache
+     * @return ?CacheFile
      */
-    public function load(string $name): ?DataCache
+    public function load(string $name): ?CacheFile
     {
         $filename = __DIR__ . '/../../tmp/cache/' . $this->cacheFolderName . '/' . $name . '.xml';
         if (file_exists($filename)) {
@@ -57,11 +57,11 @@ class CacheManager
 
             $serializedData = $elements = $xml->getElementsByTagName('Data');
             $data = unserialize($serializedData->item(0)->nodeValue);
-            $dataCache = new DataCache($name, $data, $expirationDate);
-            if ($dataCache->isValid()) {
-                return $dataCache;
+            $cache = new CacheFile($name, $data, $expirationDate);
+            if ($cache->isNotExpired()) {
+                return $cache;
             } else {
-                $this->delete($dataCache);
+                $this->delete($cache);
             }
         }
         return null;
@@ -69,13 +69,29 @@ class CacheManager
 
 
     /**
-     * Supprime un fichier du cache.
-     * @param  DataCache $cache [description]
-     * @return bool             [description]
+     * Supprime un fichier du cache. Renvoie true si un fichier a été supprimé.
+     * @param  CacheFile $cache CacheFile à supprimer.
+     * @return bool
      */
-    protected function delete(DataCache $cache): bool
+    public function delete(CacheFile $cache): bool
     {
         $filename = __DIR__ . '/../../tmp/cache/' . $this->cacheFolderName . '/' . $cache->getName() . '.xml';
+        if (file_exists($filename)) {
+            if (unlink($filename)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Supprime un fichier du cache. Renvoie true si un fichier a été supprimé.
+     * @param  string $cache Nom du cache à supprimer.
+     * @return bool
+     */
+    public function deleteByName(string $cacheName): bool
+    {
+        $filename = __DIR__ . '/../../tmp/cache/' . $this->cacheFolderName . '/' . $cacheName . '.xml';
         if (file_exists($filename)) {
             if (unlink($filename)) {
                 return true;
@@ -89,7 +105,7 @@ class CacheManager
     *
     * @return static
     */
-    public function setCacheFolderName($cacheFolderName)
+    public function setCacheFolderName(string $cacheFolderName)
     {
         $this->cacheFolderName = $cacheFolderName;
         return $this;
@@ -98,7 +114,7 @@ class CacheManager
     /**
      * @return
      */
-    public function getCacheFolderName()
+    public function getCacheFolderName(): string
     {
         return $this->cacheFolderName;
     }

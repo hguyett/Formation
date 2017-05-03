@@ -19,11 +19,20 @@ class HTTPResponse extends ApplicationComponent
   public function redirect404()
   {
     $this->page = new Page($this->app);
-    $this->page->setContentFile(__DIR__.'/../../Errors/404.html');
+
+    $user = $this->app->user();
+
+    ob_start();
+      require __DIR__.'/../../Errors/404.html';
+    $content = ob_get_clean();
+
+    ob_start();
+      require __DIR__.'/../../App/'.$this->app->name().'/Templates/layout.php';
+    $view = ob_get_clean();
 
     $this->addHeader('HTTP/1.0 404 Not Found');
 
-    $this->send();
+    $this->send($view);
   }
 
   public function send(string $view)

@@ -3,6 +3,9 @@ namespace OCFram;
 
 abstract class BackController extends ApplicationComponent
 {
+  // Tableau contenant le nom des vues et le temps de mise en cache qui leurs sont associées. Ce temps sera passé au constructeur de DateInterval, la notation est basée sur la norme ISO 8601.
+  const VIEWS_CACHE_TIME = [];
+
   protected $action = '';
   protected $module = '';
   protected $page = null;
@@ -31,6 +34,15 @@ abstract class BackController extends ApplicationComponent
     }
 
     $this->$method($this->app->httpRequest());
+  }
+
+  /**
+   * Retourne un tableau le nom des vues et le temps de mise en cache qui leurs sont associées.
+   * @return array ['view' => 'PT10M'] (ISO 8601)
+   */
+  public function getViewsCacheTime(): array
+  {
+      return static::VIEWS_CACHE_TIME;
   }
 
   public function page()
@@ -69,14 +81,6 @@ abstract class BackController extends ApplicationComponent
 
     $this->page->setContentFile(__DIR__.'/../../App/'.$this->app->name().'/Modules/'.$this->module.'/Views/'.$this->view.'.php');
   }
-
-  /**
- * @return String
- */
-public function action()
-{
-    return $this->action;
-}
 
 /**
  * @return String

@@ -5,7 +5,7 @@ use \DateTime;
 /**
  *
  */
-class DataCache
+class CacheFile
 {
 
     /**
@@ -30,7 +30,7 @@ class DataCache
         $this->setExpirationDate($expirationDate);
     }
 
-    public function isValid(): bool
+    public function isNotExpired(): bool
     {
         if ($this->expirationDate > new DateTime('now')) {
             return true;

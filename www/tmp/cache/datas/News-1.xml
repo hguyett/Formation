@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CacheFile>
+  <expiration_date>1493831694</expiration_date>
+  <Data>C:11:"Entity\News":714:{a:7:{s:6:"auteur";s:7:"Drenock";s:5:"titre";s:19:"Mon premier article";s:7:"contenu";s:322:"Bonjour à tous !&#13;
+&#13;
+Je vous souhaite la bienvenue sur mon nouveau blog. Celui-ci a pour objectif de m'entraîner au développement web. Je l'ai conçu moi-même en PHP orienté objet ! J'espère qu'il vous plaira :-)&#13;
+&#13;
+Je vous tiendrai informé des évolution du blog sur cette page, alors stay tuned :-D&#13;
+&#13;
+@ bientôt !";s:9:"dateAjout";O:8:"DateTime":3:{s:4:"date";s:26:"2017-04-25 15:48:31.000000";s:13:"timezone_type";i:3;s:8:"timezone";s:3:"UTC";}s:9:"dateModif";O:8:"DateTime":3:{s:4:"date";s:26:"2017-04-25 15:48:31.000000";s:13:"timezone_type";i:3;s:8:"timezone";s:3:"UTC";}s:7:"erreurs";a:0:{}s:2:"id";s:1:"1";}}</Data>
+</CacheFile>

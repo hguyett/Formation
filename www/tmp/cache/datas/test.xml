@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<DataCache>
-  <expiration_date>1493817956</expiration_date>
-  <Data>C:14:"Entity\Comment":240:{a:6:{s:4:"news";N;s:6:"auteur";s:7:"Drenock";s:7:"contenu";s:16:"Ceci est un test";s:4:"date";O:8:"DateTime":3:{s:4:"date";s:26:"2017-05-02 13:25:56.856310";s:13:"timezone_type";i:3;s:8:"timezone";s:3:"UTC";}s:7:"erreurs";a:0:{}s:2:"id";N;}}</Data>
-</DataCache>
