@@ -1,0 +1,23 @@
+L'opérateur instanceof permet de vérifier la nature d'un objet.
+
+Il peut vérifier qu'un objet :
+
+- Instancie une classe ou une de ses classes filles
+- Implémente une interface ou une de ses interfaces filles
+
+Bien que instanceof soit habituellement utilisé avec un nom de classe littéral, il peut également être utilisé avec un autre objet ou une chaîne représentant une variable.
+
+    Exemples d'utilisation
+
+<?php
+if ($myObject instanceof MyClass) {}
+if ($myObject instanceof MyInterface) {}
+if ($myObject instanceof $anotherObject) {}
+
+$className = 'MyClass';
+if ($myObject instanceof $className) {}
+?>
+
+    Documentation
+    
+https://secure.php.net/manual/fr/language.operators.type.php

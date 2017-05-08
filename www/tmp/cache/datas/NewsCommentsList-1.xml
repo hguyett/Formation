@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<CacheFile>
-  <expiration_date>1493832650</expiration_date>
-  <Data>a:1:{i:0;C:14:"Entity\Comment":287:{a:6:{s:4:"news";s:1:"1";s:6:"auteur";s:7:"Justine";s:7:"contenu";s:50:"Il a l'air super ton blog ! Continue comme ça ;-)";s:4:"date";O:8:"DateTime":3:{s:4:"date";s:26:"2017-05-03 14:27:33.000000";s:13:"timezone_type";i:3;s:8:"timezone";s:3:"UTC";}s:7:"erreurs";a:0:{}s:2:"id";s:2:"25";}}}</Data>
-</CacheFile>
