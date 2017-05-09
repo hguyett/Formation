@@ -1,0 +1,47 @@
+/!\ Ce mode de fonctionnement est spécifique à JavaScript. De nombreux autres langages supportant les objets (Java, C++, PHP...) utilisent des classes pour créer des modèles d'objet. Il est possible de simuler l'existence de classes en JavaScript, mais l'utilisation des prototypes est plus naturelle et plus proche de la philosophie du langage.
+
+
+Pour créer un objet en Javascript, on utilise la méthode Object.create(). Il faut lui passer en argument un autre objet qui servira de prototype (classe).
+
+Pour définir un prototype (une classe), on créer un nouvel objet :
+
+var Personnage = {
+    nom: "",
+    sante: 0,
+    force: 0,
+    xp: 0,
+
+    // Renvoie la description du personnage
+    decrire: function () {
+        var description = this.nom + " a " + this.sante + " points de vie, " +
+            this.force + " en force et " + this.xp + " points d'expérience";
+        return description;
+    }
+};
+
+Pour créer un objet (une instance de la classe), on se sert ensuite du prototype
+
+var perso1 = Object.create(Personnage);
+
+
+    Héritage
+
+Pour créer un prototype héritant d'un autre, il faut donc créer un prototype qui possède lui-même un prototype.
+
+var Personnage = {
+
+}
+
+var Joueur = Object.create(Personnage);
+
+Joueur.propriete = valeur;
+Joueur.methode = function() {
+
+}
+
+Les objets javascript sont particuliers : il est possible de leur ajouter dynamiquement des propriétés et des méthodes.
+
+Personnage.intelligence = 0;
+Personnage.gagnerExpérience = function(xp) {
+    this.xp += xp;
+}

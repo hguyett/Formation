@@ -1,0 +1,9 @@
+var tab = ["first", "second", "third"];
+
+tab.push("fourth");
+
+tab.legnth; // 4
+
+tab.forEach(function (value) {
+    // Value correspond aux valeurs du tableau.
+});
