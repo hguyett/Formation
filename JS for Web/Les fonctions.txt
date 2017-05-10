@@ -1,0 +1,58 @@
+    Declaration
+
+function myFunction(param1, param2) {
+
+    // Managing optional argument exemple
+    if (typeof param2 === 'undefined') {
+       param2 = false;
+   }
+
+}
+
+
+    Use
+
+myFunction(arg1, arg2);
+
+
+     Optional arguments
+
+myFunction(arg1);
+
+
+    Anonymous functions
+
+var sayHello = function() {
+    alert('Bonjour !');
+};
+
+sayHello(); // Affiche : « Bonjour ! »
+
+
+        Isolate Code with an anonymous function aka
+        Immediately-Invoked Function Expression (IIFE)
+
+    // Code externe
+
+    (function() {
+
+        // Code isolé
+
+    })();
+
+    // Code externe
+
+        To get values from an IIFE =
+
+    var value = (function() {
+
+        // Code isolé
+        return value;
+
+    })();
+
+    Il est possible de nommer une IIFE afin de pouvoir la repérer dans la call stack d'un debugueur. La fonction restera anonyme.
+
+    (function anonymousWasHere() {
+        console.log('Hi!');
+    })();

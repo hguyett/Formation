@@ -1,0 +1,11 @@
+Le mot clé continue permet de passer à l'itération suivante.
+
+do while est une boucle qui s'exécutera une fois avant de tester la condition.
+
+do {
+    instruction_1;
+    instruction_2;
+    instruction_3;
+} while (condition);
+
+Dans une boule for, la variable d'incrémentation persiste après l'exécution de la boucle.

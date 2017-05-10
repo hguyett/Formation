@@ -1,0 +1,15 @@
+    Declaration
+
+var myString = 'Test';
+var myString = "Test";
+
+
+    Split a string in an array
+
+var cousinsString = 'Pauline Guillaume Clarisse';
+var cousinsArray = cousinsString.split(' ');
+
+
+    Join multiples String of an array
+
+var cousinsString_2 = cousinsArray.join('-');

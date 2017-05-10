@@ -5,6 +5,16 @@ Pour créer un objet en Javascript, on utilise la méthode Object.create(). Il f
 
 Pour définir un prototype (une classe), on créer un nouvel objet :
 
+function Contact(firstName, lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.toString = function () {
+        return this.firstName + ' ' + this.lastName;
+    }
+};
+
+OU
+
 var Personnage = {
     nom: "",
     sante: 0,
@@ -20,6 +30,10 @@ var Personnage = {
 };
 
 Pour créer un objet (une instance de la classe), on se sert ensuite du prototype
+
+new Contact('Carole', 'Lévisse')
+
+OU
 
 var perso1 = Object.create(Personnage);
 

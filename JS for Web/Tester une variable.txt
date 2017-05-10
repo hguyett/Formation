@@ -1,0 +1,24 @@
+Tester le type d'une variable avec typeof
+
+Il se peut que vous ayez un jour ou l'autre besoin de tester l'existence d'une variable ou d'en vérifier son type. Dans ce genre de situations, l'instruction typeof est très utile, voici comment l'utiliser :
+
+var number = 2;
+alert(typeof number); // Affiche : « number »
+
+var text = 'Mon texte';
+alert(typeof text); // Affiche : « string »
+
+var aBoolean = false;
+alert(typeof aBoolean); // Affiche : « boolean »
+
+    tester l'existence d'une variable
+
+alert(typeof nothing); // Affiche : « undefined »
+
+Si l'instruction typeof vous renvoie undefined, c'est soit que votre variable est inexistante, soit qu'elle est déclarée mais ne contient rien.
+
+if (variable) {
+    // variable is set
+} else {
+    // variable is not set (undefined), equals false, NaN, 0 or ''.
+}

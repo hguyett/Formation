@@ -1,0 +1,34 @@
+    Declaration
+
+// Empty
+var myObject = {};
+
+// Literal (Not often used. Useful to return multiples data with a function).
+var myObject = {
+    property1: 'First',
+    property2: 'Second'
+};
+
+
+    Property access
+
+var a = myObject.property1;
+a = myObject['property1'];
+
+
+    Add a property
+
+myObject.property3 = 'Third';
+myObject['property3'] = 'Third';
+
+
+    Run throught an object with for in (Equivalent to PHP foreach)
+
+for (var propertyName in myObject) { // Properties names will be pushed in propertyName, one by one.
+
+}
+
+/!\ Pourquoi ne pas appliquer le for in sur les tableaux avec index ?
+Parce que les tableaux se voient souvent attribuer des méthodes supplémentaires par certains navigateurs ou certains scripts tiers utilisés dans la page, ce qui fait que la boucle for in va vous les énumérer en même temps que les items du tableau.
+
+Il y a aussi un autre facteur important à prendre en compte : la boucle for in est plus gourmande qu'une boucle for classique

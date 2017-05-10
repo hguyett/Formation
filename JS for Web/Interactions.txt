@@ -1,0 +1,14 @@
+Alert()
+Prompt()
+Confirm()
+
+
+    Debog
+
+console.log()
+console.warn()
+console.error()
+console.group()
+console.groupEnd()
+
+https://developers.google.com/web/tools/chrome-devtools/console/console-reference?utm_source=dcc&utm_medium=redirect&utm_campaign=2016q3
