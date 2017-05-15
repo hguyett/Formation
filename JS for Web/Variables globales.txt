@@ -1,3 +1,3 @@
-En javascript, toute variable n'étant pas déclarée dans une fonction est une variable globale : elle est accessible dans tous le script. Si un conflit survient entre le nom d'une variable globale et le nom d'une variable locale, la variable locale prend le dessus tant que l'exécution a lieu dans son scope.
+En javascript, toute variable n'étant pas déclarée dans une fonction avec le mot clé var est une variable globale : elle est accessible dans tous le script. Si un conflit survient entre le nom d'une variable globale et le nom d'une variable locale, la variable locale prend le dessus tant que l'exécution a lieu dans son scope. Il est toutefois possible d'accéder à la variable locale en utilisant l'objet window (window.myVariable).
 
 Le contenu des variables globales peuvent être modifiées par l'utilisateur via la console.

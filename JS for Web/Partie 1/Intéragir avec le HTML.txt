@@ -1,0 +1,85 @@
+Le DOM sert à accéder aux éléments HTML présents dans un document afin de les modifier et d'interagir avec eux.
+L'objet window est un objet global qui représente la fenêtre du navigateur. document, quant à lui, est un sous-objet de window et représente la page Web. C'est grâce à lui que l'on va pouvoir accéder aux éléments HTML de la page Web.
+Différentes méthodes, comme getElementById(), getElementsByTagName(), querySelector() ou querySelectorAll(), sont disponibles pour accéder aux éléments.Les attributs peuvent tous être modifiés grâce à setAttribute(). Certains éléments possèdent des propriétés qui permettent de modifier ces attributs.
+La propriété innerHTML permet de récupérer ou de définir le code HTML présent à l'intérieur d'un élément.
+De leur côté, textContent et innerText ne sont capables que de définir ou récupérer du texte brut, sans aucunes balises HTML..
+
+
+    Les éléments HTML
+
+    En javascript, le HTML est traité sous forme d'objets. Il s'agit d'objets HTMLElement. Il existe un prototype (une classe) pour chaque type de balise (HTMLDivElement) héritant du prototype de base. HTMLElement hérite lui-même d'Element, qui hérite de Node.
+
+    Node -> Element -> HTMLElement -> HTMLDivElement
+
+
+    Récupérer les éléments HTML
+
+        document.querySelectorAll()
+
+    Récupère les éléments d'une page HTML à l'aide d'un sélecteur CSS et les retourne dans un tableau. Supporte également les sélecteurs avancés (à partir d'IE9).
+
+        document.querySelector()
+
+    Récupère le premier élément d'une page HTML à l'aide d'un sélecteur CSS. Supporte également les sélecteurs avancés (à partir d'IE9).
+
+
+        Anciennes méthodes (< IE8)
+
+            document.getElementById('id')
+
+        Cette méthode permet d'accéder à un élément en connaissant son ID qui est simplement l'attribut id de l'élément.
+
+            document.getElementsByTagName('div')
+
+        Cette méthode permet de récupérer, sous la forme d'un tableau, tous les éléments de la famille.
+
+            document.getElementsByName('name')
+
+        Cette méthode est semblable à getElementsByTagName() et permet de ne récupérer que les éléments qui possèdent un attribut name que vous spécifiez. L'attribut name n'est utilisé qu'au sein des formulaires, et est déprécié depuis la spécification HTML5 dans tout autre élément que celui d'un formulaire. Cette méthode est dépréciée en XHTML mais est standardisée en HTML5.+
+
+    Voyager à travers le DOM
+
+        parentNode
+
+    Il est possible de récupérer l'élément parent à l'aide de la propriété parentNode.
+
+        nodeType et nodeName
+
+    NodeType et NodeName sont des propriétés permettant vérifier le type d'un noeud. nodeType retourne un nombre (https://developer.mozilla.org/fr/docs/Web/API/Node/nodeType) alors que nodeName renvoie le nom de la balise en majuscules (il est toutefois conseillé d'utiliser toLowerCase ou toUpperCase pour focer la casse et éviter les mauvaises surprises).
+
+        firstChild et lastChild
+
+    les propriétés firstChild et lastChild permettent d'accéder au premier ou au dernier enfant d'un noeud.
+    /!\ "du texte <a>Un lien</a> du texte" contient 3 enfants. du texte, <a>Un lien</a> et du texte. Pour ne prendre en considération que les éléments html et ignorer les autres types de noeuds, il faut utiliser firstElementChild et lastElementChild (>= IE9).
+
+        nextSibling et previousSibling
+
+    Ces deux propriétés permettent d'accéder au noeud suivant et au noeud précédent.
+
+        childNodes
+
+    la propriété childNodes contient tous les enfants d'un noeud sous forme de tableau.
+
+        nodeValue et Data
+
+    Pour récupérer le contenu d'un noeud textuel, on utilisera la propriété nodeValue ou data.
+
+    Le contenu des balises
+
+Pour accéder ou modifier le contenu des balises html, on utilise la propriété innerHTML. Il est également possible de récupérer le contenu des balises sans les balises qui y sont imbriquées à l'aide des propriétés textContent (standard) et innerText (< IE9, seulement sur IE).
+
+    Les attributs
+
+Pour modifier les attributs d'un élément HTML, il existe 2 méthodes héritées de l'objet Element : getAttribute() et setAttribute(). getAttribute prend 1 argument : le nom de l'attribut. Quant à setAttribute, il en prend 2 : le nom de l'attribut et la valeur à lui assigner.
+
+Pour la plupart des éléments courants, il est possible d'accéder à l'attribut via une propriété de l'objet portant le nom de l'attribut.
+/!\ Les mots class et for étant réservés en javascript, on accédera à l'attribut class avec la propriété className ou classList et à l'attribut for avec la propriété htmlFor. La propriété className retourne toutes les classes de l'élément dans une chaine de caractère (comme on la retrouve dans une page html. Attention aux espaces multiples !), alors que la propriété classList renvoie un tableau contenant le nom des classes. (/!\ classList ne fonctionne pas avant IE10).
+
+        Exemple
+
+    <a id="myLink" href="http://www.un_lien_quelconque.com">Un lien modifié dynamiquement</a>
+
+    <script>
+        var link = document.getElementById('myLink');
+        link.href = 'http://www.siteduzero.com';
+    </script>
