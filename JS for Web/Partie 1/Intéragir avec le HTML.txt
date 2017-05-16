@@ -11,6 +11,7 @@ De leur côté, textContent et innerText ne sont capables que de définir ou ré
 
     Node -> Element -> HTMLElement -> HTMLDivElement
 
+    /!\ La manipulation du DOM se fait toujours à l'aide de références et non de valeurs.
 
     Récupérer les éléments HTML
 
@@ -54,7 +55,11 @@ De leur côté, textContent et innerText ne sont capables que de définir ou ré
 
         nextSibling et previousSibling
 
-    Ces deux propriétés permettent d'accéder au noeud suivant et au noeud précédent.
+    Ces deux propriétés permettent d'accéder au noeud suivant et au noeud précédent (Tous types de noeud compris).
+
+        nextElementSibling et previousElementSibling
+
+    Ces deux propriétés permettent d'accéder au noeud d'élément suivant et précédent.
 
         childNodes
 
@@ -62,7 +67,7 @@ De leur côté, textContent et innerText ne sont capables que de définir ou ré
 
         nodeValue et Data
 
-    Pour récupérer le contenu d'un noeud textuel, on utilisera la propriété nodeValue ou data.
+    Pour récupérer le contenu d'un noeud TEXTUEL (pas d'un élément), on utilisera la propriété nodeValue ou data.
 
     Le contenu des balises
 
@@ -75,6 +80,8 @@ Pour modifier les attributs d'un élément HTML, il existe 2 méthodes héritée
 Pour la plupart des éléments courants, il est possible d'accéder à l'attribut via une propriété de l'objet portant le nom de l'attribut.
 /!\ Les mots class et for étant réservés en javascript, on accédera à l'attribut class avec la propriété className ou classList et à l'attribut for avec la propriété htmlFor. La propriété className retourne toutes les classes de l'élément dans une chaine de caractère (comme on la retrouve dans une page html. Attention aux espaces multiples !), alors que la propriété classList renvoie un tableau contenant le nom des classes. (/!\ classList ne fonctionne pas avant IE10).
 
+Enfin, il est possible de supprimer un attribut avec la méthode removeAttribute().
+
         Exemple
 
     <a id="myLink" href="http://www.un_lien_quelconque.com">Un lien modifié dynamiquement</a>
@@ -83,3 +90,47 @@ Pour la plupart des éléments courants, il est possible d'accéder à l'attribu
         var link = document.getElementById('myLink');
         link.href = 'http://www.siteduzero.com';
     </script>
+
+
+    Créer, insérer et supprimer des noeuds
+
+        document.createElement()
+
+    createElement permet d'ajouter un noeud de type élément.
+
+            Exemple
+
+        var newLink = document.createElement('a');
+
+        document.createTextNode()
+
+    createTextNode permet d'ajouter un noeud de type texte.
+
+        appenChild()
+
+    appendChild est une méthode dont dispose tous les noeuds et permet d'ajouter un noeud enfant au noeud. La méthode appendChild renvoie une référence vers le noeud qui a été ajouté :
+
+    var span = document.body.appendChild(document.createElement('span'));
+
+    span.innerHTML = 'Du texte en plus !';
+
+        insertBefore()
+
+    Cette méthode permet d'insérer un noeud avant un autre. le premier argument est le noeud à insérer, et le second est le noeud avant lequel il faut insérer le nouveau noeud.
+
+        cloneNode(true)
+
+    cloneNode permet de copier un noeud. Le booléen qu'il prend en paramètre indique si ou ou non ses enfants doivent être copiés.
+    /!\ cloneNode ne clone JAMAIS les événements (EventListener).
+
+        replaceChild()
+
+    replaceChild permet de changer un noeud enfant par un autre. Le premier argument doit être le nouveau noeud, et le second le noeud à remplacer.
+
+        removeChild()
+
+    removeChild permet de supprimer un noeud enfant. Il peut être utilisé avec parentNode pour supprimer un noeud facilement.
+
+        hasChildNodes()
+
+    Cette méthode permet de savoir si un noeud possède des enfants.
