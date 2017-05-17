@@ -134,3 +134,15 @@ Enfin, il est possible de supprimer un attribut avec la méthode removeAttribute
         hasChildNodes()
 
     Cette méthode permet de savoir si un noeud possède des enfants.
+
+        Fonction facilitant la création d'éléments HTML :
+
+            function createSimpleNode(tag, attributes, innerHTML) {
+            	var element = document.createElement(tag);
+            	for(var att in attributes) {
+            		element.setAttribute(att, attributes[att]);
+            	}
+            	element.innerHTML = innerHTML;
+
+            	return element;
+            }

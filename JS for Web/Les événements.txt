@@ -1,0 +1,156 @@
+    DOM-2
+
+La technique la plus actuelle et celle qui doit être utilisée aujourd'hui.
+
+Pour ajouter un événement avec le DOM-2, on récupère l'élément html auquel on veut attribuer l'événement. On utilise ensuite la méthode addEventListener() sur l'élément. Cette méthode prend 3 arguments : le premier est le nom de l'événement sous forme d'un string, le second est une fonction (éventuellement anonyme) contenant le script a exécuter. Le troisième est optionnel, il s'agit d'un booléen spécifiant si le script doit s'exécuter lors de la phase de capture (true) ou de bouillonement (false, comportement par défaut)
+doc : https://www.w3.org/TR/DOM-Level-3-Events/#event-flow
+
+        Exemple
+
+    <span id="clickme">Cliquez-moi !</span>
+
+    <script>
+        var element = document.getElementById('clickme');
+
+        element.addEventListener('click', function() {
+            alert("Vous m'avez cliqué !");
+        });
+    </script>
+
+
+        Utilisation de l'objet Event
+
+    L'objet event permet de récupérer une multitude d'informations lorsqu'un événement est déclenché comme les touches enfoncées, les coordonnées du cursueur, l'élément qui a déclenché l'événement, etc.
+
+            Propriétés de l'objet Event
+
+        target : référence vers l'élément dont l'événement a été déclenché (exactement comme le this pour les événements sans le DOM ou avec DOM-0).
+        currentTarget : référence vers l'élément à l'origine du déclenchement de l'événement. Il diffère de Target dans certaines situations, notamment car certains événements sont propagés aux éléments enfants comme 'click', 'mouseover', 'mouseout', 'mousemove', ...
+        clientX et clientY : position du curseur par rapport au coin supérieur gauche de la fenêtre.
+
+            Méthodes de l'objet Event
+
+
+
+
+            Exemple
+
+        element.addEventListener('click', function(e) { // L'argument « e » va récupérer une référence vers l'objet « Event »
+            alert(e.type); // Ceci affiche le type de l'événement (click, mouseover, etc.)
+        });
+
+    DOM-0
+
+DOM-0 est une veille interface implémentée par Netscape.
+
+Le mot clé this pointant sur l'objet en cours d'utilisation, il peut être utilisé lors d'événements (il pointera alors vers l'élément HTML).
+
+Pour ajouter un événement avec le DOM-0, on récupère l'élément html auquel on veut attribuer l'événement. On lui ajoute ensuite une propriété nommée "on" + event_name à laquelle on assigne une fonction (éventuellement anonyme) contenant le script. Pour supprimer l'événement, il suffit alors d'attribuer une fonction anonyme vide.
+
+        Exemple
+
+    <span id="clickme">Cliquez-moi !</span>
+
+    <script>
+
+    var element = document.getElementById('clickme');
+
+    element.onclick = function() {
+    alert("Vous m'avez cliqué !");
+    };
+
+    </script>
+
+        Utilisation de l'objet Event avec le DOM-0
+
+    element.onclick = function(e) { // L'argument « e » va récupérer une référence vers l'objet « Event »
+        alert(e.type); // Ceci affiche le type de l'événement (click, mouseover, etc.)
+    };
+
+
+    Les événements sans le DOM
+
+Le mot clé this pointant sur l'objet en cours d'utilisation, il peut être utilisé lors d'événements (il pointera alors vers l'élément HTML).
+
+Pour ajouter un événement sans utiliser le DOM, il faut ajouter à l'élément HTML un attribut nommé "on" + event_name qui aura pour valeur le script a exécuté entre guillemets.
+
+<span onclick="alert('Voici le contenu de l\'élément que vous avez cliqué :\n\n' + this.innerHTML);">Cliquez-moi !</span>
+
+/!\ Il existe une pratique qui consiste a ajouter son script dans l'attribut href d'une balise <a>. Ceci est déconseillé. Il est préférable d'ajouter un événement onclick, voire même d'utiliser un bouton, les liens ne devant être utilisés que pour une redirection. Il est possible d'empêcher la redirection du lien en retournant false à la fin du script.
+
+<a href="#" onclick="alert('Vous avez cliqué !'); return false;">Cliquez-moi !</a>
+
+
+
+
+
+
+    Liste des événements
+
+        click
+
+    Cliquer (appuyer puis relâcher) sur l'élément
+
+        dblclick
+
+    Double-cliquer sur l'élément
+
+        mouseover
+
+    Faire entrer le curseur sur l'élément
+
+        mouseout
+
+    Faire sortir le curseur de l'élément
+
+        mousedown
+
+    Appuyer (sans relâcher) sur le bouton gauche de la souris sur l'élément
+
+        mouseup
+
+    Relâcher le bouton gauche de la souris sur l'élément
+
+        mousemove
+
+    Faire déplacer le curseur sur l'élément
+
+        keydown
+
+    Appuyer (sans relâcher) sur une touche de clavier sur l'élément
+
+        keyup
+
+    Relâcher une touche de clavier sur l'élément
+
+        keypress
+
+    Frapper (appuyer puis relâcher) une touche de clavier sur l'élément
+
+        focus
+
+    « Cibler » l'élément
+
+        blur
+
+    Annuler le « ciblage » de l'élément
+
+        change
+
+    Changer la valeur d'un élément spécifique aux formulaires (input,checkbox, etc.)
+
+        input
+
+    Taper un caractère dans un champ de texte (son support n'est pas complet sur tous les navigateurs)
+
+        select
+
+    Sélectionner le contenu d'un champ de texte (input,textarea, etc.)
+
+        submit
+
+    Envoyer le formulaire
+
+        reset
+
+    Réinitialiser le formulaire
