@@ -26,10 +26,15 @@ doc : https://www.w3.org/TR/DOM-Level-3-Events/#event-flow
 
         target : référence vers l'élément dont l'événement a été déclenché (exactement comme le this pour les événements sans le DOM ou avec DOM-0).
         currentTarget : référence vers l'élément à l'origine du déclenchement de l'événement. Il diffère de Target dans certaines situations, notamment car certains événements sont propagés aux éléments enfants comme 'click', 'mouseover', 'mouseout', 'mousemove', ...
+        relatedTarget : ne s'utilise qu'avec les événements 'mouseout' et 'mouseover'. Avec l'événement mouseout, la propriété contient l'objet de l'élément sur lequel le cureseur vient d'arriver. Avec mousover, elle fournira l'objet de l'élément dont le curseur vient de sortir.
+        https://course.oc-static.com/ftp-tutos/cours/javascript/part2/chap3/ex16.html
         clientX et clientY : position du curseur par rapport au coin supérieur gauche de la fenêtre.
+        keyCode, keyChar et which : Renvoie le code ASCII d'une touche (s'utilise avec les événements keydown, keypress et keyup). Pour récupérer le caractère, il faudra utiliser String.fromCharCode() (à n'utiliser qu'avec keypress afin d'éviter de tenter d'encoder une touche spéciale).
+        returnValue : défini la valeur de retour de l'événement.
 
             Méthodes de l'objet Event
 
+        preventDefault : bloque l'action par défaut de l'événement (par exemple, la redirection en cliquant sur un lien).
 
 
 
@@ -46,6 +51,8 @@ DOM-0 est une veille interface implémentée par Netscape.
 Le mot clé this pointant sur l'objet en cours d'utilisation, il peut être utilisé lors d'événements (il pointera alors vers l'élément HTML).
 
 Pour ajouter un événement avec le DOM-0, on récupère l'élément html auquel on veut attribuer l'événement. On lui ajoute ensuite une propriété nommée "on" + event_name à laquelle on assigne une fonction (éventuellement anonyme) contenant le script. Pour supprimer l'événement, il suffit alors d'attribuer une fonction anonyme vide.
+
+/!\ Il existe une pratique qui consiste a ajouter son script dans l'attribut href d'une balise <a>. Ceci est déconseillé. Il est préférable d'ajouter un événement onclick, voire même d'utiliser un bouton, les liens ne devant être utilisés que pour une redirection. Il est possible d'empêcher la redirection du lien en retournant false à la fin du script.
 
         Exemple
 
@@ -117,15 +124,15 @@ Pour ajouter un événement sans utiliser le DOM, il faut ajouter à l'élément
 
         keydown
 
-    Appuyer (sans relâcher) sur une touche de clavier sur l'élément
+    Appuyer (sans relâcher) sur une touche de clavier sur l'élément. Détecte chaque saisie (pas de combinaison) -> renvoie toujours une majuscule.
 
         keyup
 
-    Relâcher une touche de clavier sur l'élément
+    Relâcher une touche de clavier sur l'élément. Détecte chaque saisie (pas de combinaison) -> renvoie toujours une majuscule.
 
         keypress
 
-    Frapper (appuyer puis relâcher) une touche de clavier sur l'élément
+    Frapper (appuyer puis relâcher) une touche de clavier sur l'élément. Détecte les combinaisons de touches, ce qui implique que la pression d'une touche spéciale n'est pas retournée.
 
         focus
 
