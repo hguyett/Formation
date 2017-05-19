@@ -1,0 +1,33 @@
+Pour modifier la valeur contenue dans un élément du formulaire, on utilise sa propriété value (y compris pour textarea !).
+
+Les propriétés disabled, checked et readonly sont des booléens en Javascript.
+
+Trouver le bouton radio coché :
+
+function check() {
+    var inputs = document.querySelectorAll('input[type=radio]:checked'),
+        inputsLength = inputs.length;
+
+    for (var i = 0; i < inputsLength; i++) {
+        alert('La case cochée est la n°' + inputs[i].value);
+    }
+}
+
+Trouver l'élément sélectionné d'une liste :
+
+<select id="list">
+    <option>Sélectionnez votre sexe</option>
+    <option>Homme</option>
+    <option>Femme</option>
+</select>
+
+<script>
+    var list = document.getElementById('list');
+
+    list.addEventListener('change', function() {
+
+        // On affiche le contenu de l'élément <option> ciblé par la propriété selectedIndex
+        alert(list.options[list.selectedIndex].innerHTML);
+
+    });
+</script>

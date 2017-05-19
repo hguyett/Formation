@@ -2,8 +2,10 @@
 
 La technique la plus actuelle et celle qui doit être utilisée aujourd'hui.
 
-Pour ajouter un événement avec le DOM-2, on récupère l'élément html auquel on veut attribuer l'événement. On utilise ensuite la méthode addEventListener() sur l'élément. Cette méthode prend 3 arguments : le premier est le nom de l'événement sous forme d'un string, le second est une fonction (éventuellement anonyme) contenant le script a exécuter. Le troisième est optionnel, il s'agit d'un booléen spécifiant si le script doit s'exécuter lors de la phase de capture (true) ou de bouillonement (false, comportement par défaut)
+Pour ajouter un événement avec le DOM-2, on récupère l'élément html auquel on veut attribuer l'événement. On utilise ensuite la méthode addEventListener() sur l'élément. Cette méthode prend 3 arguments : le premier est le nom de l'événement sous forme d'un string, le second est une fonction (éventuellement anonyme) contenant le script a exécuter. Le troisième est optionnel, il s'agit d'un booléen spécifiant si le script doit s'exécuter lors de la phase de capture (true) ou de bouillonement (false, comportement par défaut). Il est possible d'attacher plusieurs événements à un élément. Dans ce cas l'ordre d'exécution peut être aléatoire.
 doc : https://www.w3.org/TR/DOM-Level-3-Events/#event-flow
+
+Pour supprimer un événement, on utilise la méthode element.removeEventListener(). Cette méthode prend 2 paramètres : le premier est le nom de l'événement sous forme d'un string, le second est la référence à la fonction qui lui est liée. Ce deuxième argument peut parfois poser problème : si l'événement à été ajouté avec une fonction anonyme, il est possible de ne pas en posséder la référence. Dans ce cas, il faut cloner l'élément puis le remplacer par son clone : le clonage ne clone pas les événements.
 
         Exemple
 
@@ -22,10 +24,18 @@ doc : https://www.w3.org/TR/DOM-Level-3-Events/#event-flow
 
     L'objet event permet de récupérer une multitude d'informations lorsqu'un événement est déclenché comme les touches enfoncées, les coordonnées du cursueur, l'élément qui a déclenché l'événement, etc.
 
+            Exemple
+
+        element.addEventListener('click', function(e) { // L'argument « e » va récupérer une référence vers l'objet « Event »
+        alert(e.type); // Ceci affiche le type de l'événement (click, mouseover, etc.)
+        });
+
+
+
             Propriétés de l'objet Event
 
         target : référence vers l'élément dont l'événement a été déclenché (exactement comme le this pour les événements sans le DOM ou avec DOM-0).
-        currentTarget : référence vers l'élément à l'origine du déclenchement de l'événement. Il diffère de Target dans certaines situations, notamment car certains événements sont propagés aux éléments enfants comme 'click', 'mouseover', 'mouseout', 'mousemove', ...
+        currentTarget : référence vers l'élément à l'origine du déclenchement de l'événement. Il diffère de Target dans certaines situations car certains événements sont propagés aux éléments enfants comme 'click', 'mouseover', 'mouseout', 'mousemove', ... Dans ce cas, target renverra l'élément enfant (c'est sur lui que l'événement a été déclenché) mais currentTarget renverra l'élément parent (c'est sur lui qu'a été défini l'événement).
         relatedTarget : ne s'utilise qu'avec les événements 'mouseout' et 'mouseover'. Avec l'événement mouseout, la propriété contient l'objet de l'élément sur lequel le cureseur vient d'arriver. Avec mousover, elle fournira l'objet de l'élément dont le curseur vient de sortir.
         https://course.oc-static.com/ftp-tutos/cours/javascript/part2/chap3/ex16.html
         clientX et clientY : position du curseur par rapport au coin supérieur gauche de la fenêtre.
@@ -37,11 +47,37 @@ doc : https://www.w3.org/TR/DOM-Level-3-Events/#event-flow
         preventDefault : bloque l'action par défaut de l'événement (par exemple, la redirection en cliquant sur un lien).
 
 
+            Limiter l'événement mouseout et mouseover au parent
 
-            Exemple
+        La solution consiste à remonter tout le long de ses éléments parents jusqu'à tomber soit surmyDiv, soit sur l'élément <body> qui désigne l'élément HTML le plus haut dans notre document. Il va donc nous falloir une boucle.
 
-        element.addEventListener('click', function(e) { // L'argument « e » va récupérer une référence vers l'objet « Event »
-            alert(e.type); // Ceci affiche le type de l'événement (click, mouseover, etc.)
+        myDiv.addEventListener('mouseover', function(e) {
+
+            var relatedTarget = e.relatedTarget;
+
+            while (relatedTarget != myDiv && relatedTarget.nodeName != 'BODY' && relatedTarget != document) {
+                relatedTarget = relatedTarget.parentNode;
+            }
+
+            if (relatedTarget != myDiv) {
+                results.innerHTML += "Le curseur vient d'entrer.";
+            }
+
+        });
+
+
+        myDiv.addEventListener('mouseout', function(e) {
+
+            var relatedTarget = e.relatedTarget;
+
+            while (relatedTarget != myDiv && relatedTarget.nodeName != 'BODY' && relatedTarget != document) {
+                relatedTarget = relatedTarget.parentNode;
+            }
+
+            if (relatedTarget != myDiv) {
+                results.innerHTML += "Le curseur vient de sortir.<br />";
+            }
+
         });
 
     DOM-0
@@ -104,11 +140,11 @@ Pour ajouter un événement sans utiliser le DOM, il faut ajouter à l'élément
 
         mouseover
 
-    Faire entrer le curseur sur l'élément
+    Faire entrer le curseur sur l'élément. Hérité par les éléments enfants.
 
         mouseout
 
-    Faire sortir le curseur de l'élément
+    Faire sortir le curseur de l'élément. Hérité par les éléments enfants.
 
         mousedown
 
@@ -120,7 +156,7 @@ Pour ajouter un événement sans utiliser le DOM, il faut ajouter à l'élément
 
         mousemove
 
-    Faire déplacer le curseur sur l'élément
+    Faire déplacer le curseur sur l'élément. Hérité par les éléments enfants.
 
         keydown
 
