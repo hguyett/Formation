@@ -1,0 +1,16 @@
+.draggableBox {
+    position: absolute;
+    width: 80px; height: 60px;
+    padding-top: 10px;
+    text-align: center;
+    font-size: 40px;
+    background-color: #222;
+    color: #CCC;
+    cursor: move;
+
+    /* L'utilisateur ne pourra plus sélectionner le texte de l'élément qui possède cette propriété CSS */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}

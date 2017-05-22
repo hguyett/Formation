@@ -1,14 +1,45 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <title>Formulaire d'inscription</title>
 </head>
 <body>
-    <div id="output"></div>
-    <div id="position"></div>
-    <script src="script.js" charset="utf-8"></script>
+    <form class="" action="index.html" method="post">
+        <fieldset>
+            <legend>Informations personnelles</legend>
+            <p class="tooltip">Vous devez indiquer votre sexe.</p>
+            <p><input type="radio" name="sex" value="male" id="male"><label for="male">Homme</label></p>
+            <p><input type="radio" name="sex" value="female" id="female"><label for="female">Femme</label></p>
+            <p class="tooltip">Le prénom doit faire au moins 2 caractères.</p>
+            <p><label for="firstName">Prénom</label><br><input type="text" name="firstName" id="firstName"></p>
+            <p class="tooltip">Le nom doit faire au moins 2 caractères.</p>
+            <p><label for="lastName">Nom</label><br><input type="text" name="lastName" id="lastName"></p>
+            <p class="tooltip">Vous devez indiquer votre date de naissance.</p>
+            <p><label for="dayOfBirth">Date de naissance</label><br><input type="date" name="dayOfBirth" id="dayOfBirth"></p>
+            <p class="tooltip">Le pseudonyme doit faire au moins 4 caractères.</p>
+            <p><label for="pseudo">Pseudonyme</label><br><input type="text" name="pseudo" id="pseudo"></p>
+            <p class="tooltip">Le mot de passe doit faire au moins 6 caractères.</p>
+            <p><label for="password">Mot de passe</label><br><input type="password" name="password" id="password"></p>
+            <p class="tooltip">Le mot de passe ne correspoind pas.</p>
+            <p><label for="passwordConfirmation">Confirmez votre mot de passe</label><br><input type="password" name="passwordConfirmation" id="passwordConfirmation"></p>
+            <p>
+                <label for="country">Pays</label><br>
+                <select name="country" id="country">
+                        <option value="belgium">Belgique</option>
+                        <option value="france">France</option>
+                        <option value="england">Angleterre</option>
+                    <option value="other">Autre</option>
+                </select>
+            </p>
+            <p><input type="checkbox" name="newsletters" id="newsletters"><label for="newsletters">Je souhaite m'abonner à la newsletters</label></p>
+        </fieldset>
+        <br>
+        <input type="submit" name="" value="Je m'inscris">
+    </form>
+    <script src="formValidation.js" charset="utf-8"></script>
 </body>
 </html>

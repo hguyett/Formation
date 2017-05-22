@@ -1,6 +1,18 @@
 Pour modifier la valeur contenue dans un élément du formulaire, on utilise sa propriété value (y compris pour textarea !).
 
-Les propriétés disabled, checked et readonly sont des booléens en Javascript.
+    Propriétés
+
+Les propriétés disabled, checked et readonly sont des booléens en Javascript. Comme pour les autres éléments HTML, ils correspondent aux attributs HTML portant le même nom.
+
+
+    Méthodes
+
+submit() : Soumet le formulaire. /!\ Ne déclence pas l'événement submit.
+reset() : Réinitialise le formulaire.
+focus() : Donne le focus à un élément.
+blur() : Retir le focus d'un élément.
+select() : Donne le focus à un élément et sélectionne le texte de celui-ci si cela est possible.
+change() : Détecte si un <input> a changé d'état APRÈS qu'il ai perdu son focus (fonctionne avec un champ de texte comme avec un bouton radio). S'il faut détecter les changements lors de la saisie, on utilisera plutôt keyup et ses variantes ou click (en fonction de l'élément vérifié).
 
 Trouver le bouton radio coché :
 
@@ -31,3 +43,5 @@ Trouver l'élément sélectionné d'une liste :
 
     });
 </script>
+
+/!\ Dans le cadre d'un <select> multiple, la propriété selectedIndex retourne l'index du premier élément sélectionné.

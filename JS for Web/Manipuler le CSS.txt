@@ -1,0 +1,50 @@
+Pour manipuler le CSS d'un élément, on se sert de sa propriété style. Cette propriété dispose elle-même de propriétés correspondant aux propriétés CSS de l'objet.
+/!\ La notation des propriétés se fait en camelCase, les tirets sont supprimés.
+
+    Exemple
+
+element.style.backgroundColor = 'blue';
+
+Ce style est écrit directement dans le balisage HTML, il a donc priorité sur la feuille de style.
+
+Pour récupérer le style d'un élément, c'est différent : il faut recupérer le style qui lui est appliqué par la feuille de style. Dans ce cas, on utilise la fonction getComputedStyle(). Cette fonction récupère le CSS, qu'il soit dans la propriété style, dans une feuille de style ou même calculé automatiquement. Cette fonction prend en argument l'élément dont il faut récupérer le style.
+
+    Exemple
+
+var text = document.getElementById('text'),
+    color = getComputedStyle(text).color;
+
+
+    Valeurs de positionnement
+
+Certaines valeurs de positionnement ou de taille des éléments ne pourront pas être obtenues de façon simple avec getComputedStyle(), pour pallier ce problème il existe les propriétés offset qui sont, dans notre cas, au nombre de cinq :
+
+offsetWidth : Contient la largeur complète (width + padding + border) de l'élément.
+offsetHeight : Contient la hauteur complète (height + padding + border) de l'élément.
+offsetLeft : Surtout utile pour les éléments en position absolue. Contient la position de l'élément par rapport au bord gauche de son élément parent.
+offsetTop : Surtout utile pour les éléments en position absolue. Contient la position de l'élément par rapport au bord supérieur de son élément parent.
+offsetParent : Utile que pour un élément en position absolue ou relative ! Contient l'objet de l'élément parent par rapport auquel est positionné l'élément actuel (Cf calculer offsetLeft et offsetTop).
+
+Ce sont des propriétés en lecture seule mises à jour dynamiquement qui concernent certains états physiques d'un élément. Pour les utiliser, on oublie la propriété style vu qu'il ne s'agit pas de styles CSS et on les lit directement sur l'objet de notre élément HTML.
+
+    Exemple
+
+    alert(el.offsetHeight);
+
+
+    Calculer offsetLeft et offsetTop
+
+    function getOffset(element) { // Notre fonction qui calcule le positionnement complet
+        var top = 0,
+            left = 0;
+
+        do {
+            top += element.offsetTop;
+            left += element.offsetLeft;
+        } while (element = element.offsetParent); // Tant que « element » reçoit un « offsetParent » valide alors on additionne les valeurs des offsets
+
+        return { // On retourne un objet, cela nous permet de retourner les deux valeurs calculées
+            top: top,
+            left: left
+        };
+    }
