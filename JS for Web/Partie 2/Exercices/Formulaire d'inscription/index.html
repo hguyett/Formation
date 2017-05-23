@@ -12,23 +12,23 @@
         <fieldset>
             <legend>Informations personnelles</legend>
             <p class="tooltip">Vous devez indiquer votre sexe.</p>
-            <p><input type="radio" name="sex" value="male" id="male"><label for="male">Homme</label></p>
-            <p><input type="radio" name="sex" value="female" id="female"><label for="female">Femme</label></p>
+            <p><input type="radio" name="sex" value="male" id="male"><label for="male" required>Homme</label></p>
+            <p><input type="radio" name="sex" value="female" id="female"><label for="female" required>Femme</label></p>
             <p class="tooltip">Le prénom doit faire au moins 2 caractères.</p>
-            <p><label for="firstName">Prénom</label><br><input type="text" name="firstName" id="firstName"></p>
+            <p><label for="firstName">Prénom</label><br><input type="text" name="firstName" id="firstName" required></p>
             <p class="tooltip">Le nom doit faire au moins 2 caractères.</p>
-            <p><label for="lastName">Nom</label><br><input type="text" name="lastName" id="lastName"></p>
+            <p><label for="lastName">Nom</label><br><input type="text" name="lastName" id="lastName" required></p>
             <p class="tooltip">Vous devez indiquer votre date de naissance.</p>
-            <p><label for="dayOfBirth">Date de naissance</label><br><input type="date" name="dayOfBirth" id="dayOfBirth"></p>
+            <p><label for="dayOfBirth">Date de naissance</label><br><input type="date" name="dayOfBirth" id="dayOfBirth" required></p>
             <p class="tooltip">Le pseudonyme doit faire au moins 4 caractères.</p>
-            <p><label for="pseudo">Pseudonyme</label><br><input type="text" name="pseudo" id="pseudo"></p>
+            <p><label for="pseudo">Pseudonyme</label><br><input type="text" name="pseudo" id="pseudo" required></p>
             <p class="tooltip">Le mot de passe doit faire au moins 6 caractères.</p>
-            <p><label for="password">Mot de passe</label><br><input type="password" name="password" id="password"></p>
+            <p><label for="password">Mot de passe</label><br><input type="password" name="password" id="password" required></p>
             <p class="tooltip">Le mot de passe ne correspoind pas.</p>
-            <p><label for="passwordConfirmation">Confirmez votre mot de passe</label><br><input type="password" name="passwordConfirmation" id="passwordConfirmation"></p>
+            <p><label for="passwordConfirmation">Confirmez votre mot de passe</label><br><input type="password" name="passwordConfirmation" id="passwordConfirmation" required></p>
             <p>
                 <label for="country">Pays</label><br>
-                <select name="country" id="country">
+                <select name="country" id="country" required>
                         <option value="belgium">Belgique</option>
                         <option value="france">France</option>
                         <option value="england">Angleterre</option>
@@ -38,7 +38,7 @@
             <p><input type="checkbox" name="newsletters" id="newsletters"><label for="newsletters">Je souhaite m'abonner à la newsletters</label></p>
         </fieldset>
         <br>
-        <input type="submit" name="" value="Je m'inscris">
+        <input type="submit" name="" value="Je m'inscris" id="submit">
     </form>
     <script src="formValidation.js" charset="utf-8"></script>
 </body>
