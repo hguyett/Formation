@@ -42,6 +42,7 @@ Pour qu'une parenthèse ne soit pas dans les comptes, il faut que son contenu co
     #.#s : Indique que les points peuvent également représenter une nouvelle ligne (\n).
     #Ungreedy#U : Indique d'arrêter la recherche dès que le String correspond à la REGEX au lieu de chercher la plus grosse portion du String correspondant à la REGEX.
     https://stackoverflow.com/questions/2301285/what-do-lazy-and-greedy-mean-in-the-context-of-regular-expressions
+    #Regex#g : indique de continuer la recherche même après qu'un résultat soit trouvé. Utile notamment pour une utilisation avec un fonction de remplacement.
 
         Recherche simple
 
@@ -77,12 +78,12 @@ Pour qu'une parenthèse ne soit pas dans les comptes, il faut que son contenu co
         . : indique n'importe quel caractère SAUF \n.
         \d : indique un chiffre. [0-9]
         \D : indique ce qui n'est PAS un chiffre. [^0-9]
-        \w : Indique un caractère alphanumérique ou un tiret de soulignement. [a-zA-Z0-9_]
-        \W : Indique ce qui n'est PAS un mot. [^a-zA-Z0-9_]
+        \w : Indique un caractère alphanumérique ou un tiret de soulignement. [a-zA-Z0-9_éÉèÈêÊëËàÀçÇùÙ(...)]
+        \W : Indique ce qui n'est PAS un mot (un caractère alphanumérique ou un tiret de soulignement).
         \t : indique une tabulation.
         \n : indique une nouvelle ligne.
         \r : indique un retour chariot.
-        \s : indique un espace blanc.
+        \s : indique un espace blanc (espace, tabulation, nouvelle ligne).
         \S : indique ce qui n'est PAS un espace blanc (\t \n \r)
 
 

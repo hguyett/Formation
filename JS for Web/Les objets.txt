@@ -1,7 +1,40 @@
+    Create a class
+
+        With a constructor
+
+    function Person(nick, age, sex, parent, work, friends) {
+        this.nick = nick;
+        this.age = age;
+        this.sex = sex;
+        this.parent = parent;
+        this.work = work;
+        this.friends = friends;
+
+        this.addFriend = function(nick, age, sex, parent, work, friends) {
+            this.friends.push(new Person(nick, age, sex, parent, work, friends));
+        };
+    }
+
+    Prototype
+
+Each object have a subobject called prototype (/!\ JavaScript also have a library called Prototype). This object is the class that the object instanciate. Modifying the prototype of an object will affect every objects instanciating the same class. Doing so, you can easily add a method to a class by adding it to the prototype of an object, even to native objects like String and Array.
+
+        Exemple
+
+    Person.prototype.addFriend = function(nick, age, sex, parent, work, friends) {
+        this.friends.push(new Person(nick, age, sex, parent, work, friends));
+    }
+
     Declaration
 
 // Empty
 var myObject = {};
+
+// Using a constructor
+var object = new Object(arg1, arg2, ...);
+
+// Using Object.Create()
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create
 
 // Literal (Not often used. Useful to return multiples data with a function).
 var myObject = {
@@ -20,6 +53,83 @@ a = myObject['property1'];
 
 myObject.property3 = 'Third';
 myObject['property3'] = 'Third';
+
+
+    Change execution context
+
+It is possible to run a method from an object ton an other object. To do this, we need to change the execution context with the method apply() or call(). These methods are available on any method. apply take 2 arguments : the object to manipulate and an array of arguments. call take an infinity of arguments : the object to manipulate and the arguments to give to the method.
+
+    Exemples
+
+var myArray = [];
+
+myArray.push.apply(myArray, [1, 2, 3]);
+
+OR
+
+var myArray = [];
+
+myArray.push.call(myArray, 1, 2, 3);
+
+=
+
+var myArray = [];
+
+myArray.push(1, 2, 3);
+
+
+    Inheritance
+
+function Vehicle(licensePlate, tankSize) {
+        this.engineStarted = false; // Notre véhicule est-il démarré ?
+        this.licensePlate = licensePlate; // La plaque d'immatriculation de notre véhicule.
+        this.tankSize = tankSize; // La taille de notre réservoir en litres.
+    }
+
+    // Permet de démarrer notre véhicule.
+    Vehicle.prototype.start = function() {
+        this.engineStarted = true;
+    };
+
+    // Permet d'arrêter notre véhicule.
+    Vehicle.prototype.stop = function() {
+        this.engineStarted = false;
+    };
+
+    function Car(licensePlate, tankSize, trunkSize) {
+    // On appelle le constructeur de « Vehicle » par le biais de la méthode
+    // call() afin qu'il affecte de nouvelles propriétés à « Car ».
+    Vehicle.call(this, licensePlate, tankSize);
+
+    // Une fois le constructeur parent appelé, l'initialisation de notre objet peut continuer.
+    this.trunkOpened = false; // Notre coffre est-il ouvert ?
+    this.trunkSize = trunkSize; // La taille de notre coffre en mètres cube.
+}
+
+
+// L'objet prototype de « Vehicle » doit être copié au sein du prototype
+// de « Car » afin que ce dernier puisse bénéficier des mêmes méthodes.
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/create
+Car.prototype = Object.create(Vehicle.prototype, {
+    // Le prototype copié possède une référence vers son constructeur, actuellement
+    // défini à « Vehicle », nous devons changer sa référence pour « Car »
+    // tout en conservant sa particularité d'être une propriété non-énumerable.
+    constructor: {
+        value: Car,
+        enumerable: false,
+        writable: true,
+        configurable: true
+    }
+});
+
+// Il est bien évidemment possible d'ajouter de nouvelles méthodes.
+Car.prototype.openTrunk = function() {
+    this.trunkOpened = true;
+};
+
+Car.prototype.closeTrunk = function() {
+    this.trunkOpened = false;
+};
 
 
     Run throught an object with for in (Equivalent to PHP foreach)

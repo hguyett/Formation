@@ -8,21 +8,16 @@ var myArray = new Array('One', 'Two', 'Three');
 
     Functions
 
-    // Add an item at the end
+myArray.push('Four'); // Add an item at the end
+myArray.pop(); // Remove the last item
+myArray.unshift('Zero'); // Add an item at the begining
+myArray.shift(); // Remove an item at the begining
+myArray.concat() // Concatenate the array with another.
 
-myArray.push('Four');
 
-    // Remove the last item
+    Properties
 
-myArray.pop();
-
-    // Add an item at the begining
-
-myArray.unshift('Zero');
-
-    // Remove an item at the begining
-
-myArray.shift();
+length
 
 
     Run through an array

@@ -11,6 +11,7 @@ alert(typeof text); // Affiche : « string »
 var aBoolean = false;
 alert(typeof aBoolean); // Affiche : « boolean »
 
+
     tester l'existence d'une variable
 
 alert(typeof nothing); // Affiche : « undefined »
@@ -22,3 +23,24 @@ if (variable) {
 } else {
     // variable is not set (undefined), equals false, NaN, 0 or ''.
 }
+
+/!\ typeof s'utilise uniquement avec les types primitifs. Pour les objets, il retournera toujours "Object". Il est également possible de tester les objets à l'aide d'instanceof. Attention toutefois : il ne fonctionnera pas sur les types primitifs.
+
+
+NB: la fonction valueOf() permet de récupérer la valeur d'un objet pour la convertir en type primitif.
+
+var string_1 = new String('Test');
+var string_2 = string_1.valueOf();
+alert(typeof string_1); // Affiche : « object »
+alert(typeof string_2); // Affiche : « string »
+
+Grâce à cette méthode, il devient bien plus simple de vérifier si une variable contient une chaîne de caractères. Voici notre code final :
+
+function isString(variable) {
+    return typeof variable.valueOf() === 'string'; // Si le type de la valeur primitive est « string » alors on retourne « true »
+}
+
+La fonction inverse existe, il s'agit... du constructeur Object !
+var myString = Object('Mon texte');
+
+En créant une instance de Object avec un type primitif en paramètre, l'objet instancié sera de même type que la valeur primitive.

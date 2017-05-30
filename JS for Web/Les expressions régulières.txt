@@ -1,0 +1,55 @@
+En Javascript, on utilise les REGEX PCRE (à quelques nuances prêt).
+
+Pour utiliser les REGEX, on se sert soit de RegExp, un objet qui gère les expressions régulières, soit via des méthodes de l'objet String :
+
+search(regex) : retourne la position d'une portion de texte (semblable à indexOf() mais avec une regex).
+match(rregex) : retourne un tableau contenant toutes les occurrences recherchées.
+split(regex) : la fameuse méthode split(), mais avec une regex en paramètre. utile par exemple lorsque plusieurs séparateurs sont possibles.
+replace(regex/string, function/string) : effectue un rechercher/remplacer. L'option 'g' peut s'avérer utile pour faire un replace all. Le string peut contenir $1, $2, ... $9. Il est possible d'utiliser une fonction à la place d'un string pour le remplacement afin d'exécuter un traitement sur le contenu des parenthèses capturantes. Voici les détails de cette fonction :
+
+function(str, p1, p2, p3 /* ... */, offset, s)
+
+Le paramètre str contient la portion de texte trouvée par la regex ;
+Les paramètres p* contiennent les portions capturées par les parenthèses ;
+Le paramètre offset contient la position de la portion de texte trouvée ;
+Le paramètre s contient la totalité de la chaîne.
+
+    Exemple
+
+var sentence = 'Dans 22 jours, j\'aurai 24 ans';
+
+var result = sentence.replace(/(\d+)/g, function(str, p1) {
+    p1 = parseInt(p1);
+
+    if (!isNaN(p1)) {
+        return num2Letters(p1);
+    }
+});
+
+alert(result); // Affiche : « Dans vingt-deux jours, j'aurai vingt-quatre ans »
+
+
+    Création d'une REGEX
+
+/motif/flags; // notation littérale. Il est préférabvle de l'utiliser.
+new RegExp(motif[, flags]); // Le constructeur peut s'avérer pratique quand l'on souhaite inclure une variable dans la recherche.
+RegExp(motif[, flags]);
+
+    Exemples
+
+var regex;
+regex = /ab+c/i;
+regex = new RegExp('ab+c', 'i');
+regex = new RegExp(/ab+c/, 'i');
+
+
+    Utilisation de l'objet RegExp
+
+        Méthodes
+
+    test(string) : Renvoie true si une chaine est trouvée, false sinon.
+    exec(string) : Retourne la chaîne trouvée dans un tableau ou null si rien n'est trouvé.
+
+        Porpriétés
+
+    $1, $2, ... $9 : Contient le contenu des parenthèses capturantes après analyse (test ou exec). Il n'est pas possible d'utiliser plus de 9 paires de parenthèses capturantes.

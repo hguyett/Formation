@@ -1,0 +1,22 @@
+    Méthodes des objets String
+
+toLowerCase()
+toUpperCase()
+charAt() // Permet de manipuler un caractère particulié de la chaîne.
+charCodeAt() // Idem sous forme de code ASCII
+fromCharCode() // Créer une chaîne de caractère sur base d'une suite de code ASCII
+trim() // Supprime les espaces avant et après le texte
+indexOf() // Si la chaine passée en argument est contenue dans l'objet, alors retourne l'index du premier caractère, sinon retourne -1.
+lastIndexOf() // Comme indexOf, mais retourne l'index du dernier caractère.
+substring(a, b) // Permet d'extraire une chaîne à partir de la position a (incluse) jusqu'à la position b (exclue). Si aucune position b n'est spécifiée, alors la fonction ira jusqu'au bout du string.
+substr(a, n) // Le premier est la position de début, et le deuxième le nombre de caractères à extraire.
+slice(a, b) // Permet d'extraire une chaîne à partir de la position a (incluse) jusqu'à la longueur du tableau additionné à b. Donc, b doit être négatif et indique le nombre de caractères en fin de chaine qui ne seront pas pris.
+split(',') // Permet de couper une chaîne de caractères à chaque fois qu'une sous-chaîne est rencontrée. Il est possible de séparer un texte par ligne en splittant à partir de la chaine '\n'.
+
+NB : Lorsqu'une fonction retourne -1 dans le cas où elle n'a pas trouvé, il est possible d'utiliser l'opérateur ~ pour tester la valeur de retour. Le tilde inverse tous les bits d'une valeur. Dans le cas de -1, le tilde transforme la valeur en 0. On peut donc l'utiliser pour tester les valeurs de retour :
+
+var myString = 'Le JavaScript est plutôt cool';
+
+if (~myString.indexOf('JavaScript')) {
+    alert('La chaîne contient bien le mot "JavaScript".');
+}

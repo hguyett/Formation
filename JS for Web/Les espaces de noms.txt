@@ -1,0 +1,77 @@
+En javaScript, il n'y a pas de structure à proprement parler pour les espaces de noms. Cependant ils restent très importants pour éviter les conflits et structurer le code. Les espaces de noms sont des objets contenant un ensemble de propriétés, de fonctions et de sous-espaces de noms. Pour exécuter la fonctioncontenue d'un espace de noms, il faut obligatoirement mentionner le nom de cet espace de noms avant l'appel de la fonction.
+
+    L'emploi du this
+
+attention, si vous utilisez this dans un sous-namespace, celui-ci pointera vers ce sous-namespace, et non vers le namespace parent. Ainsi, l'exemple suivant ne fonctionnera pas correctement :
+
+var myNamespace = {
+
+    test: function() {
+        alert('Test');
+    },
+
+    subNamespace: {
+        init: function() {
+            this.test(); // /!\ NE FONCTIONNE PAS
+        }
+    }
+
+};
+
+myNamespace.subNamespace.init();
+
+Pour accéder à l'objet parent, la seule solution est d'écrire son nom entièrement.
+
+
+    Exemple d'espace de nom bien structuré
+
+var thundersebWebMail = {
+    // Propriétés
+    version: 1.42,
+    lang: 'english',
+
+    // Initialisation
+    init: function() { /* initialisation */ },
+
+    // Gestion des mails
+    mails: {
+        list: function() { /* affiche la liste des mails */ },
+        show: function() { /* affiche un mail */ },
+        trash: function() { /* supprime un mail */ },
+        // et cætera…
+    },
+
+    // Gestion des contacts
+    contacts: {
+        list: function() { /* affiche la liste des contacts */ },
+        edit: function() { /* édite un contact */ },
+        // et cætera…
+    }
+};
+
+    Exemple d'appel à une fonction
+
+var myNamespace = {
+    myBestFunction: function() {
+        alert('Ma meilleure fonction !');
+    }
+};
+
+// On exécute la fonction :
+myNamespace.myBestFunction();
+
+
+    Vérifier l'unicité du namespace
+
+Une sécurité supplémentaire est de vérifier l'existence du namespace : s'il n'existe pas, on le définit et dans le cas contraire, on ne fait rien pour ne pas risquer d'écraser une version déjà existante, tout en retournant un message d'erreur.
+
+// On vérifie l'existence de l'objet myNamespace
+if (typeof myNamespace === 'undefined') {
+
+    var myNamespace = {
+        // Tout le code
+    };
+
+} else {
+    alert('myNamespace existe déjà !');
+}

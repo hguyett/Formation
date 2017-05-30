@@ -1,0 +1,69 @@
+    Les fonctions de conversion
+
+parseInt() // Converti un string en un integer. Prends 2 arguments : le string, et la base (optionnel). Il est fortement conseillé d'indiquer la base pour éviter les mauvaises surprises.
+parseFloat() // Converti un float en un integer
+
+Ces fonctions sont capables d'isoler le nombre d'une chaine de caractères à condition que le nombre soit au début de la chaine.
+
+    Les fonctions de contrôle
+
+isNaN() : Vérifie si la variable contient un nombre. /!\ Renvoie true si la variable ne contient PAS un nombre.
+isFinite() : Vérifie si le nombre est fini.
+
+
+    L'objet Number
+
+L'objet Number est à la base de tout nombre et pourtant on ne s'en sert quasiment jamais de manière explicite, car on lui préfère (comme pour la plupart des objets) l'utilisation de son type primitif.
+
+    Constantes
+
+NaN : vous connaissez déjà cette propriété qui signifie Not A Number et qui permet, généralement, d'identifier l'échec d'une conversion de chaîne de caractères en un nombre. À noter que cette propriété est aussi disponible dans l'espace global. Passer par l'objet Number pour y accéder n'a donc que peu d'intérêt, surtout qu'il est bien rare d'utiliser cette propriété, car on lui préfère la fonction isNaN(), plus fiable.
+MAX_VALUE : cette propriété représente le nombre maximum pouvant être stocké dans une variable en JavaScript. Cette constante peut changer selon la version du JavaScript utilisée.
+MIN_VALUE : identique à la constante MAX_VALUE sauf que là il s'agit de la valeur minimale.
+POSITIVE_INFINITY : il s'agit ici d'une constante représentant l'infini positif. Vous pouvez l'obtenir en résultat d'un calcul si vous divisez une valeur positive par 0. Cependant, son utilisation est rare, car on lui préfère la fonction isFinite(), plus fiable.
+NEGATIVE_INFINITY : identique à POSITIVE_INFINITY sauf que là il s'agit de l'infini négatif. Vous pouvez obtenir cette constante en résultat d'un calcul si vous divisez une valeur négative par 0.
+
+
+    L'objet Math
+
+https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math
+
+Toutes les propriétés et méthodes de l'objet Math objet sont statiques, elles sont donc directement accessibles sans aucune instanciation.
+
+        Constantes
+
+    Math.PI
+    Math.E // nombre d'Euler
+
+        Méthodes
+
+            Arrondir et tronquer
+
+        Math.floor(float) // Retourne le plus grand entier inférieur ou égal au float.
+        Math.ceil(float) // Retourne le plus grand entier supérieur ou égal au float.
+        Math.round(float) // Retourne un arondi.
+
+            Calculs
+
+        Math.pow() // Retourne le résultat d'une puissance. Le premier paramètre est la base et le second est l'exposant.
+        Math.sqrt() // Retourne la racine carrée.
+        Math.cos() // Retourne le cosinus. Le résultat est exprimé en radians.
+        Math.sin() // Retourne le sinus. Le résultat est exprimé en radians.
+        Math.max() // Retourne le maximum. Peut prendre une infinité d'arguments.
+        Math.min() // Retourne le minimum. Peut prendre une infinité d'arguments.
+
+            Nombres aléatoires
+
+        Math.random() // Retourne un nombre décimal aléatoire dans l'intervalle [0, 1[
+
+        Fonction
+
+        function rand(min, max, integer) {
+
+            if (!integer) {
+                return Math.random() * (max - min) + min;
+            } else {
+                return Math.floor(Math.random() * (max - min + 1) + min);
+            }
+
+        }
