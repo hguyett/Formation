@@ -1,0 +1,23 @@
+L'objet Image permet de manipuler les images. Cet objet a beaucoup de propriété et méthodes qui sont obsolètes ou encore en développement, aussi il faut veiller à faire attention à ce qu'on utilise.
+https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement
+
+    Propriétés
+
+width : Contient la largeur originale de l'image. Vous pouvez redéfinir cette propriété pour modifier la taille de l'image.
+height : Contient la hauteur originale de l'image. Vous pouvez redéfinir cette propriété pour modifier la taille de l'image.
+src : Cette propriété sert à spécifier l'adresse (absolue ou relative) de l'image. Une fois que cette propriété est spécifiée, l'image commence immédiatement à être chargée.
+complete : Permet de savoir si l'image a été entièrement chargée. (Attention : la fiabilité est à vérifier)
+
+    Événements
+
+load : Se déclenche une fois l'image chargée.
+/!\ Il est nécessaire d'ajouter l'événement avant la source de l'image, sous peine de voir l'image charger plus vite que le script -> l'événement ne se déclenchera pas, ou il se déclenchera avant d'avoir été complètement chargé.
+
+    Utilisation
+
+Il est possible d'intégrer un objet Image directement dans le DOM :
+
+var myImg = new Image();
+myImg.src = 'adresse_de_mon_image';
+
+document.body.appendChild(myImg); // L'image est ajoutée au DOM
