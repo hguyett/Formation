@@ -67,6 +67,3 @@ Img.prototype.get = function(name) {
     return typeof this[name] != 'undefined' ? this[name] : this.originalImg[name];
 
 };
-
-
-    Closure
