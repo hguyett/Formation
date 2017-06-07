@@ -1,0 +1,60 @@
+iframe est en fait une balise HTML permettant d'insérer une page web dans une autre. Le chargement de données via une iframe a un gros avantage : il est possible de charger n'importe quoi comme données. Ça peut être une page Web complète, du texte brut ou même du JavaScript, comme le format JSON.
+
+<iframe src="file.html" name="myFrame" id="myFrame"></iframe>
+
+Pour accéder à une iframe, il est nécessaire de récupérer son document. Il est ensuite possible de l'utiliser comme un document DOM.
+
+var frame = document.getElementById('myFrame').contentDocument
+
+/!\ Pour les requêtes cross-domain, Cf. "Les requêtes cross-domain.txt".
+
+
+    Charger une iframe
+
+
+        En changeant l'url
+
+    document.getElementById('myFrame').src = 'request.php?nick=Thunderseb';
+
+
+        Avec l'attribut target d'un formulaire
+
+    L'intérêt d'utiliser un formulaire est que nous allons pouvoir envoyer des données via la méthode POST. L'utilisation de POST va nous permettre d'envoyer des fichiers, ce qui nous sera utile pour un upload de fichiers !
+
+    <form id="myForm" method="post" action="request.php" target="myFrame">
+        <div>
+            <!-- formulaire -->
+
+            <input type="submit" value="Envoyer" />
+        </div>
+    </form>
+
+    <iframe src="#" name="myFrame" id="myFrame"></iframe>
+
+    /!\ Il est nécessaire d'attribuer un nom à l'iframe.
+
+    Il est également possible de soumettre le formulaire via javascript avec la méthode submit.
+    document.getElementById('myForm').submit();
+
+
+    Détecter le chargement
+
+        Avec l'événement load
+
+    Les iframes possèdent un événement load, déclenché une fois que le contenu de l'iframe est chargé. À chaque contenu chargé, load est déclenché.
+
+    <iframe src="file.html" name="myFrame" id="myFrame" onload="trigger()"></iframe>
+
+    <script>
+        function trigger() {
+            var frame = document.getElementById('myFrame').contentDocument;
+
+            alert(frame.body.textContent);
+        }
+    </script>
+
+        Avec une fonction de callback
+
+    Quand une page Web est chargée dans l'iframe, son contenu est affiché et les scripts sont exécutés. Il est également possible, depuis l'iframe, d'appeler une fonction présente dans la page « mère », c'est-à-dire la page qui contient l'iframe.
+
+    window.top.window.nomDeLaFonction();

@@ -1,0 +1,35 @@
+Les requêtes Cross-domain (XHR2)
+
+La same-origin policy, méchanisme de sécurité du web, empêche les requêtes de contacter un autre domaine que celui d'origine. Par défaut, il est donc impossible de :
+
+* Contacter un autre domaine
+* Contacter un autre sous-domaine
+* Utiliser un autre port
+* Utiliser un autre protocol
+
+Pour pouvoir contacter un autre domaine, il est nécessaire d'ajouter une en-tête contenant le serveur autorisé. Il s'agit de l'en-tête Access-Control-Allow-Origin. Il n'est pas possible de spécifier plusieurs domaines, mais l'astérisque peut être utiliser pour spécifier que tous les domaines sont autorisés.
+
+<?php
+header('Access-Control-Allow-Origin: *');
+?>
+/!\ L'usage de l'astérisque seul expose a des failles de sécurités. Il existe plusieurs méchanisme de sécurité pour s'en prémunir. Cf. doc
+https://developer.mozilla.org/fr/docs/HTTP/Access_control_CORS
+
+    Accéder aux cookies et aux sessions avec une requête cross-domain
+
+Le contenu des cookies et des sessions ne seront pas renvoyés dans le cas d'une requête cross-domain pour des questions de sécurités. Il est toutefois possible de désactiver cette protection à l'aide de l'en-tête Access-Control-Allow-Credentials. Il sera toutefois nécessaire de préciser un domaine avec l'en-tête Access-Control-Allow-Origin, l'usage de l'astérisque ne sera pas autorisé.
+
+Il sera également nécessaire de préciser au client que ces données sont nécessaires avec xhr.withCredentials.
+
+        Server side
+
+    <?php
+    header('Access-Control-Allow-Origin: http://example.com');
+    header('Access-Control-Allow-Credentials: true');
+    ?>
+
+        Client side
+
+    xhr.open( … );
+    xhr.withCredentials = true; // Avec « true », l'envoi des cookies et des sessions est bien effectué
+    xhr.send( … );
