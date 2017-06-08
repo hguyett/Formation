@@ -1,4 +1,4 @@
-iframe est en fait une balise HTML permettant d'insérer une page web dans une autre. Le chargement de données via une iframe a un gros avantage : il est possible de charger n'importe quoi comme données. Ça peut être une page Web complète, du texte brut ou même du JavaScript, comme le format JSON.
+iframe est une balise HTML permettant d'insérer une page web dans une autre. Le chargement de données via une iframe a un gros avantage : il est possible de charger n'importe quoi comme données. Ça peut être une page Web complète, du texte brut ou même du JavaScript, comme le format JSON.
 
 <iframe src="file.html" name="myFrame" id="myFrame"></iframe>
 
@@ -11,11 +11,9 @@ var frame = document.getElementById('myFrame').contentDocument
 
     Charger une iframe
 
-
         En changeant l'url
 
     document.getElementById('myFrame').src = 'request.php?nick=Thunderseb';
-
 
         Avec l'attribut target d'un formulaire
 
@@ -55,6 +53,24 @@ var frame = document.getElementById('myFrame').contentDocument
 
         Avec une fonction de callback
 
-    Quand une page Web est chargée dans l'iframe, son contenu est affiché et les scripts sont exécutés. Il est également possible, depuis l'iframe, d'appeler une fonction présente dans la page « mère », c'est-à-dire la page qui contient l'iframe.
+    Quand une page Web est chargée dans l'iframe, son contenu est affiché et les scripts sont exécutés. Il est alors possible, depuis l'iframe, d'appeler une fonction présente dans la page « mère », c'est-à-dire la page qui contient l'iframe.
 
     window.top.window.nomDeLaFonction();
+
+
+    Récupérer des données JavaScript
+
+Avec le callback, il est possible de récupérer facilement des données JavaScript, comme un objet. Dans ce cas, il suffit d'utiliser du PHP pour construire un objet qui sera transmis en paramètre de la fonction de callback, comme ceci :
+
+<?php
+    $fakeArray = array('Sébastien', 'Laurence', 'Ludovic');
+?>
+
+<script>
+    window.top.window.trigger(['<?php echo implode("','", $fakeArray) ?>']);
+</script>
+
+
+    Uploader des fichiers avec une iframe
+
+https://openclassrooms.com/courses/dynamisez-vos-sites-web-avec-javascript/upload-via-une-iframe
