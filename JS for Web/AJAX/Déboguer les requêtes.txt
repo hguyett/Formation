@@ -1,0 +1,6 @@
+Afin de consulter les requêtes, ouvrez votre kit de développement puis cliquez sur l'onglet « Network » pour Chrome ou « Réseau » pour Firefox. Normalement la liste des requêtes devrait être vide, car le kit de développement ne les enregistre que lorsqu'il est ouvert afin de ne pas impacter sur les performances du navigateur en temps normal. Afin d'afficher les requêtes d'une page web, il vous faut recharger la page en gardant le kit ouvert.
+
+La plupart du temps, votre phase de débogage concernera avant tout une ou plusieurs requêtes XHR, mais rarement les autres requêtes. Afin de mieux vous y retrouverez dans une liste relativement longue il est possible d'appliquer un filtre. Sous Chrome, il vous faut cliquer sur le bouton de filtrage en haut à gauche puis vous pourrez choisir un type de requête tel que « XHR ».
+
+Chaque requête peut être explorer en détail : la requête envoyée, le header reçu, les données renvoyées, le timing d'exécution, etc.
+NB: Sous chrome, lorsque les données son au format JSON, il est possible de les lire sous forme d'une arborescence de l'onglet "Preview" (seulement disponible si les données sont au format JSON). Dans le cas de Firefox, ceci est fait automatiquement.

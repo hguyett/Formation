@@ -1,1 +1,70 @@
     Dynamic Script Loading (DSL)
+
+Cette méthode permet de charger des données depuis le serveur. Elle ne souffre pas des limitations de la same-origin policy.
+/!\ Expose à des failles XSS. Il est conseillé d'utiliser les requêtes XHR.
+
+Le principe est simple : Créer un noeud script dans le DOM et modifier sa propriété src pour pointer vers un script. Il suffit alors de générer ce script avec le php en y insérant les données souhaitées (éventuellement au format JSON pour plus de facilités). La gestion des données est même facilitée étant donné que ce qui est retourné est du javascript et non du texte à parser (contrairement aux requêtes XHR). Cette notion est souvent désignée par l'abbréviation JSONP.
+
+/!\ Il est nécessaire de précise dans le MIME de la réponse du serveur qu'il s'agit de javascript.
+
+<?php
+header('Content-type: text/javascript');
+?>
+
+        Exemple
+
+    <?php
+
+    header("Content-type: text/javascript");
+
+    echo 'var softwares = {
+        "Adobe": [
+            "Acrobat",
+            "Dreamweaver",
+            "Photoshop",
+            "Flash"
+        ],
+        "Mozilla": [
+            "Firefox",
+            "Thunderbird",
+            "Lightning"
+        ],
+        "Microsoft": [
+            "Office",
+            "Visual C# Express",
+            "Azure"
+        ]
+    };';
+
+    ?>
+
+    receiveMessage(softwares); // Fonction de callback
+
+------------------------------------
+
+<script>
+    function sendDSL() {
+        var scriptElement = document.createElement('script');
+        scriptElement.src = 'dsl_script_json.php';
+
+        document.body.appendChild(scriptElement);
+    }
+
+    function receiveMessage(json) {
+        var tree = '',
+            nbItems, i;
+
+        for (node in json) {
+            tree += node + "\n";
+            nbItems = json[node].length;
+
+            for (i = 0; i < nbItems; i++) {
+                tree += '\t' + json[node][i] + '\n';
+            }
+        }
+
+        alert(tree);
+    }
+</script>
+
+<p><button type="button" onclick="sendDSL()">Charger le JSON</button></p>

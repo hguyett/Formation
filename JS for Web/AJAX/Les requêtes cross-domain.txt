@@ -14,6 +14,7 @@ header('Access-Control-Allow-Origin: *');
 ?>
 /!\ L'usage de l'astérisque seul expose a des failles de sécurités. Il existe plusieurs méchanisme de sécurité pour s'en prémunir. Cf. doc
 https://developer.mozilla.org/fr/docs/HTTP/Access_control_CORS
+https://en.wikipedia.org/wiki/Cross-origin_resource_sharing
 
     Accéder aux cookies et aux sessions avec une requête cross-domain
 

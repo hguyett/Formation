@@ -27,6 +27,14 @@ Permet d'exécuter du code contenu dans un String.
 
 Permet de couper un string en plusieurs segments dans un tableau à l'aide d'un séparateur défini.
 
+    implode()
+
+Transforme un tableau en une chaine de caractère à l'aide d'un séparateur défini.
+
+    file_get_contents()
+
+Retourne le contenu brut d'un fichier.
+
 
     var_dump()
 

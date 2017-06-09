@@ -20,7 +20,7 @@ preg_quote
 preg_match($expression_régulière, $string): Renvoie un booléen. Vrai si le mot est trouvé, faux sinon.
 preg_match_all
 preg_replace_callback
-preg_replace($expression_régulèire, $règle_de_remplacement, $string): Renvoie le string modifié par les indications données dans $règle_de_remplacement.
+preg_replace($expression_régulière, $règle_de_remplacement, $string): Renvoie le string modifié par les indications données dans $règle_de_remplacement.
 Pour récupérer les caractères de l'expression régulière afin de les réutiliser dans la règle de remplacement, il faut les entourer des parenthèses. On utilise ensuite $1, $2, $3,... (max $99) pour récupérer respectivement ce qui se trouve dans la première parenthèse, dans la deuxième, dans la 3ème, etc.
 exemple : $texte_en_gras_bbcode = preg_replace('#\[b\](.+)\[/b\]#i', '<strong>$1</strong>', $texte);
 Une variable $0 est toujours créée, elle contient l'entièreté du résultat de la REGEX.
