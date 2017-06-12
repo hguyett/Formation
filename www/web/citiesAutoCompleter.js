@@ -4,18 +4,24 @@ function deleteLastEvent() {
 
 (function() {
     var input = document.querySelector('#city');
-    var xhr = new XMLHttpRequest();
-    var onLoadFunction;
+    var cities;
     input.addEventListener('keyup', function()
     {
-
+        var xhr = new XMLHttpRequest();
         xhr.open('GET', 'http://phpoo.local/citiesSearcher.php?city-autocomplete=' + input.value);
         xhr.send(null);
-        var onLoadFunction;
         xhr.addEventListener('load', function()
         {
-            console.log(xhr.responseText);
+            cities = xhr.responseText.split('|');
+            var oldAutocomplete = document.querySelector('#autocomplete');
+            var autocomplete = oldAutocomplete.cloneNode(false);
+            oldAutocomplete.parentNode.replaceChild(autocomplete, oldAutocomplete);
+            for (city of cities) {
+                var div = document.createElement('div');
+                div.classList += 'result';
+                div.innerHTML = city;
+                autocomplete.appendChild(div);
+            }
         });
-        console.log(onLoadFunction);
     });
 }());
