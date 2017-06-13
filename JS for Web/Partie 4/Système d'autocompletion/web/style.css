@@ -1,0 +1,32 @@
+.line {
+    display: flex;
+}
+
+label {
+    margin-right: 10px;
+}
+
+#submit {
+    box-sizing: border-box;
+    height: 21px;
+    margin-left: 10px;
+}
+
+#city, .result {
+    box-sizing: border-box;
+    width: 200px;
+}
+
+.result {
+    margin: 0;
+    border: 1px solid black;
+    border-bottom: 0;
+}
+
+.result:last-child {
+    border-bottom: 1px solid black;
+}
+
+.result:focus {
+    border-color: blue;
+}
