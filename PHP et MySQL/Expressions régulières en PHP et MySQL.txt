@@ -38,6 +38,8 @@ Pour qu'une parenthèse ne soit pas dans les comptes, il faut que son contenu co
 
         Les options
 
+    Les options sont indiquées par des lettres (attention à la casse) après le délimiteur de fin de la REGEX.
+
     #Regex#i : Rend insensible à la casse.
     #.#s : Indique que les points peuvent également représenter une nouvelle ligne (\n).
     #Ungreedy#U : Indique d'arrêter la recherche dès que le String correspond à la REGEX au lieu de chercher la plus grosse portion du String correspondant à la REGEX.

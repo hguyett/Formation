@@ -2,7 +2,7 @@
 
         Parse error
 
-    erreur dans la synthaxe. SOuvent un point virgule, une parenthèse ou un guillement manquant.
+    erreur dans la synthaxe. Souvent un point virgule, une parenthèse ou un guillement manquant.
     L'erreur se trouve soit à la ligne indiquée, soit à la ligne au dessus.
     Si la ligne indiquée est celle de la fin du fichier, il manque probablement une accolade.
 

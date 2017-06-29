@@ -7,7 +7,7 @@ PDO : Il s'agit des méthodes les plus récentes. Elles ont l'avantage de s'adap
     Se connecter à la base de données
 
 $database = new PDO('mysql:host=localhost;dbname=test;charset=utf8', 'root', '');
-Le premier paramètre (qui commence parmysql) s'appelle le DSN : Data Source Name. C'est généralement le seul qui change en fonction du type de base de données auquel on se connecte.
+Le premier paramètre (qui commence par mysql) s'appelle le DSN : Data Source Name. C'est généralement le seul qui change en fonction du type de base de données auquel on se connecte.
 La connexion doit être établie sur chaque page php utilisant la base de données.
 
 $database = new PDO('mysql:host=localhost;dbname=test;charset=utf8', 'username', 'password', array(PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION));
@@ -79,7 +79,7 @@ while ($data_record = $data->fetch())
 }
 $data->closeCursor(); //Cette ligne provoque la fermeture du curseur d'analyse de résultats. Elle est éssentielle au bon déroulement du traitement de la prochaine requête car elle libère la connexion au serveur.
 
-La fonction fetch() permet de lire la réponse de la base de données ligne par ligne. Fetch vaut "False" si aucune ligne n'est présente, ce qui quitte la boucle.
+La méthode fetch() permet de lire la réponse de la base de données ligne par ligne. Fetch vaut "False" si aucune ligne n'est présente, ce qui quitte la boucle.
 
     Les arguments de la méthode fetch()
 
